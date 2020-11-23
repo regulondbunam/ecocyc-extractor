@@ -23,9 +23,6 @@ from regulondb import regulatory_continuants
 from regulondb import terms
 from regulondb import ontologies
 
-import dotenv
-
-dotenv.l
 
 def create_json(objects, filename, output):
     filename = os.path.join(output, filename)
