@@ -11,7 +11,7 @@ def get_regulondb_regulatory_continuants(regulatory_complexes_compounds=True, on
             "isRegulator": regulatory_continuant.is_regulator,
             "name": regulatory_continuant.name,
             "note": regulatory_continuant.comment,
-            "organism_id": regulatory_continuant.organism,
+            "organisms_id": regulatory_continuant.organism,
             "synonyms": regulatory_continuant.synonyms,
             "type": regulatory_continuant.type_
         }

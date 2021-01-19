@@ -5,7 +5,7 @@ def get_regulondb_evidences(registered_ids=False, only_properties_with_values=Fa
     for evidence in evidences.objects:
         evidence_object = {
             "_id": evidence.id,
-            "code": evidence.code,
+            "code": evidence.codes,
             "internalComment": evidence.internal_comment,
             "name": evidence.name,
             "note": evidence.comment,

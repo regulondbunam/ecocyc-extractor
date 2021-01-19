@@ -7,7 +7,7 @@ from ..utils import constants as EC
 
 class Promoter(Base):
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs): #keyword arguments
         super(Promoter, self).__init__(**kwargs)
         self.modified_id = kwargs.get("modified_id", None)
         self.pos1 = kwargs.get("absolute_plus_1_pos", None)
@@ -171,7 +171,7 @@ class PromoterFeature(Base):
             sigma_factor_id = binds_sigma_factor[0]
             citations = PromoterFeature.citations_binds_sigma_factor(self.id, sigma_factor_id)
             binds_sigma_factor = {
-                "sigmaFactor_id": sigma_factor_id,
+                "sigmaFactors_id": sigma_factor_id,
                 "citations": citations
             }
             binds_sigma_factor = self.get_only_properties_with_values(binds_sigma_factor)
@@ -191,7 +191,7 @@ class PromoterFeature(Base):
     def to_dict(self):
         promoter_box = {}
         if self.binds_sigma_factor is not None:
-            if self.binds_sigma_factor["sigmaFactor_id"] == self.sigma_factor_promoter:
+            if self.binds_sigma_factor["sigmaFactors_id"] == self.sigma_factor_promoter:
                 promoter_box = dict(
                     promoterFeature_id=self.id,
                     citations=self.citations,

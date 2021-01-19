@@ -42,7 +42,7 @@ class Evidence(Base):
                     evidence_code_to_return = evidence_code_to_return + evidence_code[0]
             self._code = evidence_code_to_return.upper()
         else:
-            self.code = None
+            self._code = None
 
     @property
     def pertains_to(self):

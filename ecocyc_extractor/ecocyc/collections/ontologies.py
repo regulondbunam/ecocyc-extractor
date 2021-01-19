@@ -5,16 +5,21 @@ from ecocyc_extractor.ecocyc.utils import constants as EC
 from ecocyc_extractor.ecocyc.domain.ontology import Ontology
 
 
-class Ontologies(object):
+class Ontologies(object, ):
 
     pt_connection = Connection()
 
-    def __init__(self):
-        self.ids = Ontologies.get_ids()
+    def __init__(self, ontology_name="gene-ontology"):
+        self.ids = Ontologies.get_ids(ontology_name)
 
     @staticmethod
-    def get_ids():
-        ontology_ids = [EC.GO_TERMS_CLASS, EC.MULTIFUN_CLASS]
+    def get_ids(ontology_name):
+        if ontology_name == "gene-ontology":
+            ontology_ids = [EC.GO_TERMS_CLASS]
+        elif ontology_name == "multifun":
+            ontology_ids = [EC.MULTIFUN_CLASS]
+        else:
+            ontology_ids = []
         return ontology_ids
 
     @property

@@ -133,5 +133,5 @@ class Base(object):
 
     @staticmethod
     def get_only_properties_with_values(properties):
-        properties = {k: v for k, v in properties.items() if v}
+        properties = {key: value for key, value in properties.items() if value}
         return properties

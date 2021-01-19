@@ -23,7 +23,7 @@ class TranscriptionFactor(Base):
             tf_active_conformations = []
             for conformation_id in TranscriptionFactor.get_tf_active_conformations(self.id):
                 parent_classes = TranscriptionFactor.pt_connection.get_frame_direct_parents(conformation_id)
-                if EC.POLYPEPTIDE_CLASS in parent_classes:
+                if EC.POLYPEPTIDE_CLASS in parent_classes or EC.PSEUDO_PRODUCT_CLASS in parent_classes:
                     conformation_class = "product"
                 else:
                     conformation_class = "regulatoryComplex"
@@ -103,7 +103,7 @@ class TranscriptionFactor(Base):
                 elif "-" in function:
                     functions.append("repressor")
                 else:
-                    function.append("unknown")
+                    function.append(None)
         protein_function = TranscriptionFactor.get_absolute_function(functions)
         return protein_function
 
@@ -117,5 +117,5 @@ class TranscriptionFactor(Base):
         elif all("repressor" == function for function in functions):
             protein_function = "repressor"
         else:
-            protein_function = "unknown"
+            protein_function = None
         return protein_function

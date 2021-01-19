@@ -22,8 +22,7 @@ class Terminator(Base):
             elif EC.RHO_DEPENDENT in terminator_class:
                 terminator_class = "rho-dependent"
             else:
-                print terminator_class, self.id
-                terminator_class = "UNKNOWN Terminator Class"
+                terminator_class = None
             self._class = terminator_class
         else:
             self._class = class_

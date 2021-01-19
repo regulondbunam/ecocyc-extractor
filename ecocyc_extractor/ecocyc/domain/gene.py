@@ -31,14 +31,14 @@ class Gene(Base):
             pass
 
         ecocyc_reference = {
-            "externalCrossReference_id": "|ECOCYC|",
+            "externalCrossReferences_id": "|ECOCYC|",
             "objectId": self.id.replace("|", "")
         }
         self._db_links.append(ecocyc_reference.copy())
 
         if self.bnumber:
             bnumber_reference = {
-                "externalCrossReference_id": "|REFSEQ|",
+                "externalCrossReferences_id": "|REFSEQ|",
                 "objectId": self.bnumber
             }
             self._db_links.append(bnumber_reference.copy())
@@ -123,7 +123,6 @@ class Gene(Base):
         except AttributeError:
             self._synonyms = [gene_id]
 
-
     @property
     def terms(self):
         return self._terms
@@ -138,15 +137,15 @@ class Gene(Base):
             role_name = self.pt_connection.get_name_by_id(role_id)
 
             term_object = {}
-            term_object.setdefault('term_id', role_id)
-            term_object.setdefault('term_name', role_name)
+            term_object.setdefault('terms_id', role_id)
+            term_object.setdefault('terms_name', role_name)
 
             labels = []
             for parent_class_id in role_parent_classes[7:]:
                 name_parent_class = self.pt_connection.get_name_by_id(parent_class_id)
                 term_parent_object = {
-                    "term_id": parent_class_id,
-                    "term_name": name_parent_class
+                    "terms_id": parent_class_id,
+                    "terms_name": name_parent_class
                 }
                 term_object.setdefault('parents', []).append(term_parent_object.copy())
 
@@ -156,7 +155,7 @@ class Gene(Base):
             term_label = " - ".join([role_id.replace("|", "").replace("BC-", ""), role_name])
             labels.append(term_label)
             labels = " --> ".join(labels)
-            term_object.setdefault('term_label', labels)
+            term_object.setdefault('termLabel', labels)
 
             terms.append(term_object.copy())
         self._terms = list(terms)
@@ -177,3 +176,6 @@ class Gene(Base):
                 self._type = "phantom"
         else:
             self._type = _type
+
+    def __len__(self):
+        return self.left_end_position - self.right_end_position if self.strand == "reverse" else self.right_end_position - self.left_end_position

@@ -12,7 +12,7 @@ def get_regulondb_transcription_factors(transcription_factor_ids=None, only_prop
             "inactiveConformations": transcription_factor.inactive_conformations,
             "name": transcription_factor.name,
             "note": transcription_factor.comment,
-            "organism_id": transcription_factor.organism,
+            "organisms_id": transcription_factor.organism,
             "siteLength": transcription_factor.site_length,
             "synonyms": transcription_factor.synonyms,
         }

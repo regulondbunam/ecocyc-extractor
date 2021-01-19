@@ -2,7 +2,6 @@ from .base import Base
 from ..collections.genes import Genes
 from ..collections.products import Products
 from ..utils import constants as EC
-from ..utils import utils
 
 
 class Term(Base):
@@ -24,7 +23,7 @@ class Term(Base):
 
     @definition.setter
     def definition(self, definition=None):
-        self._definition = definition
+        self._definition = {"text": definition, "source": "EcoCyc"}
 
     @property
     def ontology_id(self):

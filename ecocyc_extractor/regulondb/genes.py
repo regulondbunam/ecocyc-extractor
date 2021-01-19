@@ -16,7 +16,7 @@ def get_regulondb_genes(gene_ids=None, only_properties_with_values=False):
             "leftEndPosition": gene.left_end_position,
             "name": gene.name,
             "note": gene.comment,
-            "organism_id": gene.organism,
+            "organisms_id": gene.organism,
             "rightEndPosition": gene.right_end_position,
             "sequence": gene.sequence,
             "strand": gene.strand,

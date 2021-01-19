@@ -72,6 +72,7 @@ class Motif(Base):
     @property
     def sequence(self):
         if self._sequence is None:
+
             product = Motif.get_product(self.product_id)
             # Since there are products that have no sequence, we catch them in the
             # except block and set the motif sequence as None.

@@ -22,9 +22,7 @@ class RegulatoryComplexes(object):
     @staticmethod
     def get_ids(ids=None, include_inactive=True):
         if ids is None:
-            regulator_ids = [RegulatoryComplexes.pt_connection.get_slot_value(ri_id, EC.REGULATOR_SLOT) for ri_id in RegulatoryComplexes.regulatory_interaction_ids]
-            regulator_ids = utils.get_unique_elements(regulator_ids)
-            regulator_ids.remove(None)
+            regulator_ids = RegulatoryComplexes.get_regulator_ids(RegulatoryComplexes.regulatory_interaction_ids)
             regulatory_complex_ids = RegulatoryComplexes.get_protein_cplx_ids_from_regulators(
                 regulator_ids
             )
@@ -72,3 +70,13 @@ class RegulatoryComplexes(object):
                     regulatory_complex_ids.append(regulator)
         regulatory_complex_ids = utils.get_unique_elements(regulatory_complex_ids)
         return regulatory_complex_ids
+
+    @staticmethod
+    def get_regulator_ids(regulatory_interaction_ids):
+        regulator_ids = []
+        for ri_id in regulatory_interaction_ids:
+            regulator_id = RegulatoryComplexes.pt_connection.get_slot_value(ri_id, EC.REGULATOR_SLOT)
+            if regulator_id:
+                regulator_ids.append(regulator_id)
+        regulator_ids = utils.get_unique_elements(regulator_ids)
+        return regulator_ids

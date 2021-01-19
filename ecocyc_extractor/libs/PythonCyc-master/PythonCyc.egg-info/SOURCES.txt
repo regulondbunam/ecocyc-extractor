@@ -1,0 +1,12 @@
+MANIFEST.in
+README.md
+setup.py
+PythonCyc.egg-info/PKG-INFO
+PythonCyc.egg-info/SOURCES.txt
+PythonCyc.egg-info/dependency_links.txt
+PythonCyc.egg-info/top_level.txt
+pythoncyc/PGDB.py
+pythoncyc/PTools.py
+pythoncyc/PToolsFrame.py
+pythoncyc/__init__.py
+pythoncyc/config.py

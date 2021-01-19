@@ -115,7 +115,7 @@ class Operon(object):
         genes = []
         for gene_id in gene_ids:
             gene_object = {
-                "gene_id": gene_id,
+                "genes_id": gene_id,
                 "leftEndPosition": Operon.pt_connection.get_slot_value(gene_id, EC.LEND_SLOT),
                 "rightEndPosition": Operon.pt_connection.get_slot_value(gene_id, EC.REND_SLOT)
             }
@@ -140,7 +140,7 @@ class Operon(object):
     def get_regulation_positions(genes, promoter_ids, terminator_ids, site_ids, strand):
         genes_min_left_position, genes_max_right_position = Operon.get_genes_positions(genes)
         terminators_left_positions, terminators_right_positions = Operon.get_positions(terminator_ids)
-        promoters_pos_1s = [Operon.pt_connection.get_slot_value(promoter_id, EC.ABSOLUTE_PLUS_1_POS_SLOT) for promoter_id in promoter_ids]
+        promoters_pos_1s = Operon.get_promoters_pos1_positions(promoter_ids)
         sites_left_positions, sites_right_positions = Operon.get_site_positions(site_ids)
 
         left_end_positions = [genes_min_left_position]
@@ -151,23 +151,26 @@ class Operon(object):
         if sites_right_positions:
             right_end_positions.append(max(sites_right_positions))
 
-        try:
-            right_end_positions.remove(None)
-        except ValueError:
-            pass
+        right_end_positions = [rend for rend in right_end_positions if rend]
+        #try:
+        #    right_end_positions.remove(None)
+        #except ValueError:
+        #    pass
         right_end_position = max(right_end_positions)
 
         if terminators_left_positions:
             left_end_positions.append(min(terminators_left_positions))
         if sites_left_positions:
             left_end_positions.append(min(sites_left_positions))
+
         if promoters_pos_1s:
             left_end_positions.append(min(promoters_pos_1s))
-        try:
-            left_end_positions.remove(None)
-        except ValueError:
-            pass
 
+        #try:
+        #    left_end_positions.remove(None)
+        #except ValueError:
+        #    pass
+        left_end_positions = [lend for lend in left_end_positions if lend]
         left_end_position = min(left_end_positions)
 
         regulation_positions = {
@@ -189,6 +192,15 @@ class Operon(object):
             if pos_right is not None:
                 right_positions.append(pos_right)
         return left_positions, right_positions
+
+    @staticmethod
+    def get_promoters_pos1_positions(promoter_ids):
+        promoters_pos1s = []
+        for promoter_id in promoter_ids:
+            promoter_pos1 = Operon.pt_connection.get_slot_value(promoter_id, EC.ABSOLUTE_PLUS_1_POS_SLOT)
+            if promoter_pos1:
+                promoters_pos1s.append(promoter_pos1)
+        return promoters_pos1s
 
     @staticmethod
     def get_site_positions(site_ids):

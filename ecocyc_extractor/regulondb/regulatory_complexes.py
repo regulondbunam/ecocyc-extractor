@@ -11,9 +11,9 @@ def get_regulondb_regulatory_complexes(regulatory_complex_ids=None, only_propert
             "internalComment": regulatory_complex.internal_comment,
             "name": regulatory_complex.name,
             "note": regulatory_complex.comment,
-            "organism_id": regulatory_complex.organism,
+            "organisms_id": regulatory_complex.organism,
             "products": regulatory_complex.products,
-            "regulatoryContinuant_ids": regulatory_complex.compounds,
+            "regulatoryContinuants_ids": regulatory_complex.compounds,
             "synonyms": regulatory_complex.synonyms,
             "type": regulatory_complex.type_
         }

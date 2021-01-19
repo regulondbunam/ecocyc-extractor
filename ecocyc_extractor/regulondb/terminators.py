@@ -10,7 +10,7 @@ def get_regulondb_terminators(terminator_ids=None, only_properties_with_values=F
             "externalCrossReferences": terminator.db_links,
             "internalComment": terminator.internal_comment,
             "note": terminator.comment,
-            "organism_id": terminator.organism,
+            "organisms_id": terminator.organism,
             "sequence": terminator.sequence,
             "transcriptionTerminationSite": terminator.transcription_termination_site
         }

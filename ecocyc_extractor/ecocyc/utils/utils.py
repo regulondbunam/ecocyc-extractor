@@ -1,6 +1,6 @@
 import re
 
-from pathway_tools.connection import Connection
+from .pathway_tools.connection import Connection
 
 pt_connection = Connection()
 _publication_ids = []
@@ -77,10 +77,10 @@ def get_citations(citations):
             citation_object = {}
 
             if evidence_id is not None:
-                citation_object['evidence_id'] = evidence_id
+                citation_object['evidences_id'] = evidence_id
 
             if publication_id is not None:
-                citation_object['publication_id'] = publication_id
+                citation_object['publications_id'] = publication_id
 
             if citation_object and citation_object not in object_citations:
                 object_citations.append(citation_object.copy())
@@ -97,7 +97,7 @@ def get_external_cross_references(dblinks):
     try:
 
         external_cross_references = []
-        for database, records in dblinks.iteritems():
+        for database, records in dblinks.items():
 
             if (pt_connection.is_an_instance_name(database) or pt_connection.is_a_class_name(database)) is False:
                 continue
@@ -111,7 +111,7 @@ def get_external_cross_references(dblinks):
                 record_id = records
 
             external_x_ref_object = {
-                "externalCrossReference_id": database,
+                "externalCrossReferences_id": database,
                 "objectId": record_id
             }
 

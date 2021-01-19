@@ -6,7 +6,7 @@ def get_regulondb_operons(only_properties_with_values=False):
         operon_object = {
             "_id": operon.id,
             "name": operon.name,
-            "organism_id": operon.organism,
+            "organisms_id": operon.organism,
             "regulationPositions": operon.regulation_positions,
             "strand": operon.strand
         }

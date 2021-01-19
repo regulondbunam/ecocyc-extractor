@@ -15,7 +15,7 @@ class Product(Base):
         self.consensus_sequences = kwargs.get("consensus_sequences", None)
         self.component_of = kwargs.get("component_of", None)
         self.gene = kwargs.get("gene", None)
-        self.isoelectric_point = kwargs.get("isoelectric_point", None)
+        self.isoelectric_points = kwargs.get("isoelectric_point", None)
         self.locations = kwargs.get("locations", None)
         self.modified_forms = kwargs.get("modified_forms", None)
         self.molecular_weight = kwargs.get("molecular_weight", None)
@@ -78,12 +78,12 @@ class Product(Base):
             self._gene = gene
 
     @property
-    def isoelectric_point(self):
-        return self._isoelectric_point
+    def isoelectric_points(self):
+        return self._isoelectric_points
 
-    @isoelectric_point.setter
-    def isoelectric_point(self, isoelectric_point=None):
-        self._isoelectric_point = isoelectric_point
+    @isoelectric_points.setter
+    def isoelectric_points(self, isoelectric_point=None):
+        self._isoelectric_points = isoelectric_point
 
     @property
     def locations(self):
@@ -161,8 +161,8 @@ class Product(Base):
                 term_genbank_feature = self.pt_connection.map_go_term_genbank_feature(term_id)
                 term_name = self.pt_connection.get_name_by_id(term_id)
                 term_object = {
-                    "term_id": term_id,
-                    "term_name": term_name
+                    "terms_id": term_id,
+                    "terms_name": term_name
                 }
                 citations_term = self.pt_connection.get_value_annot_list(self.id, EC.GO_TERMS_SLOT,
                                                                          term_id, EC.CITATIONS_SLOT)
@@ -203,7 +203,7 @@ class Product(Base):
                 "|Regulatory-RNAs|": "small RNA",
                 "|Misc-RNAs|": "small RNA"
             }
-            for rna_class_id, product_type in rnas_classes.iteritems():
+            for rna_class_id, product_type in rnas_classes.items():
                 if self.pt_connection.get_instance_all_instance_of_p(self.id, rna_class_id):
                     self._type = product_type
                     break

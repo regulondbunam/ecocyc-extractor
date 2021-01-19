@@ -6,17 +6,22 @@ from ecocyc_extractor.ecocyc.domain.term import Term
 
 
 class Terms(object):
+    MULTIFUN = "multifun"
+    GENE_ONTOLOGY = "gene-ontology"
 
     pt_connection = Connection()
 
-    def __init__(self):
-        self.ids = Terms.get_ids()
+    def __init__(self, term_type=True):
+        self.ids = Terms.get_ids(term_type)
 
     @staticmethod
-    def get_ids():
-        multifun_ids = Terms.pt_connection.get_class_all_subs(EC.MULTIFUN_CLASS)
-        go_term_ids = Terms.pt_connection.get_class_all_subs(EC.GO_TERMS_CLASS)
-        term_ids = multifun_ids + go_term_ids
+    def get_ids(term_type):
+        if term_type == Terms.MULTIFUN:
+            term_ids = Terms.pt_connection.get_class_all_subs(EC.MULTIFUN_CLASS)
+        elif term_type == Terms.GENE_ONTOLOGY:
+            term_ids = Terms.pt_connection.get_class_all_subs(EC.GO_TERMS_CLASS)
+        else:
+            term_ids = []
         return term_ids
 
     @property

@@ -10,7 +10,7 @@ def get_regulondb_promoters(promoter_ids=None, only_properties_with_values=False
             "internalComment": promoter.internal_comment,
             "name": promoter.name,
             "note": promoter.comment,
-            "organism_id": promoter.organism,
+            "organisms_id": promoter.organism,
             "pos1": promoter.pos1,
             "promoterFeatures": promoter.promoter_boxes,
             "sequence": promoter.sequence,

@@ -66,9 +66,9 @@ class RegulatoryComplex(Base):
     def type_(self, _type=None):
         if _type is None:
             if self._regulates:
-                _type = "Active"
+                _type = "active"
             else:
-                _type = "Inactive"
+                _type = "inactive"
         self._type = _type
 
     @staticmethod
@@ -76,14 +76,14 @@ class RegulatoryComplex(Base):
         products = []
         compounds = []
         if unmodified_form_id in RegulatoryComplex.product_ids:
-            products = [{"product_id": unmodified_form_id}]
+            products = [{"products_id": unmodified_form_id}]
         else:
             component_ids = RegulatoryComplex.pt_connection.get_slot_values(unmodified_form_id, EC.SLOT_COMPONENTS_CLASS)
             for component_id in component_ids:
                 if component_id in RegulatoryComplex.product_ids:
                     coefficient = RegulatoryComplex.pt_connection.get_value_annot(unmodified_form_id, EC.SLOT_COMPONENTS_CLASS, component_id, EC.SLOT_COEFFICIENT_CLASS)
                     product_object = {
-                        "product_id": component_id,
+                        "products_id": component_id,
                         "coefficient": coefficient
                     }
                     product_object = RegulatoryComplex.get_only_properties_with_values(product_object)
@@ -121,7 +121,7 @@ class RegulatoryComplex(Base):
                 unmodified_form = RegulatoryComplex.pt_connection.get_slot_value(component, EC.SLOT_UNMODIFIED_FORM_CLASS)
                 if unmodified_form in RegulatoryComplex.product_ids:
                     product_object = {
-                        "product_id": unmodified_form
+                        "products_id": unmodified_form
                     }
                     products.append(product_object.copy())
                 else:
@@ -136,7 +136,7 @@ class RegulatoryComplex(Base):
                             unmodified_form_sub_component = RegulatoryComplex.pt_connection.get_slot_value(sub_component, EC.SLOT_UNMODIFIED_FORM_CLASS)
                             if unmodified_form_sub_component in RegulatoryComplex.product_ids:
                                 product_object = {
-                                    "product_id": unmodified_form_sub_component,
+                                    "products_id": unmodified_form_sub_component,
                                     "coefficient": coefficient
                                 }
                                 product_object = {k: v for k, v in product_object.items() if v is not None}
@@ -155,7 +155,7 @@ class RegulatoryComplex(Base):
                                         sub_sub_coefficient *= coefficient_1 * sub_coefficient_1
                                     if sub_sub_component in RegulatoryComplex.product_ids:
                                         product_object = {
-                                            "product_id": sub_sub_component,
+                                            "products_id": sub_sub_component,
                                             "coefficient": sub_sub_coefficient
                                         }
                                         product_object = {k: v for k, v in product_object.items() if v is not None}
@@ -170,7 +170,7 @@ class RegulatoryComplex(Base):
                             elif coefficient is None and sub_coefficient is not None:
                                 sub_coefficient = coefficient
                             product_object = {
-                                "product_id": sub_component,
+                                "products_id": sub_component,
                                 "coefficient": sub_coefficient
                             }
                             product_object = {k: v for k, v in product_object.items() if v is not None}
@@ -181,7 +181,7 @@ class RegulatoryComplex(Base):
                 coefficient = RegulatoryComplex.pt_connection.get_value_annot(protein_id, EC.SLOT_COMPONENTS_CLASS, component, EC.SLOT_COEFFICIENT_CLASS)
                 product_id = component
                 product_object = {
-                    "product_id": product_id,
+                    "products_id": product_id,
                     "coefficient": coefficient
                 }
                 product_object = {k: v for k, v in product_object.items() if v is not None}
