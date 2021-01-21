@@ -15,7 +15,6 @@ class Promoter(Base):
         self.modified_id = kwargs.get("modified_id", None)
         self.pos1 = kwargs.get("absolute_plus_1_pos", None)
         self.sequence = kwargs.get("sequence", None)
-        # NEW
         self.binding_sigma_factor = kwargs.get("binding_sigma_factor", None)
         self.score = kwargs.get("score", None)
         self.transcription_start_site = kwargs.get("absolute_plus_1_pos", None)
