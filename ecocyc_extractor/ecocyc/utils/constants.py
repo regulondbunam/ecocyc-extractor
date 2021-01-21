@@ -1,4 +1,5 @@
 import os
+
 # ecocyc object properties
 
 ORGANISM_ID = os.getenv("ORGANISM")
@@ -7,7 +8,7 @@ ABBREV_NAME = "abbrev_name"
 ABSOLUTE_CENTER_POSITION = "abs_center_pos"
 ABSOLUTE_PLUS_1_POS = "absolute_plus_1_pos"
 ACCESSION_1 = "accession_1"
-ALTERNATE_SEQUENCE="alternate_sequence"
+ALTERNATE_SEQUENCE = "alternate_sequence"
 ANTICODON = "anticodon"
 ASSOCIATED_BINDING_SITE = "associated_binding_site"
 ATTACHED_GROUP = "attached_group"
@@ -58,6 +59,7 @@ REGULATED_ENTITY = "regulated_entity"
 REGULATOR = "regulator"
 REND = "right_end_position"
 RESIDUE_NUMBER = "residue_number"
+SCORE = "score"
 SITE_LENGTH = "site_length"
 SOURCE = "source"
 SPLICE_FORM_INTRONS = "splice_form_introns"
@@ -85,7 +87,12 @@ PROTEIN_COMPLEXES_CLASS = "|Protein-Complexes|"
 PROTEIN_SMC_CLASS = "|Protein-Small-Molecule-Complexes|"
 PSEUDO_PRODUCT_CLASS = "|Pseudo-Products|"
 PUBLICATIONS_CLASS = "|Publications|"
-PROTEIN_CLASSES = [POLYPEPTIDE_CLASS, PROTEIN_COMPLEXES_CLASS, PROTEIN_SMC_CLASS, PSEUDO_PRODUCT_CLASS]
+PROTEIN_CLASSES = [
+    POLYPEPTIDE_CLASS,
+    PROTEIN_COMPLEXES_CLASS,
+    PROTEIN_SMC_CLASS,
+    PSEUDO_PRODUCT_CLASS,
+]
 TERMINATOR_CLASS = "|Terminators|"
 TRANSCRIPTION_UNIT_CLASS = "|Transcription-Units|"
 PROMOTER_CLASS = "|Promoters|"
@@ -122,4 +129,3 @@ SLOT_GENE_CLASS = "|GENE|"
 SLOT_PRODUCT_CLASS = "|PRODUCT|"
 SLOT_UNMODIFIED_FORM_CLASS = "|UNMODIFIED-FORM|"
 SLOT_FEATURE_CLASS = "|FEATURES|"
-
