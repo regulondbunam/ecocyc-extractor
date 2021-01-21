@@ -21,7 +21,7 @@ class Promoters(object):
         else:
             promoter_ids = ids
         promoter_ids = utils.get_unique_elements(promoter_ids)
-        return promoter_ids[0:10]
+        return promoter_ids
 
     @property
     def objects(self):

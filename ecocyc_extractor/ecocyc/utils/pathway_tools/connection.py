@@ -15,6 +15,8 @@ class Connection(object):
     @classmethod
     def set_pt_connection(cls):
         if cls._organism_id is None:
-            raise EnvironmentError('Environment variable "ORGANISM" has not been set, please provided one. File constants.py makes use of this.')
+            raise EnvironmentError(
+                'Environment variable "ORGANISM" has not been set, please provided one. File constants.py makes use of this.'
+            )
         pathway_tools_connection = pythoncyc.select_organism(cls._organism_id)
         return pathway_tools_connection
