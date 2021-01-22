@@ -18,161 +18,189 @@ def get_arguments():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description="EcoCycExtractor",
-        epilog="You need to provided at least one entity argument(--gene, --product, --promoter, etc...)")
+        epilog="You need to provided at least one entity argument(--gene, --product, --promoter, etc...)",
+    )
 
     parser.add_argument(
-        "-a", "--all",
+        "-a",
+        "--all",
         help="Sets the extractor to download all the available classes, ignoring all arguments except --allpb and --alldb",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-gn", "--genes",
+        "-gn",
+        "--genes",
         help="Sets the extractor to download Genes",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-pd", "--products",
+        "-pd",
+        "--products",
         help="Sets the extractor to download Products",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-mt", "--motifs",
+        "-mt",
+        "--motifs",
         help="Sets the extractor to download Motifs",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-tu", "--transcription-units",
+        "-tu",
+        "--transcription-units",
         help="Sets the extractor to download Transcription Units",
-        action='store_true',
-        dest='transcription_units'
+        action="store_true",
+        dest="transcription_units",
     )
     parser.add_argument(
-        "-op", "--operons",
+        "-op",
+        "--operons",
         help="Sets the extractor to download Operons",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-tm", "--terminators",
+        "-tm",
+        "--terminators",
         help="Sets the extractor to download Terminators",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-pm", "--promoters",
+        "-pm",
+        "--promoters",
         help="Sets the extractor to download Promoters",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-tf", "--transcription-factors",
+        "-tf",
+        "--transcription-factors",
         help="Sets the extractor to download Transcription Factors",
-        action='store_true',
-        dest='transcription_factors'
+        action="store_true",
+        dest="transcription_factors",
     )
     parser.add_argument(
-        "-sf", "--sigma-factors",
+        "-sf",
+        "--sigma-factors",
         help="Sets the extractor to download Sigma Factors",
-        action='store_true',
-        dest='sigma_factors'
+        action="store_true",
+        dest="sigma_factors",
     )
     parser.add_argument(
-        "-ri", "--regulatory-interactions",
+        "-ri",
+        "--regulatory-interactions",
         help="Sets the extractor to download Regulatory Interactions",
-        action='store_true',
-        dest='regulatory_interactions'
+        action="store_true",
+        dest="regulatory_interactions",
     )
     parser.add_argument(
-        "-st", "--sites",
+        "-st",
+        "--sites",
         help="Sets the extractor to download Sites",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-rcplx", "--regulatory-complexes",
+        "-rcplx",
+        "--regulatory-complexes",
         help="Sets the extractor to download Regulatory Complexes",
-        action='store_true',
-        dest='regulatory_complexes'
+        action="store_true",
+        dest="regulatory_complexes",
     )
     parser.add_argument(
-        "-rc", "--regulatory-continuants",
+        "-rc",
+        "--regulatory-continuants",
         help="Sets the extractor to download Regulatory Continuants",
-        action='store_true',
-        dest='regulatory_continuants'
+        action="store_true",
+        dest="regulatory_continuants",
     )
     parser.add_argument(
-        "-ot", "--ontologies",
+        "-ot",
+        "--ontologies",
         help="Sets the extractor to download Ontologies(MultiFun, GO Terms)",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-got", "--gene-ontology",
+        "-got",
+        "--gene-ontology",
         help="Sets the extractor to download Ontologies(MultiFun, GO Terms)",
-        action='store_true',
-        dest="got_ontology"
+        action="store_true",
+        dest="got_ontology",
     )
     parser.add_argument(
-        "-gotm", "--got-terms",
+        "-gotm",
+        "--got-terms",
         help="Sets the extractor to download Ontologies' Terms",
-        action='store_true',
-        dest="got_terms"
+        action="store_true",
+        dest="got_terms",
     )
     parser.add_argument(
-        "-mot", "--multifun-ontology",
+        "-mot",
+        "--multifun-ontology",
         help="Sets the extractor to download Ontologies(MultiFun, GO Terms)",
-        action='store_true',
-        dest="multifun_ontology"
+        action="store_true",
+        dest="multifun_ontology",
     )
     parser.add_argument(
-        "-mft", "--multifun-terms",
+        "-mft",
+        "--multifun-terms",
         help="Sets the extractor to download Ontologies' Terms",
-        action='store_true',
-        dest="multifun_terms"
+        action="store_true",
+        dest="multifun_terms",
     )
 
     parser.add_argument(
-        "-ev", "--evidences",
+        "-ev",
+        "--evidences",
         help="Sets the extractor to download Evidences",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-extdb", "--external-databases",
+        "-extdb",
+        "--external-databases",
         help="Sets the extractor to download External Databases",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        "-pb", "--publications",
+        "-pb",
+        "--publications",
         help="Sets the extractor to download Publications",
-        action='store_true'
+        action="store_true",
     )
     parser.add_argument(
-        '-allpb', '--all-publications',
+        "-allpb",
+        "--all-publications",
         help="Sets the extractor to download all the Publications and not only the ones registered in the downloaded objects",
-        action='store_true',
-        dest='all_publications'
+        action="store_true",
+        dest="all_publications",
     )
     parser.add_argument(
-        '-alldb', '--all-external-databases',
+        "-alldb",
+        "--all-external-databases",
         help="Sets the extractor to download all the External Databases and not only the ones registered in the downloaded objects",
-        action='store_true',
-        dest='all_external_databases'
+        action="store_true",
+        dest="all_external_databases",
     )
 
     parser.add_argument(
-        "-org", "--organism",
+        "-org",
+        "--organism",
         help="Organism whose information is been downloaded",
         default="ECOLI",
-        metavar="ecoli"
+        metavar="ecoli",
     )
 
     parser.add_argument(
-        "-l", "--log",
+        "-l",
+        "--log",
         help="Path where the log of the process will be stored.",
-        metavar="/Users/pablo/Proyectos/RegulonDB/Results/log",
-        default="/Users/Felipe/Proyectos/RegulonDB/Results/log"
+        metavar="./Results/log",
+        default="./Results/log",
     )
 
     parser.add_argument(
-        "-out", "--output",
+        "-out",
+        "--output",
         help="Path where the json files of the process will be stored.",
-        metavar="/Users/pablo/Proyectos/RegulonDB/Results/source/ecocyc",
-        default="/Users/Felipe/Proyectos/RegulonDB/Results/source/ecocyc"
+        metavar="./Results/source/ecocyc",
+        default="./Results/source/ecocyc",
     )
     arguments = parser.parse_args()
     return arguments
