@@ -1,8 +1,11 @@
 from .base import Base
 from ..utils import constants as EC
+from ..collections.products import Products
 
 
 class TranscriptionFactor(Base):
+
+    product_ids = Products.get_ids()
 
     def __init__(self, **kwargs):
         super(TranscriptionFactor, self).__init__(**kwargs)
@@ -22,8 +25,7 @@ class TranscriptionFactor(Base):
         if active_conformations is None:
             tf_active_conformations = []
             for conformation_id in TranscriptionFactor.get_tf_active_conformations(self.id):
-                parent_classes = TranscriptionFactor.pt_connection.get_frame_direct_parents(conformation_id)
-                if EC.POLYPEPTIDE_CLASS in parent_classes or EC.PSEUDO_PRODUCT_CLASS in parent_classes:
+                if conformation_id in TranscriptionFactor.product_ids:
                     conformation_class = "product"
                 else:
                     conformation_class = "regulatoryComplex"
@@ -70,25 +72,39 @@ class TranscriptionFactor(Base):
             global_function = TranscriptionFactor.get_protein_function(regulates)
         self._global_function = global_function
 
+    def get_products_ids(self):
+        product_ids = []
+        parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(self.id)
+        if EC.POLYPEPTIDE_CLASS in parent_classes or EC.PSEUDO_PRODUCT_CLASS in parent_classes:
+            product_ids.append(self.id)
+        else:
+            tf_monomers = TranscriptionFactor.pt_connection.monomers_of_protein(self.id)
+            for monomer_id in tf_monomers:
+                parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(monomer_id)
+                if EC.POLYPEPTIDE_CLASS in parent_classes:
+                    product_ids.append(monomer_id)
+        return product_ids
+
+
     @staticmethod
     def get_tf_active_conformations(transcription_factor_id):
         active_regulator_ids = []
-        containers_of_tf = TranscriptionFactor.pt_connection.containers_of(transcription_factor_id)
+        containers_of_tf = TranscriptionFactor.pt_connection.modified_containers(transcription_factor_id)
         for container_of_id in containers_of_tf:
-            parent_class = TranscriptionFactor.pt_connection.get_frame_direct_parents(container_of_id)
+            parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(container_of_id)
             regulates = TranscriptionFactor.pt_connection.get_slot_values(container_of_id, EC.REGULATES_SLOT)
-            if EC.PROTEIN_SMC_CLASS not in parent_class and regulates:
+            if regulates and any(protein_class in EC.PROTEIN_CLASSES for protein_class in parent_classes):
                 active_regulator_ids.append(container_of_id)
         return active_regulator_ids
 
     @staticmethod
     def get_tf_inactive_conformations(transcription_factor_id):
         inactive_regulator_ids = []
-        containers_of_tf = TranscriptionFactor.pt_connection.containers_of(transcription_factor_id)
+        containers_of_tf = TranscriptionFactor.pt_connection.modified_containers(transcription_factor_id)
         for container_of_id in containers_of_tf:
-            parent_class = TranscriptionFactor.pt_connection.get_frame_direct_parents(container_of_id)
+            parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(container_of_id)
             regulates = TranscriptionFactor.pt_connection.get_slot_values(container_of_id, EC.REGULATES_SLOT)
-            if EC.PROTEIN_SMC_CLASS in parent_class and not regulates:
+            if EC.PROTEIN_SMC_CLASS in parent_classes and not regulates:
                 inactive_regulator_ids.append(container_of_id)
         return inactive_regulator_ids
 
