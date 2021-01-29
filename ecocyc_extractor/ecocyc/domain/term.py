@@ -23,7 +23,9 @@ class Term(Base):
 
     @definition.setter
     def definition(self, definition=None):
-        self._definition = {"text": definition, "source": "EcoCyc"}
+        definition = {"text": definition, "source": "EcoCyc"}
+        definition = Base.get_only_properties_with_values(definition)
+        self._definition = definition
 
     @property
     def ontology_id(self):
