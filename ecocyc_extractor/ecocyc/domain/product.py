@@ -164,9 +164,10 @@ class Product(Base):
                     "terms_id": term_id,
                     "terms_name": term_name
                 }
+
                 citations_term = self.pt_connection.get_value_annot_list(self.id, EC.GO_TERMS_SLOT,
                                                                          term_id, EC.CITATIONS_SLOT)
-                citations_term = utils.get_citations(citations_term, self.id)
+                citations_term = utils.get_citations(citations_term)
                 if citations_term is not None:
                     term_object["citations"] = citations_term
 
@@ -175,6 +176,7 @@ class Product(Base):
                 elif term_genbank_feature == 'go_component':
                     self._terms['cellularComponent'].append(term_object.copy())
                 elif term_genbank_feature == 'go_function':
+
                     self._terms['molecularFunction'].append(term_object.copy())
 
             if not self._terms['biologicalProcess']:
@@ -184,6 +186,7 @@ class Product(Base):
             if not self._terms['molecularFunction']:
                 self._terms["molecularFunction"] = None
             self._terms = self.get_only_properties_with_values(self._terms)
+
         except TypeError:
             self._terms = None
 
