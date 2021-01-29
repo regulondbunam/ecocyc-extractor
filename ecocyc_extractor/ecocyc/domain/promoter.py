@@ -87,7 +87,9 @@ class Promoter(Base):
                 }
             except TypeError:
                 transcription_start_site = None
-        self._transcription_start_site = transcription_start_site
+            self._transcription_start_site = transcription_start_site
+        else:
+            self._transcription_start_site = None
 
     @property
     def score(self):
