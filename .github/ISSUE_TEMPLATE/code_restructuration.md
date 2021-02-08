@@ -1,7 +1,7 @@
 ---
-name: "Class Restructuration 🛠"
+name: "Code Restructuration 🛠"
 about: "Changes in one or more classes."
-title: "Class Restructuration 🛠"
+title: "Code Restructuration 🛠"
 labels: "enhancement, help wanted"
 assignees: ""
 
@@ -11,7 +11,7 @@ assignees: ""
 
 ## Description
 
-General description about the classes changes.
+General description about the code changes.
 
 **Ecocyc version**
 
@@ -21,7 +21,7 @@ General description about the classes changes.
 
 - **[#.#]**
 
-#### Class
+#### Affected Class
 
 **[Class name]**
 Describe the problems or new changes for the class.
@@ -40,7 +40,7 @@ Describe the problems or new changes for the class.
   -Changes
   -Changes
 
-<!-- Repeat Class section for new classes-->
+<!-- Repeat Affected Class section for new classes-->
 
 ---
 
