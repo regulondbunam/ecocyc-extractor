@@ -5,7 +5,9 @@ from ecocyc_extractor.ecocyc.utils import constants as EC
 from ecocyc_extractor.ecocyc.domain.ontology import Ontology
 
 
-class Ontologies(object, ):
+class Ontologies(
+    object,
+):
 
     pt_connection = Connection()
 
@@ -27,7 +29,7 @@ class Ontologies(object, ):
         ontology_objects = Ontologies.pt_connection.get_frame_objects(self.ids)
         for ontology in ontology_objects:
             ontology = Ontologies.set_ontology(ontology)
-            logging.info('Working on ontology: {}'.format(ontology["id"]))
+            logging.info("Working on ontology: {}".format(ontology["id"]))
             ecocyc_ontology = Ontology(**ontology)
             yield ecocyc_ontology
 
@@ -35,6 +37,7 @@ class Ontologies(object, ):
     def set_ontology(ontology):
         new_ontology = dict(
             id=ontology[EC.ID],
-            comment=ontology[EC.COMMENT]
+            dblinks=ontology[EC.DBLINKS],
+            comment=ontology[EC.COMMENT],
         )
         return new_ontology

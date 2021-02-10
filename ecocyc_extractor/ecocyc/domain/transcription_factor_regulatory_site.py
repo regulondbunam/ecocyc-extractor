@@ -1,16 +1,43 @@
 from .base import Base
+from ..utils import constants as EC
+from ..utils import utils
 
 
 class TranscriptionFactorRegulatorySite(Base):
-
     def __init__(self, **kwargs):
         super(TranscriptionFactorRegulatorySite, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.absolute_position = kwargs.get("absolute_position", None)
         self.length = kwargs.get("length", None)
         self.left_end_position = kwargs.get("lend", None)
         self.right_end_position = kwargs.get("rend", None)
         self.sequence = kwargs.get("sequence", None)
         self.regulatory_interaction_ids = kwargs.get("involved_in_regulation", None)
+
+    @property
+    def db_links(self):
+        return self._db_links
+
+    @db_links.setter
+    def db_links(self, db_links):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(db_links))
+        except TypeError:
+            pass
+
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        self._db_links.append(ecocyc_reference.copy())
+
+        if self.bnumber:
+            bnumber_reference = {
+                "externalCrossReferences_id": "|REFSEQ|",
+                "objectId": self.bnumber,
+            }
+            self._db_links.append(bnumber_reference.copy())
 
     def to_dict(self):
         site = dict(
@@ -24,7 +51,7 @@ class TranscriptionFactorRegulatorySite(Base):
             length=self.length,
             note=self.comment,
             rightEndPosition=self.right_end_position,
-            sequence=self.sequence
+            sequence=self.sequence,
         )
         site = self.get_only_properties_with_values(site)
         return site
@@ -85,7 +112,9 @@ class TranscriptionFactorRegulatorySite(Base):
                 if self.left_end_position == self.right_end_position:
                     sequence = None
                 else:
-                    sequence = Base.get_sequence(self.left_end_position, self.right_end_position, strand, offset)
+                    sequence = Base.get_sequence(
+                        self.left_end_position, self.right_end_position, strand, offset
+                    )
             except TypeError:
                 self._sequence = None
         self._sequence = sequence

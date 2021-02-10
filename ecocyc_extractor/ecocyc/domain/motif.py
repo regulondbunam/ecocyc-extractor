@@ -1,6 +1,8 @@
 from ecocyc_extractor.ecocyc.collections.products import Products
 from .base import Base
 from .product import Product
+from ..utils import constants as EC
+from ..utils import utils
 
 
 class Motif(Base):
@@ -12,6 +14,7 @@ class Motif(Base):
         super(Motif, self).__init__(**kwargs)
         self.alternate_sequence = kwargs.get("alternate_sequence", None)
         self.attached_group = kwargs.get("attached_group", None)
+        self.db_links = kwargs.get("dblinks", None)
         self.class_ = kwargs.get("class", None)
         self.data_source = kwargs.get("data_source", None)
         self.description = kwargs.get("name", None)
@@ -21,6 +24,31 @@ class Motif(Base):
         self._sequence = kwargs.get("sequence", None)
         self.residue_number = kwargs.get("residue_number", None)
         self.type_ = kwargs.get("type", None)
+
+    @property
+    def db_links(self):
+        return self._db_links
+
+    @db_links.setter
+    def db_links(self, db_links):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(db_links))
+        except TypeError:
+            pass
+
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        self._db_links.append(ecocyc_reference.copy())
+
+        if self.bnumber:
+            bnumber_reference = {
+                "externalCrossReferences_id": "|REFSEQ|",
+                "objectId": self.bnumber,
+            }
+            self._db_links.append(bnumber_reference.copy())
 
     @property
     def attached_group(self):
@@ -79,12 +107,16 @@ class Motif(Base):
             try:
                 if self.left_end_position and self.right_end_position:
                     if self.left_end_position == self.right_end_position:
-                        self._sequence = product.sequence[self.left_end_position-1:self.right_end_position]
+                        self._sequence = product.sequence[
+                            self.left_end_position - 1 : self.right_end_position
+                        ]
                     else:
-                        self._sequence = product.sequence[self.left_end_position:self.right_end_position]
+                        self._sequence = product.sequence[
+                            self.left_end_position : self.right_end_position
+                        ]
                 else:
                     if self.residue_number:
-                        self._sequence = product.sequence[self.residue_number[0]-1]
+                        self._sequence = product.sequence[self.residue_number[0] - 1]
             except TypeError:
                 self._sequence = None
         return self._sequence

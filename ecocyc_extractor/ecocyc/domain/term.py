@@ -2,6 +2,7 @@ from .base import Base
 from ..collections.genes import Genes
 from ..collections.products import Products
 from ..utils import constants as EC
+from ..utils import utils
 
 
 class Term(Base):
@@ -11,11 +12,37 @@ class Term(Base):
 
     def __init__(self, **kwargs):
         super(Term, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.definition = kwargs.get("definition", None)
         self.ontology_id = kwargs.get("ontology_id", None)
         self.parents_ids = kwargs.get("parents_ids", None)
         self.children_ids = kwargs.get("children_ids", None)
         self.members = kwargs.get("term_members", None)
+
+    @property
+    def db_links(self):
+        return self._db_links
+
+    @db_links.setter
+    def db_links(self, db_links):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(db_links))
+        except TypeError:
+            pass
+
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        self._db_links.append(ecocyc_reference.copy())
+
+        if self.bnumber:
+            bnumber_reference = {
+                "externalCrossReferences_id": "|REFSEQ|",
+                "objectId": self.bnumber,
+            }
+            self._db_links.append(bnumber_reference.copy())
 
     @property
     def definition(self):
@@ -34,7 +61,9 @@ class Term(Base):
     @ontology_id.setter
     def ontology_id(self, ontology_id=None):
         if ontology_id is None:
-            is_go_term_child = self.pt_connection.child_is_from_parent(self.id, EC.GO_TERMS_CLASS)
+            is_go_term_child = self.pt_connection.child_is_from_parent(
+                self.id, EC.GO_TERMS_CLASS
+            )
             if is_go_term_child:
                 ontology_id = EC.GO_TERMS_CLASS
             else:

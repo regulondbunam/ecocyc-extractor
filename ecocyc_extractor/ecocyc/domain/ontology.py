@@ -1,12 +1,32 @@
 from .base import Base
+from ..utils import constants as EC
+from ..utils import utils
 
 
 class Ontology(object):
-
     def __init__(self, **kwargs):
         self.id = kwargs.get("id", None)
+        self.db_links = kwargs.get("dblinks", None)
         self.comment = kwargs.get("comment", None)
         self.name = kwargs.get("name", None)
+
+    @property
+    def db_links(self):
+        return self._db_links
+
+    @db_links.setter
+    def db_links(self, db_links):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(db_links))
+        except TypeError:
+            pass
+
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        self._db_links.append(ecocyc_reference.copy())
 
     @property
     def comment(self):

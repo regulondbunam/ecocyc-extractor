@@ -8,6 +8,7 @@ from ..utils import constants as EC
 class Promoter(Base):
     def __init__(self, **kwargs):
         super(Promoter, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.minus_10_left = kwargs.get("minus_10_left", None)
         self.minus_10_right = kwargs.get("minus_10_right", None)
         self.minus_35_left = kwargs.get("minus_35_left", None)
@@ -18,6 +19,31 @@ class Promoter(Base):
         self.binding_sigma_factor = kwargs.get("binding_sigma_factor", None)
         self.score = kwargs.get("score", None)
         self.transcription_start_site = kwargs.get("absolute_plus_1_pos", None)
+
+    @property
+    def db_links(self):
+        return self._db_links
+
+    @db_links.setter
+    def db_links(self, db_links):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(db_links))
+        except TypeError:
+            pass
+
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        self._db_links.append(ecocyc_reference.copy())
+
+        if self.bnumber:
+            bnumber_reference = {
+                "externalCrossReferences_id": "|REFSEQ|",
+                "objectId": self.bnumber,
+            }
+            self._db_links.append(bnumber_reference.copy())
 
     @property
     def binds_sigma_factor(self):

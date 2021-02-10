@@ -21,7 +21,7 @@ class Operons(object):
     def objects(self):
         for operon in self.operons:
             operon = Operons.set_operon(operon)
-            logging.info('Working on operon: {}'.format(operon["id"]))
+            logging.info("Working on operon: {}".format(operon["id"]))
             ecocyc_operon = Operon(**operon)
             yield ecocyc_operon
 
@@ -29,7 +29,8 @@ class Operons(object):
     def set_operon(operon):
         new_operon = dict(
             id=operon,
+            dblinks=EC.DBLINKS,
             organism=EC.ORGANISM_ID,
-            transcription_unit_ids=operon
+            transcription_unit_ids=operon,
         )
         return new_operon

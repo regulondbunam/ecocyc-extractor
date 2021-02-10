@@ -1,5 +1,6 @@
 from .base import Base
 from ..utils import constants as EC
+from ..utils import utils
 from ..collections.products import Products
 
 
@@ -11,12 +12,38 @@ class RegulatoryInteraction(Base):
     def __init__(self, **kwargs):
         super(RegulatoryInteraction, self).__init__(**kwargs)
         self.binding_site = kwargs.get("site", None)
+        self.db_links = kwargs.get("db_links", None)
         self.function_ = kwargs.get("mode", None)
         self.regulated_entity = kwargs.get("regulated_entity", None)
         self.regulated_entities = kwargs.get("regulated_entity", None)
         self.regulator = kwargs.get("regulator", None)
 
         self.center_position = kwargs.get("center_position", None)
+
+    @property
+    def db_links(self):
+        return self._db_links
+
+    @db_links.setter
+    def db_links(self, db_links):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(db_links))
+        except TypeError:
+            pass
+
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        self._db_links.append(ecocyc_reference.copy())
+
+        if self.bnumber:
+            bnumber_reference = {
+                "externalCrossReferences_id": "|REFSEQ|",
+                "objectId": self.bnumber,
+            }
+            self._db_links.append(bnumber_reference.copy())
 
     @property
     def binding_site(self):
@@ -35,7 +62,9 @@ class RegulatoryInteraction(Base):
     @center_position.setter
     def center_position(self, center_position=None):
         if self.binding_site and self.regulated_entity:
-            center_position = self.pt_connection.get_binding_site_promoter_offset(self.binding_site, self.regulated_entity["_id"])
+            center_position = self.pt_connection.get_binding_site_promoter_offset(
+                self.binding_site, self.regulated_entity["_id"]
+            )
         self._center_position = center_position
 
     @property
@@ -59,7 +88,9 @@ class RegulatoryInteraction(Base):
     def regulated_entity(self, regulated_entity=None):
         if regulated_entity is not None:
             regulated_type = None
-            regulated_entity_class = self.pt_connection.get_frame_direct_parents(regulated_entity)
+            regulated_entity_class = self.pt_connection.get_frame_direct_parents(
+                regulated_entity
+            )
             if EC.TRANSCRIPTION_UNIT_CLASS in regulated_entity_class:
                 regulated_type = "transcriptionUnit"
             elif EC.PROMOTER_CLASS in regulated_entity_class:
@@ -70,7 +101,9 @@ class RegulatoryInteraction(Base):
                 "name": self.pt_connection.get_name_by_id(regulated_entity),
                 "type": regulated_type,
             }
-            self._regulated_entity = self.get_only_properties_with_values(self._regulated_entity)
+            self._regulated_entity = self.get_only_properties_with_values(
+                self._regulated_entity
+            )
         else:
             self._regulated_entity = None
 
@@ -85,22 +118,28 @@ class RegulatoryInteraction(Base):
             regulated_entities = []
             regulated_entity = {
                 "_id": regulated_entity_id,
-                "name": self.pt_connection.get_name_by_id(regulated_entity_id)
+                "name": self.pt_connection.get_name_by_id(regulated_entity_id),
             }
             regulated_entity = self.get_only_properties_with_values(regulated_entity)
 
-            regulated_entity_class = self.pt_connection.get_frame_direct_parents(regulated_entity_id)
+            regulated_entity_class = self.pt_connection.get_frame_direct_parents(
+                regulated_entity_id
+            )
             if EC.TRANSCRIPTION_UNIT_CLASS in regulated_entity_class:
                 regulated_entity["type"] = "transcriptionUnit"
                 regulated_entities.append(regulated_entity)
             elif EC.PROMOTER_CLASS in regulated_entity_class:
                 regulated_entity["type"] = "promoter"
 
-                sigma_factor_ids = self.pt_connection.get_promoter_sigma_factor(regulated_entity_id)
+                sigma_factor_ids = self.pt_connection.get_promoter_sigma_factor(
+                    regulated_entity_id
+                )
                 sigma_factor_ids = list(set(sigma_factor_ids))
                 if len(sigma_factor_ids) > 1:
                     for sigma_factor_id in sigma_factor_ids:
-                        regulated_entity["_id"] = ";".join([regulated_entity_id, sigma_factor_id])
+                        regulated_entity["_id"] = ";".join(
+                            [regulated_entity_id, sigma_factor_id]
+                        )
                         regulated_entities.append(regulated_entity.copy())
                 else:
                     regulated_entities.append(regulated_entity.copy())
@@ -125,7 +164,7 @@ class RegulatoryInteraction(Base):
             self._regulator = {
                 "_id": regulator,
                 "name": self.pt_connection.get_name_by_id(regulator),
-                "type": regulator_type
+                "type": regulator_type,
             }
             self._regulator = self.get_only_properties_with_values(self._regulator)
         else:

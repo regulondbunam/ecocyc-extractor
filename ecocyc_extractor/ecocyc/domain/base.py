@@ -71,7 +71,12 @@ class Base(object):
     @property
     def sequence(self):
         if self._sequence is None:
-            self._sequence = self.get_sequence(self.left_end_position, self.right_end_position, self.strand, self._offset)
+            self._sequence = self.get_sequence(
+                self.left_end_position,
+                self.right_end_position,
+                self.strand,
+                self._offset,
+            )
         return self._sequence
 
     @property
@@ -124,10 +129,14 @@ class Base(object):
                 # sequence
                 sequence = Base.pt_connection.get_sequence(lend, rend, "X")
                 sequence = sequence[:offset].lower() + sequence[offset:]
-                sequence = sequence[:len(sequence) - offset] + sequence[-offset:].lower()
+                sequence = (
+                    sequence[: len(sequence) - offset] + sequence[-offset:].lower()
+                )
             else:
-                sequence = Base.pt_connection.get_sequence(left_end_position, right_end_position, "X")
-            if strand == 'reverse' and sequence is not None:
+                sequence = Base.pt_connection.get_sequence(
+                    left_end_position, right_end_position, "X"
+                )
+            if strand == "reverse" and sequence is not None:
                 sequence = Base.pt_connection.get_reverse_complement(sequence)
         return sequence
 

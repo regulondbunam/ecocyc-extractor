@@ -1,6 +1,9 @@
 from .base import Base
 from ..utils import constants as EC
-from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+from ..utils import utils
+from ecocyc_extractor.ecocyc.collections.regulatory_interactions import (
+    RegulatoryInteractions,
+)
 
 
 class RegulatoryContinuant(Base):
@@ -9,8 +12,34 @@ class RegulatoryContinuant(Base):
 
     def __init__(self, **kwargs):
         super(RegulatoryContinuant, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.type_ = kwargs.get("type", None)
         self.is_regulator = kwargs.get("regulates", None)
+
+    @property
+    def db_links(self):
+        return self._db_links
+
+    @db_links.setter
+    def db_links(self, db_links):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(db_links))
+        except TypeError:
+            pass
+
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        self._db_links.append(ecocyc_reference.copy())
+
+        if self.bnumber:
+            bnumber_reference = {
+                "externalCrossReferences_id": "|REFSEQ|",
+                "objectId": self.bnumber,
+            }
+            self._db_links.append(bnumber_reference.copy())
 
     @property
     def is_regulator(self):

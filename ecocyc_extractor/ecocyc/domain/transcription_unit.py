@@ -1,5 +1,7 @@
 from .base import Base
 from ecocyc_extractor.ecocyc.collections.terminators import Terminators
+from ..utils import constants as EC
+from ..utils import utils
 
 
 class TranscriptionUnit(Base):
@@ -9,10 +11,36 @@ class TranscriptionUnit(Base):
 
     def __init__(self, **kwargs):
         super(TranscriptionUnit, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.gene_ids = kwargs.get("genes", None)
         self.promoter_ids = kwargs.get("promoter", None)
         self.operon_id = kwargs.get("operon", None)
         self.terminator_ids = kwargs.get("terminator", None)
+
+    @property
+    def db_links(self):
+        return self._db_links
+
+    @db_links.setter
+    def db_links(self, db_links):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(db_links))
+        except TypeError:
+            pass
+
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        self._db_links.append(ecocyc_reference.copy())
+
+        if self.bnumber:
+            bnumber_reference = {
+                "externalCrossReferences_id": "|REFSEQ|",
+                "objectId": self.bnumber,
+            }
+            self._db_links.append(bnumber_reference.copy())
 
     @property
     def gene_ids(self):
@@ -52,7 +80,9 @@ class TranscriptionUnit(Base):
     def terminator_ids(self, terminator_ids=None):
         if terminator_ids is None:
             self._terminator_ids = []
-            tu_terminator_ids = self.pt_connection.transcription_unit_terminators(self.id)
+            tu_terminator_ids = self.pt_connection.transcription_unit_terminators(
+                self.id
+            )
             tu_terminator_ids = tu_terminator_ids
             for tu_terminator_id in tu_terminator_ids:
                 if tu_terminator_id in self._all_terminator_class_ids:

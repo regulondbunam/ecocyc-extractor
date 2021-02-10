@@ -25,7 +25,7 @@ class Evidences(object):
         evidence_objects = Evidences.pt_connection.get_frame_objects(self.ids)
         for evidence in evidence_objects:
             evidence = Evidences.set_evidence(evidence)
-            logging.info('Working on evidence: {}'.format(evidence["id"]))
+            logging.info("Working on evidence: {}".format(evidence["id"]))
             ecocyc_evidence = Evidence(**evidence)
             yield ecocyc_evidence
 
@@ -35,8 +35,10 @@ class Evidences(object):
             id=evidence[EC.ID],
             code=evidence[EC.NAME],
             comment=evidence[EC.COMMENT],
+            dblinks=evidence[EC.DBLINKS],
+            externalCrossReferences=None,
             internal_comment=evidence[EC.INTERNAL_COMMENT],
             name=evidence[EC.NAME],
-            pertains_to=evidence[EC.PERTAINS_TO]
+            pertains_to=evidence[EC.PERTAINS_TO],
         )
         return new_evidence
