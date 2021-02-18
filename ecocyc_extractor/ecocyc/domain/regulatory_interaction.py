@@ -7,7 +7,8 @@ from ..collections.products import Products
 class RegulatoryInteraction(Base):
 
     product_ids = Products.get_ids()
-    compound_ids = Base.pt_connection.get_class_all_instances(EC.COMPOUNDS_CLASS)
+    compound_ids = Base.pt_connection.get_class_all_instances(
+        EC.COMPOUNDS_CLASS)
 
     def __init__(self, **kwargs):
         super(RegulatoryInteraction, self).__init__(**kwargs)
@@ -28,7 +29,8 @@ class RegulatoryInteraction(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(utils.get_external_cross_references(db_links))
+            self._db_links.extend(
+                utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 
@@ -120,7 +122,8 @@ class RegulatoryInteraction(Base):
                 "_id": regulated_entity_id,
                 "name": self.pt_connection.get_name_by_id(regulated_entity_id),
             }
-            regulated_entity = self.get_only_properties_with_values(regulated_entity)
+            regulated_entity = self.get_only_properties_with_values(
+                regulated_entity)
 
             regulated_entity_class = self.pt_connection.get_frame_direct_parents(
                 regulated_entity_id
@@ -166,6 +169,7 @@ class RegulatoryInteraction(Base):
                 "name": self.pt_connection.get_name_by_id(regulator),
                 "type": regulator_type,
             }
-            self._regulator = self.get_only_properties_with_values(self._regulator)
+            self._regulator = self.get_only_properties_with_values(
+                self._regulator)
         else:
             self._regulator = regulator
