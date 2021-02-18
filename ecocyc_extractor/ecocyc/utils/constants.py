@@ -76,6 +76,7 @@ YEAR = "year"
 # ecocyc classes' names
 ALLOSTERIC_REGULATION_OF_RNAP = "|Allosteric-Regulation-of-RNAP|"
 COMPOUNDS_CLASS = "|Compounds|"
+CRYPTIC_PROPHAGES = "|Cryptic-Prophages|"
 EVIDENCE_CLASS = "|Evidence|"
 EXTERNAL_DB_CLASS = "|Databases|"
 GENE_CLASS = "|All-Genes|"

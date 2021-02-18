@@ -25,7 +25,8 @@ class TranscriptionUnit(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(utils.get_external_cross_references(db_links))
+            self._db_links.extend(
+                utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 
@@ -60,16 +61,20 @@ class TranscriptionUnit(Base):
     def promoter_ids(self, promoter_id=None):
         promoter_ids = None
         if promoter_id is None:
-            promoter_id = self.pt_connection.transcription_unit_promoter(self.id)
+            promoter_id = self.pt_connection.transcription_unit_promoter(
+                self.id)
         if promoter_id:
-            sigma_factor_ids = self.pt_connection.get_promoter_sigma_factor(promoter_id)
+            sigma_factor_ids = self.pt_connection.get_promoter_sigma_factor(
+                promoter_id)
             sigma_factor_ids = list(set(sigma_factor_ids))
             if len(sigma_factor_ids) > 1:
                 promoter_ids = []
                 for sigma_factor_id in sigma_factor_ids:
-                    promoter_ids.append(";".join([promoter_id, sigma_factor_id]))
+                    promoter_ids.append(
+                        ";".join([promoter_id, sigma_factor_id]))
             else:
                 promoter_ids = [promoter_id]
+        # TODO: promoters_id to string
         self._promoter_ids = promoter_ids
 
     @property

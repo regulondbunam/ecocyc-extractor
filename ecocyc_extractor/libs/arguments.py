@@ -11,7 +11,8 @@ def argument_entities_provided(arguments):
     entities["log"] = False
     entities["organism"] = False
     if not any(entities.values()):
-        argparse.ArgumentError("No objects' arguments provided. Use -h for help.")
+        argparse.ArgumentError(
+            "No objects' arguments provided. Use -h for help.")
 
 
 def get_arguments():
@@ -68,6 +69,12 @@ def get_arguments():
         "-pm",
         "--promoters",
         help="Sets the extractor to download Promoters",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-pph",
+        "--prophages",
+        help="Sets the extractor to download Cryptic Prophages",
         action="store_true",
     )
     parser.add_argument(
