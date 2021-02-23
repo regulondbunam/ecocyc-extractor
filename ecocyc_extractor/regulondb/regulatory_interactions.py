@@ -13,7 +13,7 @@ def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_
             "internalComment": regulatory_interaction.internal_comment,
             "note": regulatory_interaction.comment,
             "organisms_id": regulatory_interaction.organism,
-            "regulatedEntities": regulatory_interaction.regulated_entities,
+            "regulatedEntity": regulatory_interaction.regulated_entity,
             "regulator": regulatory_interaction.regulator,
             "transcriptionFactorRegulatorySites_id": regulatory_interaction.binding_site
         }
