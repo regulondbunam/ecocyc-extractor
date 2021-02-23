@@ -47,6 +47,7 @@ class RegulatoryInteractions(object):
     def set_regulatory_interaction(regulatory_interaction):
         new_regulatory_interaction = dict(
             id=regulatory_interaction[EC.ID],
+            center_position=regulatory_interaction[EC.ABSOLUTE_CENTER_POSITION],
             citations=regulatory_interaction[EC.CITATIONS],
             comment=regulatory_interaction[EC.COMMENT],
             dblinks=regulatory_interaction[EC.DBLINKS],

@@ -6,7 +6,7 @@ def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_
     for regulatory_interaction in regulatory_interactions.objects:
         regulatory_interaction_object = {
             "_id": regulatory_interaction.id,
-            # TODO: center position, can we extract it?
+            "absoluteCenterPosition": regulatory_interaction.center_position,
             "citations": regulatory_interaction.citations,
             "externalCrossReferences": regulatory_interaction.db_links,
             "function": regulatory_interaction.function_,
