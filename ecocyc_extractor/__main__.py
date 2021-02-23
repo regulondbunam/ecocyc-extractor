@@ -120,8 +120,7 @@ if __name__ == '__main__':
     if arguments.all or arguments.regulatory_interactions:
         print("Setting up Regulatory Interactions' process")
         files["regulatoryInteractions"] = regulatory_interactions.get_regulondb_regulatory_interactions(
-            only_properties_with_values=True),
-        organism, class_acronym, "RIC"
+            only_properties_with_values=True), organism, class_acronym, "RIC"
     if arguments.all or arguments.sites:
         print("Setting up Sites' process")
         files["transcriptionFactorRegulatorySites"] = transcription_factor_regulatory_sites.get_regulondb_transcription_factor_regulatory_sites(

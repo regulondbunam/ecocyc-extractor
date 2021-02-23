@@ -76,6 +76,7 @@ def get_arguments():
         "--prophages",
         help="Sets the extractor to download Cryptic Prophages",
         action="store_true",
+        dest="prophages",
     )
     parser.add_argument(
         "-tf",
