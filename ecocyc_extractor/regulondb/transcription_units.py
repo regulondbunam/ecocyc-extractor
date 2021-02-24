@@ -11,12 +11,13 @@ def get_regulondb_transcription_units(transcription_unit_ids=None, only_properti
             "internalComment": transcription_unit.internal_comment,
             "name": transcription_unit.name,
             "note": transcription_unit.comment,
-            "promoters_ids": transcription_unit.promoter_ids,
+            "promoters_id": transcription_unit.promoter_ids,
             "operons_id": transcription_unit.operon_id,
             "organisms_id": transcription_unit.organism,
             "terminators_ids": transcription_unit.terminator_ids,
             "synonyms": transcription_unit.synonyms
         }
         if only_properties_with_values is True:
-            transcription_unit_object = transcription_unit.get_only_properties_with_values(transcription_unit_object)
+            transcription_unit_object = transcription_unit.get_only_properties_with_values(
+                transcription_unit_object)
         yield transcription_unit_object

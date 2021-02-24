@@ -73,8 +73,7 @@ class TranscriptionUnit(Base):
                     promoter_ids.append(
                         ";".join([promoter_id, sigma_factor_id]))
             else:
-                promoter_ids = [promoter_id]
-        # TODO: promoters_id to string
+                promoter_ids = promoter_id
         self._promoter_ids = promoter_ids
 
     @property
