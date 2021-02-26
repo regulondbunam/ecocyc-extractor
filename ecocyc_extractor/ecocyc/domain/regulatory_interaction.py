@@ -90,13 +90,16 @@ class RegulatoryInteraction(Base):
     def regulated_entity(self, regulated_entity=None):
         if regulated_entity is not None:
             regulated_type = None
-            regulated_entity_class = self.pt_connection.get_frame_direct_parents(
+            regulated_entity_class = self.pt_connection.get_frame_all_parents(
                 regulated_entity
             )
+
             if EC.TRANSCRIPTION_UNIT_CLASS in regulated_entity_class:
                 regulated_type = "transcriptionUnit"
             elif EC.PROMOTER_CLASS in regulated_entity_class:
                 regulated_type = "promoter"
+            elif EC.GENE_CLASS in regulated_entity_class:
+                regulated_type = "gene"
 
             self._regulated_entity = {
                 "_id": regulated_entity,
