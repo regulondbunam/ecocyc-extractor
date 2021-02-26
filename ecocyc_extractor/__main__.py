@@ -129,7 +129,7 @@ if __name__ == '__main__':
             only_properties_with_values=True), organism, class_acronym, "RIC"
     if arguments.all or arguments.sites:
         print("Setting up Sites' process")
-        files["transcriptionFactorRegulatorySites"] = transcription_factor_regulatory_sites.get_regulondb_transcription_factor_regulatory_sites(
+        files["regulatorySites"] = transcription_factor_regulatory_sites.get_regulondb_transcription_factor_regulatory_sites(
             only_properties_with_values=True), organism, class_acronym, "BSC"
     if arguments.all or arguments.regulatory_complexes:
         print("Setting up Regulatory Complexes' process")
