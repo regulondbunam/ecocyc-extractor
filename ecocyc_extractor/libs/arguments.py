@@ -79,6 +79,13 @@ def get_arguments():
         dest="prophages",
     )
     parser.add_argument(
+        "-sg",
+        "--segments",
+        help="Sets the extractor to download Segments",
+        action="store_true",
+        dest="segments",
+    )
+    parser.add_argument(
         "-tf",
         "--transcription-factors",
         help="Sets the extractor to download Transcription Factors",

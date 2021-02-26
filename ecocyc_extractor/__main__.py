@@ -10,6 +10,7 @@ from regulondb import transcription_factors
 from regulondb import sigma_factors
 from regulondb import promoters
 from regulondb import cryptic_prophages
+from regulondb import segments
 from regulondb import terminators
 from regulondb import operons
 from regulondb import transcription_units
@@ -107,6 +108,11 @@ if __name__ == '__main__':
         print("Setting up Cryptic Prophages' process")
         files["prophages"] = cryptic_prophages.get_regulondb_cryptic_prophages(
             only_properties_with_values=True), organism, class_acronym, "CPC"
+
+    if arguments.all or arguments.segments:
+        print("Setting up Segments' process")
+        files["segments"] = segments.get_regulondb_segments(
+            only_properties_with_values=True), organism, class_acronym, "SGC"
 
     if arguments.all or arguments.promoters:
         print("Setting up Promoters' process")
