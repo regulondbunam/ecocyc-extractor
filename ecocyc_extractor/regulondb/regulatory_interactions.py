@@ -15,7 +15,7 @@ def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_
             "organisms_id": regulatory_interaction.organism,
             "regulatedEntity": regulatory_interaction.regulated_entity,
             "regulator": regulatory_interaction.regulator,
-            "transcriptionFactorRegulatorySites_id": regulatory_interaction.binding_site
+            "regulatorySites_id": regulatory_interaction.binding_site
         }
         if only_properties_with_values is True:
             regulatory_interaction_object = regulatory_interaction.get_only_properties_with_values(
