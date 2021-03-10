@@ -16,10 +16,12 @@ class TranscriptionFactorRegulatorySites(object):
     def get_ids(site_ids=None):
         if site_ids is None:
             site_ids = []
-            ri_ids = RegulatoryInteractions.get_ids(transcription_factors_ris=False)
+            ri_ids = RegulatoryInteractions.get_ids(
+                transcription_factors_ris=False)
 
             for ri_id in ri_ids:
-                ri_site_ids = TranscriptionFactorRegulatorySite.pt_connection.get_slot_values(ri_id, EC.ASSOCIATED_BINDING_SITE_SLOT)
+                ri_site_ids = TranscriptionFactorRegulatorySite.pt_connection.get_slot_values(
+                    ri_id, EC.ASSOCIATED_BINDING_SITE_SLOT)
                 site_ids.extend(ri_site_ids)
             site_ids = utils.get_unique_elements(site_ids)
         site_ids = utils.get_unique_elements(site_ids)
@@ -27,7 +29,8 @@ class TranscriptionFactorRegulatorySites(object):
 
     @property
     def objects(self):
-        site_objects = TranscriptionFactorRegulatorySite.pt_connection.get_frame_objects(self.ids)
+        site_objects = TranscriptionFactorRegulatorySite.pt_connection.get_frame_objects(
+            self.ids)
         for site in site_objects:
             site = TranscriptionFactorRegulatorySites.set_site(site)
             logging.info('Working on site: {}'.format(site["id"]))
@@ -44,7 +47,10 @@ class TranscriptionFactorRegulatorySites(object):
             dblinks=site[EC.DBLINKS],
             internal_comment=site[EC.INTERNAL_COMMENT],
             involved_in_regulation=site[EC.INVOLVED_IN_REGULATION],
+            mechanism=site[EC.MECHANISM],
             length=site[EC.DNA_FOOTPRINT_SIZE],
+            lend=site[EC.LEND],
+            rend=site[EC.REND],
             organism=EC.ORGANISM_ID,
         )
         return site

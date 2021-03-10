@@ -18,8 +18,23 @@ class RegulatoryInteraction(Base):
         self.regulated_entity = kwargs.get("regulated_entity", None)
         self.regulated_entities = kwargs.get("regulated_entity", None)
         self.regulator = kwargs.get("regulator", None)
+        self.mechanism = kwargs.get("mechanism", None)
 
         self.center_position = kwargs.get("center_position", None)
+
+    @property
+    def mechanism(self):
+        return self._mechanism
+
+    @mechanism.setter
+    def mechanism(self, mechanism):
+        all_parents = self.pt_connection.get_frame_all_parents(self.id)
+        if EC.REGULATION_OF_TRANSLATION in all_parents:
+            self._mechanism = "Translation"
+        elif EC.REGULATION_OF_TRANSCRIPTION in all_parents:
+            self._mechanism = "Transcription"
+        else:
+            self._mechanism = "Unknown"
 
     @property
     def db_links(self):

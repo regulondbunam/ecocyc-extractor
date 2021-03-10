@@ -23,6 +23,8 @@ class RegulatoryInteractions(object):
                 EC.TRANSCRIPTION_FACTOR_BINDING_CLASS)
             regulatory_interaction_ids.extend(
                 RegulatoryInteractions.pt_connection.get_class_all_instances(EC.ALLOSTERIC_REGULATION_OF_RNAP))
+            regulatory_interaction_ids.extend(
+                RegulatoryInteractions.pt_connection.get_class_all_instances(EC.RNA_MEDIATED_TRANSLATION_REGULATION))
             # TODO: We need to add the new RIs from Soco's notes
         else:
             regulatory_interaction_ids = ids
@@ -53,6 +55,7 @@ class RegulatoryInteractions(object):
             dblinks=regulatory_interaction[EC.DBLINKS],
             internal_comment=regulatory_interaction[EC.INTERNAL_COMMENT],
             mode=regulatory_interaction[EC.MODE],
+            mechanism=regulatory_interaction[EC.MECHANISM],
             organism=EC.ORGANISM_ID,
             regulated_entity=regulatory_interaction[EC.REGULATED_ENTITY],
             regulator=regulatory_interaction[EC.REGULATOR],

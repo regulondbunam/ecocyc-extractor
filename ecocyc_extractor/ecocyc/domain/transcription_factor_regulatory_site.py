@@ -12,7 +12,9 @@ class TranscriptionFactorRegulatorySite(Base):
         self.left_end_position = kwargs.get("lend", None)
         self.right_end_position = kwargs.get("rend", None)
         self.sequence = kwargs.get("sequence", None)
-        self.regulatory_interaction_ids = kwargs.get("involved_in_regulation", None)
+        self.regulatory_interaction_ids = kwargs.get(
+            "involved_in_regulation", None)
+        self.mechanism = kwargs.get("mechanism", None)
 
     @property
     def db_links(self):
@@ -22,7 +24,8 @@ class TranscriptionFactorRegulatorySite(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(utils.get_external_cross_references(db_links))
+            self._db_links.extend(
+                utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 
@@ -118,3 +121,20 @@ class TranscriptionFactorRegulatorySite(Base):
             except TypeError:
                 self._sequence = None
         self._sequence = sequence
+
+    @property
+    def mechanism(self):
+        return self._mechanism
+
+    @mechanism.setter
+    def mechanism(self, mechanism):
+        regulatory_interaction_id = self.pt_connection.get_slot_value(
+            self.id, EC.INVOLVED_IN_REGULATION)
+        all_parents = self.pt_connection.get_frame_all_parents(
+            regulatory_interaction_id)
+        if EC.REGULATION_OF_TRANSLATION in all_parents:
+            self._mechanism = "Translation"
+        elif EC.REGULATION_OF_TRANSCRIPTION in all_parents:
+            self._mechanism = "Transcription"
+        else:
+            self._mechanism = "Unknown"

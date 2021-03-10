@@ -135,7 +135,6 @@ class Segment(Base):
             self._parent = EC.TRANSPOSONS
         else:
             self._parent = None
-            print(self.id)
 
     @property
     def segment_type(self):
