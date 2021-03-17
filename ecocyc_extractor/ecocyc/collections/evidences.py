@@ -17,7 +17,8 @@ class Evidences(object):
         if registered_ids:
             evidence_ids = utils.get_evidence_ids()
         else:
-            evidence_ids = Evidences.pt_connection.get_class_all_subs(EC.EVIDENCE_CLASS)
+            evidence_ids = Evidences.pt_connection.get_class_all_subs(
+                EC.EVIDENCE_CLASS)
         return evidence_ids
 
     @property

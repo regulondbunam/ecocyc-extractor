@@ -95,46 +95,8 @@ class Segment(Base):
     @parent.setter
     def parent(self, parent):
         all_parents = self.pt_connection.get_frame_all_parents(self.id)
-        if EC.GENES in all_parents:
-            self._parent = EC.GENES
-        elif EC.PHANTOM_GENES in all_parents:
-            self._parent = EC.PHANTOM_GENES
-        elif EC.PSEUDO_GENES in all_parents:
-            self._parent = EC.PSEUDO_GENES
-        elif EC.TRUNCATED_GENES in all_parents:
-            self._parent = EC.TRUNCATED_GENES
-        elif EC.CRYPTIC_PROPHAGES in all_parents:
-            self._parent = EC.CRYPTIC_PROPHAGES
-        elif EC.DNA_BINDING_SITES in all_parents:
-            self._parent = EC.DNA_BINDING_SITES
-        elif EC.EXTRAGENIC_SITES in all_parents:
-            self._parent = EC.EXTRAGENIC_SITES
-        elif EC.GENE_FRAGMENTS in all_parents:
-            self._parent = EC.GENE_FRAGMENTS
-        elif EC.GENOMIC_ISLANDS in all_parents:
-            self._parent = EC.GENOMIC_ISLANDS
-        elif EC.MISC_FEATURES in all_parents:
-            self._parent = EC.MISC_FEATURES
-        elif EC.PROMOTER_CLASS in all_parents:
-            self._parent = EC.PROMOTER_CLASS
-        elif EC.PROPHAGES in all_parents:
-            self._parent = EC.PROPHAGES
-        elif EC.REPLICON_BUCKETS in all_parents:
-            self._parent = EC.REPLICON_BUCKETS
-        elif EC.RECOMBINATION_SITES in all_parents:
-            self._parent = EC.RECOMBINATION_SITES
-        elif EC.SPNS in all_parents:
-            self._parent = EC.SPNS
-        elif EC.TRANSCRIPTION_UNIT_CLASS in all_parents:
-            self._parent = EC.TRANSCRIPTION_UNIT_CLASS
-        elif EC.MRNA_BINDING_SITES in all_parents:
-            self._parent = EC.MRNA_BINDING_SITES
-        elif EC.TERMINATOR_CLASS in all_parents:
-            self._parent = EC.TERMINATOR_CLASS
-        elif EC.TRANSPOSONS in all_parents:
-            self._parent = EC.TRANSPOSONS
-        else:
-            self._parent = None
+        index_of = all_parents.index(EC.POLYMER_SEGMENTS)
+        self._parent = all_parents[index_of + 2]
 
     @property
     def segment_type(self):

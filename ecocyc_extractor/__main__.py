@@ -81,10 +81,12 @@ if __name__ == '__main__':
         print("Setting up Genes' process")
         files["genes"] = genes.get_regulondb_genes(
             only_properties_with_values=True), organism, class_acronym, "GNC"
+
     if arguments.all or arguments.products:
         print("Setting up Products' process")
         files["products"] = products.get_regulondb_products(
             only_properties_with_values=True), organism, class_acronym, "PDC"
+
     if arguments.all or arguments.motifs:
         print("Setting up Motifs' process")
         files["motifs"] = motifs.get_regulondb_motifs(
@@ -94,6 +96,7 @@ if __name__ == '__main__':
         print("Setting up Transcription Units' process")
         files["transcriptionUnits"] = transcription_units.get_regulondb_transcription_units(
             only_properties_with_values=True), organism, class_acronym, "TUC"
+
     if arguments.all or arguments.operons:
         print("Setting up Operons' process")
         files["operons"] = operons.get_regulondb_operons(
@@ -104,7 +107,7 @@ if __name__ == '__main__':
         files["terminators"] = terminators.get_regulondb_terminators(
             only_properties_with_values=True), organism, class_acronym, "TMC"
 
-    if arguments.all or arguments.prophages:
+    if arguments.prophages:
         print("Setting up Cryptic Prophages' process")
         files["prophages"] = cryptic_prophages.get_regulondb_cryptic_prophages(
             only_properties_with_values=True), organism, class_acronym, "CPC"
@@ -118,6 +121,7 @@ if __name__ == '__main__':
         print("Setting up Promoters' process")
         files["promoters"] = promoters.get_regulondb_promoters(
             only_properties_with_values=True), organism, class_acronym, "PMC"
+
     if arguments.all or arguments.sigma_factors:
         print("Setting up Sigma Factors' process")
         files["sigmaFactors"] = sigma_factors.get_regulondb_sigma_factors(
@@ -127,18 +131,22 @@ if __name__ == '__main__':
         print("Setting up Regulatory Interactions' process")
         files["regulatoryInteractions"] = regulatory_interactions.get_regulondb_regulatory_interactions(
             only_properties_with_values=True), organism, class_acronym, "RIC"
+
     if arguments.all or arguments.sites:
         print("Setting up Sites' process")
         files["regulatorySites"] = transcription_factor_regulatory_sites.get_regulondb_transcription_factor_regulatory_sites(
             only_properties_with_values=True), organism, class_acronym, "BSC"
+
     if arguments.all or arguments.regulatory_complexes:
         print("Setting up Regulatory Complexes' process")
         files["regulatoryComplexes"] = regulatory_complexes.get_regulondb_regulatory_complexes(
             only_properties_with_values=True, include_inactive=True), organism, class_acronym, "RCC"
+
     if arguments.all or arguments.regulatory_continuants:
         print("Setting up Regulatory Continuants' process")
         files["regulatoryContinuants"] = regulatory_continuants.get_regulondb_regulatory_continuants(
             only_properties_with_values=True), organism, class_acronym, "CNC"
+
     if arguments.all or arguments.transcription_factors:
         print("Setting up Transcription Factors' process")
         files["transcriptionFactors"] = transcription_factors.get_regulondb_transcription_factors(
@@ -148,14 +156,17 @@ if __name__ == '__main__':
         print("Setting up Ontologies' process")
         files["got_ontologies"] = ontologies.get_regulondb_ontologies(
             only_properties_with_values=True, ontology_name="gene-ontology"), organism, "ONTOL", "GON"
+
     if arguments.all or arguments.got_terms:
         print("Setting up Gene Ontology Terms' process")
         files["got_terms"] = terms.get_regulondb_terms(
             only_properties_with_values=True, term_type="gene-ontology"), organism, "ONTOL", "GON"
+
     if arguments.all or arguments.multifun_ontology:
         print("Setting up Ontologies' process")
         files["multifun_ontologies"] = ontologies.get_regulondb_ontologies(
             only_properties_with_values=True, ontology_name="multifun"), organism, "ONTOL", "MTF"
+
     if arguments.all or arguments.multifun_terms:
         print("Setting up Multifun Terms' process")
         files["multifun_terms"] = terms.get_regulondb_terms(
@@ -165,10 +176,12 @@ if __name__ == '__main__':
         print("Setting up Evidences' process")
         files["evidences"] = evidences.get_regulondb_evidences(
             only_properties_with_values=True), organism, class_acronym, "EVC"
+
     if arguments.all or arguments.external_databases or arguments.all_external_databases:
         print("Setting up External DBs' process")
         files["externalCrossReferences"] = external_cross_references.get_regulondb_external_databases(
             registered_ids=not arguments.all_external_databases, only_properties_with_values=True), organism, class_acronym, "ERC"
+
     if arguments.all or arguments.publications or arguments.all_publications:
         print("Setting up Publications' process")
         files["publications"] = publications.get_regulondb_publications(

@@ -217,6 +217,14 @@ def get_arguments():
         metavar="./Results/source/ecocyc",
         default="./Results/source/ecocyc",
     )
+
+    parser.add_argument(
+        "-r",
+        "--report",
+        help="Path where the json files of the process will be stored.",
+        metavar="./Results/log",
+        default="./Results/log",
+    )
     arguments = parser.parse_args()
     return arguments
 
