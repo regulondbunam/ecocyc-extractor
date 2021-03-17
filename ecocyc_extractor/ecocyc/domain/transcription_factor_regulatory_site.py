@@ -132,8 +132,10 @@ class TranscriptionFactorRegulatorySite(Base):
             self.id, EC.INVOLVED_IN_REGULATION)
         all_parents = self.pt_connection.get_frame_all_parents(
             regulatory_interaction_id)
-        if EC.REGULATION_OF_TRANSLATION in all_parents:
-            self._mechanism = "Translation"
+        if EC.RNA_MEDIATED_TRANSLATION_REGULATION in all_parents:
+            self._mechanism = "sRNA-Translation"
+        elif EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION in all_parents:
+            self._mechanism = "Protein-Transcription"
         elif EC.REGULATION_OF_TRANSCRIPTION in all_parents:
             self._mechanism = "Transcription"
         else:

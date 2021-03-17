@@ -25,6 +25,8 @@ class RegulatoryInteractions(object):
                 RegulatoryInteractions.pt_connection.get_class_all_instances(EC.ALLOSTERIC_REGULATION_OF_RNAP))
             regulatory_interaction_ids.extend(
                 RegulatoryInteractions.pt_connection.get_class_all_instances(EC.RNA_MEDIATED_TRANSLATION_REGULATION))
+            regulatory_interaction_ids.extend(
+                RegulatoryInteractions.pt_connection.get_class_all_instances(EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION))
             # TODO: We need to add the new RIs from Soco's notes
         else:
             regulatory_interaction_ids = ids
@@ -49,6 +51,7 @@ class RegulatoryInteractions(object):
     def set_regulatory_interaction(regulatory_interaction):
         new_regulatory_interaction = dict(
             id=regulatory_interaction[EC.ID],
+            accessory_proteins=regulatory_interaction[EC.ACCESSORY_PROTEINS],
             center_position=regulatory_interaction[EC.ABSOLUTE_CENTER_POSITION],
             citations=regulatory_interaction[EC.CITATIONS],
             comment=regulatory_interaction[EC.COMMENT],

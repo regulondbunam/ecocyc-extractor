@@ -151,8 +151,11 @@ MRNA_BINDING_SITES = "|mRNA-Binding-Sites|"
 TRANSPOSONS = "|Transposons|"
 
 RNA_MEDIATED_TRANSLATION_REGULATION = "|RNA-Mediated-Translation-Regulation|"
+PROTEIN_MEDIATED_TRANSLATION_REGULATION = "|Protein-Mediated-Translation-Regulation|"
 REGULATION_OF_TRANSLATION = "|Regulation-of-Translation|"
 REGULATION_OF_TRANSCRIPTION = "|Regulation-of-Transcription|"
 MECHANISM = "mechanism"
 INVOLVED_IN_REGULATION = "Involved-In-Regulation"
 POLYMER_SEGMENTS = "|Polymer-Segments|"
+
+ACCESSORY_PROTEINS = "|Accessory-Proteins|"

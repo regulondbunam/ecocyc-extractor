@@ -13,6 +13,7 @@ class RegulatoryInteraction(Base):
     def __init__(self, **kwargs):
         super(RegulatoryInteraction, self).__init__(**kwargs)
         self.binding_site = kwargs.get("site", None)
+        self.accessory_proteins = kwargs.get("accessory_proteins", None)
         self.db_links = kwargs.get("db_links", None)
         self.function_ = kwargs.get("mode", None)
         self.regulated_entity = kwargs.get("regulated_entity", None)
@@ -22,6 +23,17 @@ class RegulatoryInteraction(Base):
 
         self.center_position = kwargs.get("center_position", None)
 
+    '''
+    @property
+    def accessory_proteins(self):
+        return self._accessory_proteins
+
+    @accessory_proteins.setter
+    def accessory_proteins(self, accessory_proteins):
+        self._accessory_proteins = self.pt_connection.get_slot_value(
+            self.id, EC.ACCESSORY_PROTEINS)
+        print(self.pt_connection.get_frame_object(self.id))
+    '''
     @property
     def mechanism(self):
         return self._mechanism
@@ -29,8 +41,10 @@ class RegulatoryInteraction(Base):
     @mechanism.setter
     def mechanism(self, mechanism):
         all_parents = self.pt_connection.get_frame_all_parents(self.id)
-        if EC.REGULATION_OF_TRANSLATION in all_parents:
-            self._mechanism = "Translation"
+        if EC.RNA_MEDIATED_TRANSLATION_REGULATION in all_parents:
+            self._mechanism = "sRNA-Translation"
+        elif EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION in all_parents:
+            self._mechanism = "Protein-Transcription"
         elif EC.REGULATION_OF_TRANSCRIPTION in all_parents:
             self._mechanism = "Transcription"
         else:
