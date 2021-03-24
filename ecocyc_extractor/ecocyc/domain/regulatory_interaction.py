@@ -20,35 +20,24 @@ class RegulatoryInteraction(Base):
         self.regulated_entities = kwargs.get("regulated_entity", None)
         self.regulator = kwargs.get("regulator", None)
         self.mechanism = kwargs.get("mechanism", None)
-
+        self.regulation_level = kwargs.get("regulation_level", None)
         self.center_position = kwargs.get("center_position", None)
 
-    '''
     @property
-    def accessory_proteins(self):
-        return self._accessory_proteins
+    def regulation_level(self):
+        return self._regulation_level
 
-    @accessory_proteins.setter
-    def accessory_proteins(self, accessory_proteins):
-        self._accessory_proteins = self.pt_connection.get_slot_value(
-            self.id, EC.ACCESSORY_PROTEINS)
-        print(self.pt_connection.get_frame_object(self.id))
-    '''
-    @property
-    def mechanism(self):
-        return self._mechanism
-
-    @mechanism.setter
-    def mechanism(self, mechanism):
+    @regulation_level.setter
+    def regulation_level(self, regulation_level):
         all_parents = self.pt_connection.get_frame_all_parents(self.id)
         if EC.RNA_MEDIATED_TRANSLATION_REGULATION in all_parents:
-            self._mechanism = "sRNA-Translation"
+            self._regulation_level = "sRNA-Regulation"
         elif EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION in all_parents:
-            self._mechanism = "Protein-Transcription"
+            self._regulation_level = "Protein-Regulation"
         elif EC.REGULATION_OF_TRANSCRIPTION in all_parents:
-            self._mechanism = "Transcription"
+            self._regulation_level = "Transcription"
         else:
-            self._mechanism = "Unknown"
+            self._regulation_level = "Unknown"
 
     @property
     def db_links(self):

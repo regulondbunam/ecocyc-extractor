@@ -47,7 +47,7 @@ class TranscriptionFactorRegulatorySites(object):
             dblinks=site[EC.DBLINKS],
             internal_comment=site[EC.INTERNAL_COMMENT],
             involved_in_regulation=site[EC.INVOLVED_IN_REGULATION],
-            mechanism=site[EC.MECHANISM],
+            regulation_level=site[EC.REGULATION_LEVEL],
             length=site[EC.DNA_FOOTPRINT_SIZE],
             lend=site[EC.LEND],
             rend=site[EC.REND],

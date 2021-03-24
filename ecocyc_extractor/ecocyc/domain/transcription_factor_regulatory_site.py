@@ -14,7 +14,7 @@ class TranscriptionFactorRegulatorySite(Base):
         self.sequence = kwargs.get("sequence", None)
         self.regulatory_interaction_ids = kwargs.get(
             "involved_in_regulation", None)
-        self.mechanism = kwargs.get("mechanism", None)
+        self.regulation_level = kwargs.get("regulation_level", None)
 
     @property
     def db_links(self):
@@ -123,20 +123,20 @@ class TranscriptionFactorRegulatorySite(Base):
         self._sequence = sequence
 
     @property
-    def mechanism(self):
-        return self._mechanism
+    def regulation_level(self):
+        return self._regulation_level
 
-    @mechanism.setter
-    def mechanism(self, mechanism):
+    @regulation_level.setter
+    def regulation_level(self, regulation_level):
         regulatory_interaction_id = self.pt_connection.get_slot_value(
             self.id, EC.INVOLVED_IN_REGULATION)
         all_parents = self.pt_connection.get_frame_all_parents(
             regulatory_interaction_id)
         if EC.RNA_MEDIATED_TRANSLATION_REGULATION in all_parents:
-            self._mechanism = "sRNA-Translation"
+            self._regulation_level = "sRNA-Regulation"
         elif EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION in all_parents:
-            self._mechanism = "Protein-Transcription"
+            self._regulation_level = "Protein-Regulation"
         elif EC.REGULATION_OF_TRANSCRIPTION in all_parents:
-            self._mechanism = "Transcription"
+            self._regulation_level = "Transcription"
         else:
-            self._mechanism = "Unknown"
+            self._regulation_level = "Unknown"

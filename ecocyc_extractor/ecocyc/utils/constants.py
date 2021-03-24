@@ -159,3 +159,4 @@ INVOLVED_IN_REGULATION = "Involved-In-Regulation"
 POLYMER_SEGMENTS = "|Polymer-Segments|"
 
 ACCESSORY_PROTEINS = "|Accessory-Proteins|"
+REGULATION_LEVEL = "|Regulation-Level|"
