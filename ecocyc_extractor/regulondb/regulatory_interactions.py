@@ -16,7 +16,7 @@ def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_
             "mechanism": regulatory_interaction.mechanism,
             "organisms_id": regulatory_interaction.organism,
             "regulatedEntity": regulatory_interaction.regulated_entity,
-            "regulationLevel": regulatory_interaction.regulation_level,
+            "regulationType": regulatory_interaction.regulation_type,
             "regulator": regulatory_interaction.regulator,
             "regulatorySites_id": regulatory_interaction.binding_site
         }

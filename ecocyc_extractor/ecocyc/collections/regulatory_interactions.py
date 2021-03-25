@@ -61,7 +61,7 @@ class RegulatoryInteractions(object):
             mechanism=regulatory_interaction[EC.MECHANISM],
             organism=EC.ORGANISM_ID,
             regulated_entity=regulatory_interaction[EC.REGULATED_ENTITY],
-            regulation_level=regulatory_interaction[EC.REGULATION_LEVEL],
+            regulation_type=regulatory_interaction[EC.REGULATION_TYPE],
             regulator=regulatory_interaction[EC.REGULATOR],
             site=regulatory_interaction[EC.ASSOCIATED_BINDING_SITE]
         )

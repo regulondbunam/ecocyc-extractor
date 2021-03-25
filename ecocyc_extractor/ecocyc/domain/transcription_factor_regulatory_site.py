@@ -14,7 +14,7 @@ class TranscriptionFactorRegulatorySite(Base):
         self.sequence = kwargs.get("sequence", None)
         self.regulatory_interaction_ids = kwargs.get(
             "involved_in_regulation", None)
-        self.regulation_level = kwargs.get("regulation_level", None)
+        self.regulation_type = kwargs.get("regulation_type", None)
 
     @property
     def db_links(self):
@@ -123,11 +123,11 @@ class TranscriptionFactorRegulatorySite(Base):
         self._sequence = sequence
 
     @property
-    def regulation_level(self):
+    def regulation_type(self):
         return self._regulation_level
 
-    @regulation_level.setter
-    def regulation_level(self, regulation_level):
+    @regulation_type.setter
+    def regulation_type(self, regulation_type):
         regulatory_interaction_id = self.pt_connection.get_slot_value(
             self.id, EC.INVOLVED_IN_REGULATION)
         all_parents = self.pt_connection.get_frame_all_parents(
