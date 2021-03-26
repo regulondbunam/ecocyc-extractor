@@ -41,6 +41,7 @@ class Promoters(object):
             citations=promoter[EC.CITATIONS],
             comment=promoter[EC.COMMENT],
             dblinks=promoter[EC.DBLINKS],
+            distanceToGene=promoter[EC.DISTANCE_TO_GENE],
             internal_comment=promoter[EC.INTERNAL_COMMENT],
             name=promoter[EC.NAME],
             minus_10_left=promoter[EC.MINUS_10_LEFT],

@@ -160,3 +160,4 @@ POLYMER_SEGMENTS = "|Polymer-Segments|"
 
 ACCESSORY_PROTEINS = "|Accessory-Proteins|"
 REGULATION_TYPE = "|Regulation-Type|"
+DISTANCE_TO_GENE = "|Distance-To-Gene|"

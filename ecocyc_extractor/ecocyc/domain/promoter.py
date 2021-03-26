@@ -19,6 +19,7 @@ class Promoter(Base):
         self.binding_sigma_factor = kwargs.get("binding_sigma_factor", None)
         self.score = kwargs.get("score", None)
         self.transcription_start_site = kwargs.get("absolute_plus_1_pos", None)
+        self.distance_to_gene = kwargs.get("distance_to_gene", None)
 
     @property
     def db_links(self):
@@ -28,7 +29,8 @@ class Promoter(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(utils.get_external_cross_references(db_links))
+            self._db_links.extend(
+                utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 
@@ -44,6 +46,39 @@ class Promoter(Base):
                 "objectId": self.bnumber,
             }
             self._db_links.append(bnumber_reference.copy())
+
+    @property
+    def distance_to_gene(self):
+        return self._distance_to_gene
+
+    @distance_to_gene.setter
+    def distance_to_gene(self, distance_to_gene):
+        self._distance_to_gene = []
+        absolute_pos = self.pos1
+        if absolute_pos is None:
+            absolute_pos = self.transcription_start_site
+        if absolute_pos:
+            for minus_box in [
+                (self.minus_10_left, self.minus_10_right, "minus10"),
+                (self.minus_35_left, self.minus_35_right, "minus35"),
+            ]:
+                if minus_box[0] and minus_box[1]:
+                    if self.strand == "reverse":
+                        minus = {
+                            "distance": (minus_box[1] - absolute_pos),
+                            "type": minus_box[2]
+                        }
+                        self._distance_to_gene.append(minus)
+
+                    elif self.strand == "forward":
+                        minus = {
+                            "distance": (absolute_pos - minus_box[0]),
+                            "type": minus_box[2]
+                        }
+                        self._distance_to_gene.append(minus)
+
+                    else:
+                        self._distance_to_gene = []
 
     @property
     def binds_sigma_factor(self):
@@ -71,7 +106,8 @@ class Promoter(Base):
                     sequence = self.pt_connection.get_sequence(
                         initial_position, end_position, "X"
                     )
-                    sequence = self.pt_connection.get_reverse_complement(sequence)
+                    sequence = self.pt_connection.get_reverse_complement(
+                        sequence)
                 else:
                     initial_position = self.pos1 - (self._offset * 0.75)
                     end_position = self.pos1 + (self._offset * 0.25)
@@ -82,7 +118,7 @@ class Promoter(Base):
                 last = int(self._offset * 0.25)
                 sequence = (
                     sequence[:initial].lower()
-                    + sequence[initial : initial + 1]
+                    + sequence[initial: initial + 1]
                     + sequence[-last:].lower()
                 )
 
