@@ -52,33 +52,27 @@ class Promoter(Base):
         return self._distance_to_gene
 
     @distance_to_gene.setter
-    def distance_to_gene(self, distance_to_gene):
-        self._distance_to_gene = []
+    def distance_to_gene(self, distance_to_gene=None):
         absolute_pos = self.pos1
-        if absolute_pos is None:
-            absolute_pos = self.transcription_start_site
-        if absolute_pos:
-            for minus_box in [
-                (self.minus_10_left, self.minus_10_right, "minus10"),
-                (self.minus_35_left, self.minus_35_right, "minus35"),
-            ]:
-                if minus_box[0] and minus_box[1]:
-                    if self.strand == "reverse":
-                        minus = {
-                            "distance": (minus_box[1] - absolute_pos),
-                            "type": minus_box[2]
-                        }
-                        self._distance_to_gene.append(minus)
-
-                    elif self.strand == "forward":
-                        minus = {
-                            "distance": (absolute_pos - minus_box[0]),
-                            "type": minus_box[2]
-                        }
-                        self._distance_to_gene.append(minus)
-
+        if absolute_pos is not None:
+            components = self.pt_connection.get_slot_values(
+                self.id, EC.COMPONENT_OF_SLOT)
+            print(components)
+            if len(components) > 0:
+                for component in components:
+                    component_patents = self.pt_connection.get_frame_all_parents(
+                        component)
+                    if EC.TRANSCRIPTION_UNIT_CLASS in component_patents:
+                        tu_first_gene_pos = self.pt_connection.get_tu_first_gene_start_pos(
+                            component)
+                        self._distance_to_gene = abs(
+                            absolute_pos-tu_first_gene_pos)
                     else:
-                        self._distance_to_gene = []
+                        self._distance_to_gene = None
+            else:
+                self._distance_to_gene = None
+        else:
+            self._distance_to_gene = None
 
     @property
     def binds_sigma_factor(self):

@@ -2,3 +2,4 @@
 *.pyc
 Results/
 .vscode/
+pgc_requests_tmp/
