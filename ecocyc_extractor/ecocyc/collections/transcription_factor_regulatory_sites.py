@@ -51,6 +51,6 @@ class TranscriptionFactorRegulatorySites(object):
             length=site[EC.DNA_FOOTPRINT_SIZE],
             lend=site[EC.LEND],
             rend=site[EC.REND],
-            organism=EC.ORGANISM_ID,
+            organism=EC.ORGANISM_ID
         )
         return site

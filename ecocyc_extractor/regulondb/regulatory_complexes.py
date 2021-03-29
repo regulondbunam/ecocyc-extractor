@@ -7,7 +7,8 @@ def get_regulondb_regulatory_complexes(
         RegulatoryComplexes,
     )
 
-    regulatory_complexes = RegulatoryComplexes(regulatory_complex_ids, include_inactive)
+    regulatory_complexes = RegulatoryComplexes(
+        regulatory_complex_ids, include_inactive)
 
     for regulatory_complex in regulatory_complexes.objects:
         regulatory_complex_object = {

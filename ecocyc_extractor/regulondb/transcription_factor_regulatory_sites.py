@@ -15,6 +15,7 @@ def get_regulondb_transcription_factor_regulatory_sites(site_ids=None, only_prop
             "length": site.length,
             "note": site.comment,
             "regulationType": site.regulation_type,
+            "sequence": site.sequence,
             "organisms_id": site.organism,
             "rightEndPosition": site.right_end_position
         }

@@ -108,7 +108,7 @@ class TranscriptionFactorRegulatorySite(Base):
         :param offset:
         :return:
         """
-        if sequence is None and strand is not None:
+        if sequence is None and strand is None:
             try:
                 # if both positions have identical values then it means that there's an inconsistency
                 # on the site positions' data or pathway tool's functions
