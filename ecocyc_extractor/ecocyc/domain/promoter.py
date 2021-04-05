@@ -57,7 +57,6 @@ class Promoter(Base):
         if absolute_pos is not None:
             components = self.pt_connection.get_slot_values(
                 self.id, EC.COMPONENT_OF_SLOT)
-            print(components)
             if len(components) > 0:
                 for component in components:
                     component_patents = self.pt_connection.get_frame_all_parents(

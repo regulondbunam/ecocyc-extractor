@@ -13,8 +13,10 @@ class TranscriptionFactor(Base):
         self.db_links = kwargs.get("dblinks", None)
         self.abbreviated_name = kwargs.get("abbreviated_name", None)
         self.active_conformations = kwargs.get("active_conformations", None)
+        self.citations = kwargs.get("citations", None)
         self.global_function = None
-        self.inactive_conformations = kwargs.get("inactive_conformations", None)
+        self.inactive_conformations = kwargs.get(
+            "inactive_conformations", None)
         self.name = kwargs.get("name", None)
         self.site_length = kwargs.get("site_length", None)
 
@@ -26,7 +28,8 @@ class TranscriptionFactor(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(utils.get_external_cross_references(db_links))
+            self._db_links.extend(
+                utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 
@@ -106,7 +109,8 @@ class TranscriptionFactor(Base):
                 regulates = self.pt_connection.get_slot_values(
                     conformation["_id"], EC.REGULATES_SLOT
                 )
-            global_function = TranscriptionFactor.get_protein_function(regulates)
+            global_function = TranscriptionFactor.get_protein_function(
+                regulates)
         self._global_function = global_function
 
     def get_products_ids(self):
@@ -120,10 +124,12 @@ class TranscriptionFactor(Base):
         ):
             product_ids.append(self.id)
         else:
-            tf_monomers = TranscriptionFactor.pt_connection.monomers_of_protein(self.id)
+            tf_monomers = TranscriptionFactor.pt_connection.monomers_of_protein(
+                self.id)
             for monomer_id in tf_monomers:
                 parent_classes = (
-                    TranscriptionFactor.pt_connection.get_frame_all_parents(monomer_id)
+                    TranscriptionFactor.pt_connection.get_frame_all_parents(
+                        monomer_id)
                 )
                 if EC.POLYPEPTIDE_CLASS in parent_classes:
                     product_ids.append(monomer_id)
@@ -194,3 +200,37 @@ class TranscriptionFactor(Base):
         else:
             protein_function = None
         return protein_function
+
+    @property
+    def citations(self):
+        return self._citations
+
+    @citations.setter
+    def citations(self, citations):
+        citations = utils.get_citations(citations)
+        # print("OLD_CITATIONS: ", citations)
+        # print("TF_ID: ", self.id)
+        all_conf = (self.get_tf_active_conformations(self.id) +
+                    self.get_tf_inactive_conformations(self.id))
+        # print("conf_Len: ", len(all_conf))
+        for tf_conf in all_conf:
+            # print("CLPX_ID: ", tf_conf)
+            conf_citations = (TranscriptionFactor.pt_connection.get_slot_values(
+                tf_conf, '|CITATIONS|'))
+            new_citations = utils.get_citations(conf_citations)
+            # print("NEW_CITATIONS: ", new_citations)
+            if citations:
+                if new_citations:
+                    citations.extend(new_citations)
+            elif new_citations:
+                citations = new_citations
+        # print("CITATIONS: ", citations)
+        if not citations:
+            citations = None
+        self._citations = citations
+
+
+class TFComplexes(Base):
+
+    def __init__(self, **kwargs):
+        super(TFComplexes, self).__init__(**kwargs)

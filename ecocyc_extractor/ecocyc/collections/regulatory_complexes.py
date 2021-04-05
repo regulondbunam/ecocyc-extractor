@@ -55,7 +55,6 @@ class RegulatoryComplexes(object):
         new_regulatory_complex = dict(
             id=regulatory_complex[EC.ID],
             abbreviated_name=regulatory_complex[EC.ABBREV_NAME],
-            citations=regulatory_complex[EC.CITATIONS],
             comment=regulatory_complex[EC.COMMENT],
             components=regulatory_complex[EC.COMPONENTS],
             dblinks=regulatory_complex[EC.DBLINKS],
