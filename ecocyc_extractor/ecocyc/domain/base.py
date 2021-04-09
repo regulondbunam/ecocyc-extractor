@@ -62,7 +62,8 @@ class Base(object):
 
     @db_links.setter
     def db_links(self, external_cross_references):
-        self._db_links = utils.get_external_cross_references(external_cross_references)
+        self._db_links = utils.get_external_cross_references(
+            external_cross_references)
 
     @property
     def name(self):
@@ -87,7 +88,8 @@ class Base(object):
     def strand(self, strand=None):
         if strand is None:
             try:
-                strand = Base.pt_connection.get_transcription_direction(self.id)
+                strand = Base.pt_connection.get_transcription_direction(
+                    self.id)
             except pythoncyc.PTools.PToolsError:
                 strand = None
         self._strand = self.get_strand(strand)
@@ -130,7 +132,8 @@ class Base(object):
                 sequence = Base.pt_connection.get_sequence(lend, rend, "X")
                 sequence = sequence[:offset].lower() + sequence[offset:]
                 sequence = (
-                    sequence[: len(sequence) - offset] + sequence[-offset:].lower()
+                    sequence[: len(sequence) - offset] +
+                    sequence[-offset:].lower()
                 )
             else:
                 sequence = Base.pt_connection.get_sequence(

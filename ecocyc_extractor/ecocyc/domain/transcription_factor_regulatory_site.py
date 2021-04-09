@@ -4,6 +4,8 @@ from ..utils import utils
 
 
 class TranscriptionFactorRegulatorySite(Base):
+    MINUS_N_POS = 1
+
     def __init__(self, **kwargs):
         super(TranscriptionFactorRegulatorySite, self).__init__(**kwargs)
         self.db_links = kwargs.get("dblinks", None)
@@ -93,6 +95,9 @@ class TranscriptionFactorRegulatorySite(Base):
     def right_end_position(self, rend=None):
         if rend is None:
             rend = self.pt_connection.get_site_right_position_extended(self.id)
+        if rend is not None:
+            rend = rend - TranscriptionFactorRegulatorySite.MINUS_N_POS
+            # Se resta una position para que concida con los datos de RegulonDB
         self._right_end_position = rend
 
     @property
@@ -100,15 +105,14 @@ class TranscriptionFactorRegulatorySite(Base):
         return self._sequence
 
     @sequence.setter
-    def sequence(self, sequence=None, strand=None, offset=10):
+    def sequence(self, sequence=None, strand="forward", offset=10):
         """
-
         :param sequence:
         :param strand:
         :param offset:
         :return:
         """
-        if sequence is None and strand is None:
+        if sequence is None and strand is not None:
             try:
                 # if both positions have identical values then it means that there's an inconsistency
                 # on the site positions' data or pathway tool's functions
