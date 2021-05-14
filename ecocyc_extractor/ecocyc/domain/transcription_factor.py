@@ -221,7 +221,11 @@ class TranscriptionFactor(Base):
             # print("NEW_CITATIONS: ", new_citations)
             if citations:
                 if new_citations:
-                    citations.extend(new_citations)
+                    citations.extend(
+                        citation for citation in new_citations if citation not in citations)
+                    '''for citation in new_citations:
+                        if citation not in citations:
+                            citations.extend(citation)'''
             elif new_citations:
                 citations = new_citations
         # print("CITATIONS: ", citations)
