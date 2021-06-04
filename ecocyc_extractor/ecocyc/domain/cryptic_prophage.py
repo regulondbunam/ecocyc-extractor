@@ -16,8 +16,7 @@ class CrypticProphage(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(
-                utils.get_external_cross_references(db_links))
+            self._db_links.extend(utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 

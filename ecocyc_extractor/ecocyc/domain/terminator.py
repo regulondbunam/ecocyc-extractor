@@ -8,9 +8,7 @@ class Terminator(Base):
         super(Terminator, self).__init__(**kwargs)
         self.db_links = kwargs.get("dblinks", None)
         self.class_ = kwargs.get("class", None)
-        self.transcription_termination_site = kwargs.get(
-            "transcription_termination_site", None
-        )
+        self.transcription_termination_site = kwargs.get("transcription_termination_site", None)
 
     @property
     def db_links(self):
@@ -68,11 +66,7 @@ class Terminator(Base):
                     "rightEndPosition": self.right_end_position,
                 }
                 # This will drop any key whose value is None
-                transcription_termination_site = {
-                    k: v
-                    for k, v in transcription_termination_site.items()
-                    if v is not None
-                }
+                transcription_termination_site = {k: v for k, v in transcription_termination_site.items() if v is not None}
             except TypeError:
                 transcription_termination_site = None
 

@@ -18,6 +18,5 @@ def get_regulondb_transcription_units(transcription_unit_ids=None, only_properti
             "synonyms": transcription_unit.synonyms
         }
         if only_properties_with_values is True:
-            transcription_unit_object = transcription_unit.get_only_properties_with_values(
-                transcription_unit_object)
+            transcription_unit_object = transcription_unit.get_only_properties_with_values(transcription_unit_object)
         yield transcription_unit_object

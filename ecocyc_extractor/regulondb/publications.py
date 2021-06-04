@@ -17,7 +17,5 @@ def get_regulondb_publications(registered_ids=False, only_properties_with_values
             "year": publication.year,
         }
         if only_properties_with_values is True:
-            publication_object = publication.get_only_properties_with_values(
-                publication_object
-            )
+            publication_object = publication.get_only_properties_with_values(publication_object)
         yield publication_object

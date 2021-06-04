@@ -26,8 +26,7 @@ class TranscriptionFactorRegulatorySite(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(
-                utils.get_external_cross_references(db_links))
+            self._db_links.extend(utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 
@@ -119,9 +118,7 @@ class TranscriptionFactorRegulatorySite(Base):
                 if self.left_end_position == self.right_end_position:
                     sequence = None
                 else:
-                    sequence = Base.get_sequence(
-                        self.left_end_position, self.right_end_position, strand, offset
-                    )
+                    sequence = Base.get_sequence(self.left_end_position, self.right_end_position, strand, offset)
             except TypeError:
                 self._sequence = None
         self._sequence = sequence
@@ -132,10 +129,8 @@ class TranscriptionFactorRegulatorySite(Base):
 
     @regulation_type.setter
     def regulation_type(self, regulation_type):
-        regulatory_interaction_id = self.pt_connection.get_slot_value(
-            self.id, EC.INVOLVED_IN_REGULATION)
-        all_parents = self.pt_connection.get_frame_all_parents(
-            regulatory_interaction_id)
+        regulatory_interaction_id = self.pt_connection.get_slot_value(self.id, EC.INVOLVED_IN_REGULATION)
+        all_parents = self.pt_connection.get_frame_all_parents(regulatory_interaction_id)
         if EC.RNA_MEDIATED_TRANSLATION_REGULATION in all_parents:
             self._regulation_level = "sRNA-Regulation"
         elif EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION in all_parents:

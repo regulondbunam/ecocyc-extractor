@@ -61,9 +61,7 @@ class Term(Base):
     @ontology_id.setter
     def ontology_id(self, ontology_id=None):
         if ontology_id is None:
-            is_go_term_child = self.pt_connection.child_is_from_parent(
-                self.id, EC.GO_TERMS_CLASS
-            )
+            is_go_term_child = self.pt_connection.child_is_from_parent(self.id, EC.GO_TERMS_CLASS)
             if is_go_term_child:
                 ontology_id = EC.GO_TERMS_CLASS
             else:

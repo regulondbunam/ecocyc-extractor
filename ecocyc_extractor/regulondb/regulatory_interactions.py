@@ -1,7 +1,6 @@
 def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_properties_with_values=False):
     from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
-    regulatory_interactions = RegulatoryInteractions(
-        regulatory_interaction_ids)
+    regulatory_interactions = RegulatoryInteractions(regulatory_interaction_ids)
 
     for regulatory_interaction in regulatory_interactions.objects:
         regulatory_interaction_object = {
@@ -21,6 +20,5 @@ def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_
             "regulatorySites_id": regulatory_interaction.binding_site
         }
         if only_properties_with_values is True:
-            regulatory_interaction_object = regulatory_interaction.get_only_properties_with_values(
-                regulatory_interaction_object)
+            regulatory_interaction_object = regulatory_interaction.get_only_properties_with_values(regulatory_interaction_object)
         yield regulatory_interaction_object

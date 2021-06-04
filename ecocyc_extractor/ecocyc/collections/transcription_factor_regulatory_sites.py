@@ -20,8 +20,7 @@ class TranscriptionFactorRegulatorySites(object):
                 transcription_factors_ris=False)
 
             for ri_id in ri_ids:
-                ri_site_ids = TranscriptionFactorRegulatorySite.pt_connection.get_slot_values(
-                    ri_id, EC.ASSOCIATED_BINDING_SITE_SLOT)
+                ri_site_ids = TranscriptionFactorRegulatorySite.pt_connection.get_slot_values(ri_id, EC.ASSOCIATED_BINDING_SITE_SLOT)
                 site_ids.extend(ri_site_ids)
             site_ids = utils.get_unique_elements(site_ids)
         site_ids = utils.get_unique_elements(site_ids)
@@ -29,8 +28,7 @@ class TranscriptionFactorRegulatorySites(object):
 
     @property
     def objects(self):
-        site_objects = TranscriptionFactorRegulatorySite.pt_connection.get_frame_objects(
-            self.ids)
+        site_objects = TranscriptionFactorRegulatorySite.pt_connection.get_frame_objects(self.ids)
         for site in site_objects:
             site = TranscriptionFactorRegulatorySites.set_site(site)
             logging.info('Working on site: {}'.format(site["id"]))

@@ -221,8 +221,8 @@ def get_arguments():
     parser.add_argument(
         "-r",
         "--report",
-        # TODO: write correct description
-        help="Path where the json files of the process will be stored.",
+        # TODO: Implement Report Generation
+        help="Path where the report files of the process will be stored.",
         metavar="./Results/log",
         default="./Results/log",
     )

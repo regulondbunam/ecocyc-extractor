@@ -15,21 +15,17 @@ class Segments(object):
     @staticmethod
     def get_ids(ids=None):
         if ids is None:
-            dna_segments_ids = Segments.pt_connection.get_class_all_instances(
-                EC.DNA_SEGMENTS)
-            mrna_segments_ids = Segments.pt_connection.get_class_all_instances(
-                EC.MRNA_SEGMENTS)
+            dna_segments_ids = Segments.pt_connection.get_class_all_instances(EC.DNA_SEGMENTS)
+            mrna_segments_ids = Segments.pt_connection.get_class_all_instances(EC.MRNA_SEGMENTS)
             segments_ids = dna_segments_ids + mrna_segments_ids
         else:
             segments_ids = ids
-        segments_ids = utils.get_unique_elements(
-            segments_ids)
+        segments_ids = utils.get_unique_elements(segments_ids)
         return segments_ids
 
     @property
     def objects(self):
-        segments_objects = Segments.pt_connection.get_frame_objects(
-            self.ids)
+        segments_objects = Segments.pt_connection.get_frame_objects(self.ids)
         for raw_segment in segments_objects:
             segment = Segments.set_segment(raw_segment)
             logging.info('Working on promoter: {}'.format(segment["id"]))

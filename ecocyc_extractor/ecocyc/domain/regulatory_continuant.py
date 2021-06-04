@@ -1,9 +1,7 @@
 from .base import Base
 from ..utils import constants as EC
 from ..utils import utils
-from ecocyc_extractor.ecocyc.collections.regulatory_interactions import (
-    RegulatoryInteractions,
-)
+from ecocyc_extractor.ecocyc.collections.regulatory_interactions import (RegulatoryInteractions)
 
 
 class RegulatoryContinuant(Base):

@@ -26,8 +26,7 @@ class Gene(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(
-                utils.get_external_cross_references(db_links))
+            self._db_links.extend(utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 
@@ -48,8 +47,7 @@ class Gene(Base):
     def fragments(self):
         fragments = []
         if self._fragments is not None:
-            fragment_objects = self.pt_connection.get_frame_objects(
-                self._fragments)
+            fragment_objects = self.pt_connection.get_frame_objects(self._fragments)
             for fragment_object in fragment_objects:
                 new_fragment_object = {
                     'id': fragment_object[EC.ID],
@@ -73,10 +71,8 @@ class Gene(Base):
         self._gc_content = None
         if self._sequence is not None and self._gc_content is None:
             format_value = "%.2f"
-            self._gc_content = self.sequence.count(
-                'C') + self.sequence.count('G')
-            self._gc_content = (
-                (float(self._gc_content) * 100) / len(self.sequence))
+            self._gc_content = self.sequence.count('C') + self.sequence.count('G')
+            self._gc_content = (float(self._gc_content) * 100) / len(self.sequence)
             # self._gc_content = format_value % self._gc_content
         return self._gc_content
 
@@ -94,16 +90,12 @@ class Gene(Base):
     def products(self):
         products = []
         if self._products is not None:
-            product_classes = [EC.POLYPEPTIDE_CLASS,
-                               EC.PSEUDO_PRODUCT_CLASS, EC.RNAS]
+            product_classes = [EC.POLYPEPTIDE_CLASS, EC.PSEUDO_PRODUCT_CLASS, EC.RNAS]
             for product_id in self._products:
-                object_classes = self.pt_connection.get_frame_all_parents(
-                    product_id)
-                unmodified_form = self.pt_connection.get_slot_value(
-                    product_id, EC.SLOT_UNMODIFIED_FORM_CLASS)
+                object_classes = self.pt_connection.get_frame_all_parents(product_id)
+                unmodified_form = self.pt_connection.get_slot_value(product_id, EC.SLOT_UNMODIFIED_FORM_CLASS)
                 # Validating if the protein is from the previous given classes and if it is not a modified form
-                if any(product_class in product_classes for product_class in
-                       object_classes) and unmodified_form is None:
+                if any(product_class in product_classes for product_class in object_classes) and unmodified_form is None:
                     products.append(product_id)
         if not products:
             products = None
@@ -141,11 +133,9 @@ class Gene(Base):
     def terms(self, gene_physiological_roles=None):
         terms = []
         if not gene_physiological_roles:
-            gene_physiological_roles = self.pt_connection.physiological_roles_of_gene(
-                self.id)
+            gene_physiological_roles = self.pt_connection.physiological_roles_of_gene(self.id)
         for role_id in gene_physiological_roles:
-            role_parent_classes = self.pt_connection.get_frame_all_parents(
-                role_id)
+            role_parent_classes = self.pt_connection.get_frame_all_parents(role_id)
             role_name = self.pt_connection.get_name_by_id(role_id)
 
             term_object = {}
@@ -154,21 +144,17 @@ class Gene(Base):
 
             labels = []
             for parent_class_id in role_parent_classes[7:]:
-                name_parent_class = self.pt_connection.get_name_by_id(
-                    parent_class_id)
+                name_parent_class = self.pt_connection.get_name_by_id(parent_class_id)
                 term_parent_object = {
                     "terms_id": parent_class_id,
                     "terms_name": name_parent_class
                 }
-                term_object.setdefault('parents', []).append(
-                    term_parent_object.copy())
+                term_object.setdefault('parents', []).append(term_parent_object.copy())
 
-                parent_label = " - ".join([parent_class_id.replace(
-                    "|", "").replace("BC-", ""), name_parent_class])
+                parent_label = " - ".join([parent_class_id.replace("|", "").replace("BC-", ""), name_parent_class])
                 labels.append(parent_label)
 
-            term_label = " - ".join([role_id.replace("|",
-                                                     "").replace("BC-", ""), role_name])
+            term_label = " - ".join([role_id.replace("|", "").replace("BC-", ""), role_name])
             labels.append(term_label)
             labels = " --> ".join(labels)
             term_object.setdefault('termLabel', labels)

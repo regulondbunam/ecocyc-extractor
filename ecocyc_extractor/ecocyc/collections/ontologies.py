@@ -5,9 +5,7 @@ from ecocyc_extractor.ecocyc.utils import constants as EC
 from ecocyc_extractor.ecocyc.domain.ontology import Ontology
 
 
-class Ontologies(
-    object,
-):
+class Ontologies(object, ):
 
     pt_connection = Connection()
 

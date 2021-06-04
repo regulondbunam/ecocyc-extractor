@@ -15,9 +15,7 @@ class Promoters(object):
     @staticmethod
     def get_ids(ids=None):
         if ids is None:
-            promoter_ids = Promoters.pt_connection.get_class_all_instances(
-                EC.PROMOTER_CLASS
-            )
+            promoter_ids = Promoters.pt_connection.get_class_all_instances(EC.PROMOTER_CLASS)
         else:
             promoter_ids = ids
         promoter_ids = utils.get_unique_elements(promoter_ids)

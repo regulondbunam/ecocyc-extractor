@@ -107,13 +107,9 @@ class Motif(Base):
             try:
                 if self.left_end_position and self.right_end_position:
                     if self.left_end_position == self.right_end_position:
-                        self._sequence = product.sequence[
-                            self.left_end_position - 1 : self.right_end_position
-                        ]
+                        self._sequence = product.sequence[self.left_end_position - 1 : self.right_end_position]
                     else:
-                        self._sequence = product.sequence[
-                            self.left_end_position : self.right_end_position
-                        ]
+                        self._sequence = product.sequence[self.left_end_position : self.right_end_position]
                 else:
                     if self.residue_number:
                         self._sequence = product.sequence[self.residue_number[0] - 1]

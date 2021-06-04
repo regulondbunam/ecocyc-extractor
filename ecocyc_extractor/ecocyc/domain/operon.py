@@ -75,16 +75,10 @@ class Operon(object):
     @regulation_positions.setter
     def regulation_positions(self, regulation_positions=None):
         if regulation_positions is None:
-            terminator_ids = self.get_transcription_units_terminators(
-                self.transcription_unit_ids
-            )
-            promoter_ids = self.get_transcription_units_promoters(
-                self.transcription_unit_ids
-            )
+            terminator_ids = self.get_transcription_units_terminators(self.transcription_unit_ids)
+            promoter_ids = self.get_transcription_units_promoters(self.transcription_unit_ids)
             site_ids = self.get_transcription_units_sites(self.transcription_unit_ids)
-            regulation_positions = self.get_regulation_positions(
-                self.genes, promoter_ids, terminator_ids, site_ids, self.strand
-            )
+            regulation_positions = self.get_regulation_positions(self.genes, promoter_ids, terminator_ids, site_ids, self.strand)
         self._regulation_positions = regulation_positions
 
     @property
@@ -94,9 +88,7 @@ class Operon(object):
     @strand.setter
     def strand(self, strand=None):
         if strand is None:
-            strand = self.pt_connection.get_transcription_direction(
-                self.transcription_unit_ids[0]
-            )
+            strand = self.pt_connection.get_transcription_direction(self.transcription_unit_ids[0])
             strand = Base.get_strand(strand)
         self._strand = strand
 
@@ -113,9 +105,7 @@ class Operon(object):
     def get_transcription_units_terminators(tu_ids):
         terminator_ids = []
         for tu_id in tu_ids:
-            tu_terminator_ids = Operon.pt_connection.transcription_unit_terminators(
-                tu_id
-            )
+            tu_terminator_ids = Operon.pt_connection.transcription_unit_terminators(tu_id)
             terminator_ids.extend(tu_terminator_ids)
         terminator_ids = utils.get_unique_elements(terminator_ids)
         return terminator_ids
@@ -145,31 +135,18 @@ class Operon(object):
         for gene_id in gene_ids:
             gene_object = {
                 "genes_id": gene_id,
-                "leftEndPosition": Operon.pt_connection.get_slot_value(
-                    gene_id, EC.LEND_SLOT
-                ),
-                "rightEndPosition": Operon.pt_connection.get_slot_value(
-                    gene_id, EC.REND_SLOT
-                ),
+                "leftEndPosition": Operon.pt_connection.get_slot_value(gene_id, EC.LEND_SLOT),
+                "rightEndPosition": Operon.pt_connection.get_slot_value(gene_id, EC.REND_SLOT)
             }
-            if (
-                gene_object["leftEndPosition"] is None
-                and gene_object["rightEndPosition"] is None
-            ):
-                gene_fragments = Operon.pt_connection.get_slot_values(
-                    gene_id, EC.FRAGMENTS_SLOT
-                )
+            if gene_object["leftEndPosition"] is None and gene_object["rightEndPosition"] is None:
+                gene_fragments = Operon.pt_connection.get_slot_values(gene_id, EC.FRAGMENTS_SLOT)
                 if gene_fragments:
                     lend_positions = []
                     rend_positions = []
                     for gene_fragment_id in gene_fragments:
-                        gene_lend_position = Operon.pt_connection.get_slot_value(
-                            gene_fragment_id, EC.LEND_SLOT
-                        )
+                        gene_lend_position = Operon.pt_connection.get_slot_value(gene_fragment_id, EC.LEND_SLOT)
                         lend_positions.append(gene_lend_position)
-                        gene_rend_position = Operon.pt_connection.get_slot_value(
-                            gene_fragment_id, EC.REND_SLOT
-                        )
+                        gene_rend_position = Operon.pt_connection.get_slot_value(gene_fragment_id, EC.REND_SLOT)
                         rend_positions.append(gene_rend_position)
                     gene_object["leftEndPosition"] = min(lend_positions)
                     gene_object["rightEndPosition"] = max(rend_positions)
@@ -180,16 +157,10 @@ class Operon(object):
 
     @staticmethod
     def get_regulation_positions(genes, promoter_ids, terminator_ids, site_ids, strand):
-        genes_min_left_position, genes_max_right_position = Operon.get_genes_positions(
-            genes
-        )
-        terminators_left_positions, terminators_right_positions = Operon.get_positions(
-            terminator_ids
-        )
+        genes_min_left_position, genes_max_right_position = Operon.get_genes_positions(genes)
+        terminators_left_positions, terminators_right_positions = Operon.get_positions(terminator_ids)
         promoters_pos_1s = Operon.get_promoters_pos1_positions(promoter_ids)
-        sites_left_positions, sites_right_positions = Operon.get_site_positions(
-            site_ids
-        )
+        sites_left_positions, sites_right_positions = Operon.get_site_positions(site_ids)
 
         left_end_positions = [genes_min_left_position]
         right_end_positions = [genes_max_right_position]
@@ -245,9 +216,7 @@ class Operon(object):
     def get_promoters_pos1_positions(promoter_ids):
         promoters_pos1s = []
         for promoter_id in promoter_ids:
-            promoter_pos1 = Operon.pt_connection.get_slot_value(
-                promoter_id, EC.ABSOLUTE_PLUS_1_POS_SLOT
-            )
+            promoter_pos1 = Operon.pt_connection.get_slot_value(promoter_id, EC.ABSOLUTE_PLUS_1_POS_SLOT)
             if promoter_pos1:
                 promoters_pos1s.append(promoter_pos1)
         return promoters_pos1s

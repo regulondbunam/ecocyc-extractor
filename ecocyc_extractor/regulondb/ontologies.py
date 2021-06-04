@@ -1,6 +1,4 @@
-def get_regulondb_ontologies(
-    only_properties_with_values=False, ontology_name="multifun"
-):
+def get_regulondb_ontologies(only_properties_with_values=False, ontology_name="multifun"):
     from ecocyc_extractor.ecocyc.collections.ontologies import Ontologies
 
     ontologies = Ontologies(ontology_name)

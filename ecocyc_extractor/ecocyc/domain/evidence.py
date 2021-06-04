@@ -43,17 +43,7 @@ class Evidence(Base):
     def code(self, name=None):
         evidence_code_to_return = None
         if name is not None:
-            tokens_to_exclude = [
-                "of",
-                "in",
-                "by",
-                "on",
-                "from",
-                "to",
-                "is",
-                "a",
-                "that",
-            ]
+            tokens_to_exclude = ["of", "in", "by", "on", "from", "to", "is", "a", "that"]
             # Replacing "-" with an empty space from the name, Since there are evidences that may seem
             # with a repeated
             # i.e: "CHIP-chip evidence" AND "CHIP-exo evidence", would end up with CE and CE as evidence code

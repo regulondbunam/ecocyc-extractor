@@ -96,24 +96,15 @@ class Promoter(Base):
                 if self.strand.lower() == "reverse":
                     initial_position = self.pos1 - (self._offset * 0.25)
                     end_position = self.pos1 + (self._offset * 0.75)
-                    sequence = self.pt_connection.get_sequence(
-                        initial_position, end_position, "X"
-                    )
-                    sequence = self.pt_connection.get_reverse_complement(
-                        sequence)
+                    sequence = self.pt_connection.get_sequence(initial_position, end_position, "X")
+                    sequence = self.pt_connection.get_reverse_complement(sequence)
                 else:
                     initial_position = self.pos1 - (self._offset * 0.75)
                     end_position = self.pos1 + (self._offset * 0.25)
-                    sequence = self.pt_connection.get_sequence(
-                        initial_position, end_position, "X"
-                    )
+                    sequence = self.pt_connection.get_sequence(initial_position, end_position, "X")
                 initial = int(self._offset * 0.75)
                 last = int(self._offset * 0.25)
-                sequence = (
-                    sequence[:initial].lower()
-                    + sequence[initial: initial + 1]
-                    + sequence[-last:].lower()
-                )
+                sequence = (sequence[:initial].lower() + sequence[initial: initial + 1] + sequence[-last:].lower())
 
                 self._sequence = sequence
             else:
@@ -137,9 +128,7 @@ class Promoter(Base):
                     "rightEndPosition": pos1,
                     "range": range_,
                 }
-                transcription_start_site = {
-                    k: v for k, v in transcription_start_site.items() if v is not None
-                }
+                transcription_start_site = {k: v for k, v in transcription_start_site.items() if v is not None}
             except TypeError:
                 transcription_start_site = None
             self._transcription_start_site = transcription_start_site
@@ -183,16 +172,12 @@ class Promoter(Base):
     def binding_sigma_factor(self, binding_sigma_factor=None):
         try:
             sigma_factor_id = binding_sigma_factor[0]
-            citations = Promoter.citations_binding_sigma_factor(
-                self.id, sigma_factor_id
-            )
+            citations = Promoter.citations_binding_sigma_factor(self.id, sigma_factor_id)
             binding_sigma_factor = {
                 "sigmaFactors_id": sigma_factor_id,
                 "citations": citations,
             }
-            binding_sigma_factor = self.get_only_properties_with_values(
-                binding_sigma_factor
-            )
+            binding_sigma_factor = self.get_only_properties_with_values(binding_sigma_factor)
             if binding_sigma_factor:
                 self._binding_sigma_factor = binding_sigma_factor
             else:
@@ -202,34 +187,22 @@ class Promoter(Base):
 
     @staticmethod
     def citations_binding_sigma_factor(promoter_feature_id, sigma_factor_id):
-        citations = Promoter.pt_connection.get_value_annot_list(
-            promoter_feature_id,
-            EC.BINDS_SIGMA_FACTOR_SLOT,
-            sigma_factor_id,
-            EC.CITATIONS_SLOT,
-        )
+        citations = Promoter.pt_connection.get_value_annot_list(promoter_feature_id, EC.BINDS_SIGMA_FACTOR_SLOT, sigma_factor_id, EC.CITATIONS_SLOT)
         citations = utils.get_citations(citations)
         return citations
 
     def get_promoter_boxes(self, minus_signals=None):
         if minus_signals is None:
             minus_signals = []
-            for minus_box in [
-                (self.minus_10_left, self.minus_10_right, "minus10"),
-                (self.minus_35_left, self.minus_35_right, "minus35"),
-            ]:
+            for minus_box in [(self.minus_10_left, self.minus_10_right, "minus10"), (self.minus_35_left, self.minus_35_right, "minus35")]: 
                 if minus_box[0] or minus_box[1]:
                     minus_signal = dict(
                         leftEndPosition=minus_box[0],
                         rightEndPosition=minus_box[1],
-                        sequence=Base.get_sequence(
-                            minus_box[0], minus_box[1], self.strand
-                        ),
+                        sequence=Base.get_sequence(minus_box[0], minus_box[1], self.strand), 
                         type=minus_box[2],
                     )
-                    minus_signal = {
-                        k: v for k, v in minus_signal.items() if v is not None
-                    }
+                    minus_signal = {k: v for k, v in minus_signal.items() if v is not None}
                     if minus_signal not in minus_signals:
                         minus_signals.append(minus_signal.copy())
             if not minus_signals:

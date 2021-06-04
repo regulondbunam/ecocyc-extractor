@@ -1,8 +1,7 @@
 def get_regulondb_transcription_factor_regulatory_sites(site_ids=None, only_properties_with_values=False):
     from ecocyc_extractor.ecocyc.collections.transcription_factor_regulatory_sites import TranscriptionFactorRegulatorySites
 
-    TranscriptionFactorRegulatorySites = TranscriptionFactorRegulatorySites(
-        site_ids)
+    TranscriptionFactorRegulatorySites = TranscriptionFactorRegulatorySites(site_ids)
 
     for site in TranscriptionFactorRegulatorySites.objects:
         site_object = {

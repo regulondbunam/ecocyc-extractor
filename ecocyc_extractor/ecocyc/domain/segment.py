@@ -31,9 +31,7 @@ class Segment(Base):
     def regulated_entity(self, regulated_entity=None):
         if regulated_entity is not None:
             regulated_type = None
-            regulated_entity_class = self.pt_connection.get_frame_direct_parents(
-                regulated_entity
-            )
+            regulated_entity_class = self.pt_connection.get_frame_direct_parents(regulated_entity)
             if EC.TRANSCRIPTION_UNIT_CLASS in regulated_entity_class:
                 regulated_type = "transcriptionUnit"
             elif EC.PROMOTER_CLASS in regulated_entity_class:
@@ -44,9 +42,7 @@ class Segment(Base):
                 "name": self.pt_connection.get_name_by_id(regulated_entity),
                 "type": regulated_type,
             }
-            self._regulated_entity = self.get_only_properties_with_values(
-                self._regulated_entity
-            )
+            self._regulated_entity = self.get_only_properties_with_values(self._regulated_entity)
         else:
             self._regulated_entity = None
 
@@ -57,9 +53,7 @@ class Segment(Base):
     @center_position.setter
     def center_position(self, center_position=None):
         if self.binding_site and self.regulated_entity:
-            center_position = self.pt_connection.get_binding_site_promoter_offset(
-                self.binding_site, self.regulated_entity["_id"]
-            )
+            center_position = self.pt_connection.get_binding_site_promoter_offset(self.binding_site, self.regulated_entity["_id"])
         self._center_position = center_position
 
     @property
@@ -70,8 +64,7 @@ class Segment(Base):
     def db_links(self, db_links):
         self._db_links = []
         try:
-            self._db_links.extend(
-                utils.get_external_cross_references(db_links))
+            self._db_links.extend(utils.get_external_cross_references(db_links))
         except TypeError:
             pass
 

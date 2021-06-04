@@ -67,9 +67,7 @@ class RegulatoryComplex(Base):
     @is_transcription_factor.setter
     def is_transcription_factor(self, is_transcription_factor=None):
         if is_transcription_factor is None:
-            is_transcription_factor = (
-                True if self.id in RegulatoryComplex.transcription_factor_ids else False
-            )
+            is_transcription_factor = (True if self.id in RegulatoryComplex.transcription_factor_ids else False)
         self._is_transcription_factor = is_transcription_factor
 
     @property
@@ -80,14 +78,10 @@ class RegulatoryComplex(Base):
     def products(self, products=None):
         if products is None:
             if self._components is not None:
-                products, compounds = RegulatoryComplex.get_components(
-                    self.id, self._components
-                )
+                products, compounds = RegulatoryComplex.get_components(self.id, self._components)
                 self.compounds = list(compounds)
             elif self._components is None and self._unmodified_form is not None:
-                products, compounds = self.get_unmodified_form_products(
-                    self._unmodified_form
-                )
+                products, compounds = self.get_unmodified_form_products(self._unmodified_form)
                 self.compounds = list(compounds)
         self._products = products
 
@@ -111,55 +105,25 @@ class RegulatoryComplex(Base):
         if unmodified_form_id in RegulatoryComplex.product_ids:
             products = [{"products_id": unmodified_form_id}]
         else:
-            component_ids = RegulatoryComplex.pt_connection.get_slot_values(
-                unmodified_form_id, EC.SLOT_COMPONENTS_CLASS
-            )
+            component_ids = RegulatoryComplex.pt_connection.get_slot_values(unmodified_form_id, EC.SLOT_COMPONENTS_CLASS)
             for component_id in component_ids:
                 if component_id in RegulatoryComplex.product_ids:
-                    coefficient = RegulatoryComplex.pt_connection.get_value_annot(
-                        unmodified_form_id,
-                        EC.SLOT_COMPONENTS_CLASS,
-                        component_id,
-                        EC.SLOT_COEFFICIENT_CLASS,
-                    )
+                    coefficient = RegulatoryComplex.pt_connection.get_value_annot(unmodified_form_id, EC.SLOT_COMPONENTS_CLASS, component_id, EC.SLOT_COEFFICIENT_CLASS)
                     product_object = {
                         "products_id": component_id,
                         "coefficient": coefficient,
                     }
-                    product_object = RegulatoryComplex.get_only_properties_with_values(
-                        product_object
-                    )
+                    product_object = RegulatoryComplex.get_only_properties_with_values(product_object)
                     if product_object not in products:
                         products.append(product_object.copy())
                 else:
-                    coefficient = RegulatoryComplex.pt_connection.get_value_annot(
-                        unmodified_form_id,
-                        EC.SLOT_COMPONENTS_CLASS,
-                        component_id,
-                        EC.SLOT_COEFFICIENT_CLASS,
-                    )
-                    sub_components = RegulatoryComplex.pt_connection.get_slot_values(
-                        component_id, EC.SLOT_COMPONENTS_CLASS
-                    )
+                    coefficient = RegulatoryComplex.pt_connection.get_value_annot(unmodified_form_id, EC.SLOT_COMPONENTS_CLASS, component_id, EC.SLOT_COEFFICIENT_CLASS)
+                    sub_components = RegulatoryComplex.pt_connection.get_slot_values(component_id, EC.SLOT_COMPONENTS_CLASS)
                     for sub_component in sub_components:
-                        if (
-                            sub_component not in RegulatoryComplex.product_ids
-                            and sub_component not in RegulatoryComplex.compound_ids
-                        ):
-                            raise ValueError(
-                                "Could not find a product or compound id for the object {}".format(
-                                    sub_component
-                                )
-                            )
+                        if sub_component not in RegulatoryComplex.product_ids and sub_component not in RegulatoryComplex.compound_ids:
+                            raise ValueError("Could not find a product or compound id for the object {}".format(sub_component))
                         elif sub_component in RegulatoryComplex.product_ids:
-                            sub_coefficient = (
-                                RegulatoryComplex.pt_connection.get_value_annot(
-                                    component_id,
-                                    EC.SLOT_COMPONENTS_CLASS,
-                                    sub_component,
-                                    EC.SLOT_COEFFICIENT_CLASS,
-                                )
-                            )
+                            sub_coefficient = (RegulatoryComplex.pt_connection.get_value_annot(component_id, EC.SLOT_COMPONENTS_CLASS, sub_component, EC.SLOT_COEFFICIENT_CLASS))
                             if coefficient is not None and sub_coefficient is not None:
                                 coefficient *= sub_coefficient
                             elif coefficient is None and sub_coefficient is not None:
@@ -168,14 +132,9 @@ class RegulatoryComplex(Base):
                                 "product_id": sub_component,
                                 "coefficient": coefficient,
                             }
-                            product_object = {
-                                k: v for k, v in product_object.items() if v is not None
-                            }
+                            product_object = {k: v for k, v in product_object.items() if v is not None}
                             products.append(product_object.copy())
-                        elif (
-                            sub_component in RegulatoryComplex.compound_ids
-                            and sub_component not in compounds
-                        ):
+                        elif sub_component in RegulatoryComplex.compound_ids and sub_component not in compounds:
                             compounds.append(sub_component)
         return products, compounds
 
@@ -184,107 +143,45 @@ class RegulatoryComplex(Base):
         products = []
         compounds = []
         for component in components:
-            if (
-                component not in RegulatoryComplex.product_ids
-                and component not in RegulatoryComplex.compound_ids
-            ):
-                unmodified_form = RegulatoryComplex.pt_connection.get_slot_value(
-                    component, EC.SLOT_UNMODIFIED_FORM_CLASS
-                )
+            if component not in RegulatoryComplex.product_ids and component not in RegulatoryComplex.compound_ids:
+                unmodified_form = RegulatoryComplex.pt_connection.get_slot_value(component, EC.SLOT_UNMODIFIED_FORM_CLASS)
                 if unmodified_form in RegulatoryComplex.product_ids:
                     product_object = {"products_id": unmodified_form}
                     products.append(product_object.copy())
                 else:
-                    coefficient = RegulatoryComplex.pt_connection.get_value_annot(
-                        protein_id,
-                        EC.SLOT_COMPONENTS_CLASS,
-                        component,
-                        EC.SLOT_COEFFICIENT_CLASS,
-                    )
-                    sub_components = RegulatoryComplex.pt_connection.get_slot_values(
-                        component, EC.SLOT_COMPONENTS_CLASS
-                    )
+                    coefficient = RegulatoryComplex.pt_connection.get_value_annot(protein_id, EC.SLOT_COMPONENTS_CLASS, component, EC.SLOT_COEFFICIENT_CLASS)
+                    sub_components = RegulatoryComplex.pt_connection.get_slot_values(component, EC.SLOT_COMPONENTS_CLASS)
                     for sub_component in sub_components:
-                        sub_coefficient = (
-                            RegulatoryComplex.pt_connection.get_value_annot(
-                                component,
-                                EC.SLOT_COMPONENTS_CLASS,
-                                sub_component,
-                                EC.SLOT_COEFFICIENT_CLASS,
-                            )
-                        )
-                        if (
-                            sub_component not in RegulatoryComplex.product_ids
-                            and sub_component not in RegulatoryComplex.compound_ids
-                        ):
-                            unmodified_form_sub_component = (
-                                RegulatoryComplex.pt_connection.get_slot_value(
-                                    sub_component, EC.SLOT_UNMODIFIED_FORM_CLASS
-                                )
-                            )
-                            if (
-                                unmodified_form_sub_component
-                                in RegulatoryComplex.product_ids
-                            ):
+                        sub_coefficient = (RegulatoryComplex.pt_connection.get_value_annot(component, EC.SLOT_COMPONENTS_CLASS, sub_component, EC.SLOT_COEFFICIENT_CLASS))
+                        if sub_component not in RegulatoryComplex.product_ids and sub_component not in RegulatoryComplex.compound_ids:
+                            unmodified_form_sub_component = (RegulatoryComplex.pt_connection.get_slot_value(sub_component, EC.SLOT_UNMODIFIED_FORM_CLASS))
+                            if unmodified_form_sub_component in RegulatoryComplex.product_ids:
                                 product_object = {
                                     "products_id": unmodified_form_sub_component,
                                     "coefficient": coefficient,
                                 }
-                                product_object = {
-                                    k: v
-                                    for k, v in product_object.items()
-                                    if v is not None
-                                }
+                                product_object = {k: v for k, v in product_object.items() if v is not None}
                                 products.append(product_object.copy())
                             else:
-                                sub_sub_components = (
-                                    RegulatoryComplex.pt_connection.get_slot_values(
-                                        sub_component, EC.SLOT_COMPONENTS_CLASS
-                                    )
+                                sub_sub_components = ( RegulatoryComplex.pt_connection.get_slot_values(sub_component, EC.SLOT_COMPONENTS_CLASS)
                                 )
                                 for sub_sub_component in sub_sub_components:
-                                    sub_sub_coefficient = (
-                                        RegulatoryComplex.pt_connection.get_value_annot(
-                                            sub_component,
-                                            EC.SLOT_COMPONENTS_CLASS,
-                                            sub_sub_component,
-                                            EC.SLOT_COEFFICIENT_CLASS,
-                                        )
-                                    )
+                                    sub_sub_coefficient = (RegulatoryComplex.pt_connection.get_value_annot(sub_component, EC.SLOT_COMPONENTS_CLASS, sub_sub_component, EC.SLOT_COEFFICIENT_CLASS))
                                     coefficient_1 = coefficient if coefficient else 1
-                                    sub_coefficient_1 = (
-                                        sub_coefficient if sub_coefficient else 1
-                                    )
+                                    sub_coefficient_1 = (sub_coefficient if sub_coefficient else 1)
                                     if sub_sub_coefficient:
-                                        sub_sub_coefficient *= (
-                                            coefficient_1 * sub_coefficient_1
-                                        )
-                                    if (
-                                        sub_sub_component
-                                        in RegulatoryComplex.product_ids
-                                    ):
+                                        sub_sub_coefficient *= (coefficient_1 * sub_coefficient_1)
+                                    if sub_sub_component in RegulatoryComplex.product_ids:
                                         product_object = {
                                             "products_id": sub_sub_component,
                                             "coefficient": sub_sub_coefficient,
                                         }
-                                        product_object = {
-                                            k: v
-                                            for k, v in product_object.items()
-                                            if v is not None
-                                        }
+                                        product_object = {k: v for k, v in product_object.items()if v is not None}
                                         products.append(product_object.copy())
-                                    elif (
-                                        sub_sub_component
-                                        in RegulatoryComplex.compound_ids
-                                        and sub_sub_component not in compounds
-                                    ):
+                                    elif sub_sub_component in RegulatoryComplex.compound_ids and sub_sub_component not in compounds:
                                         compounds.append(sub_component)
                                     else:
-                                        raise ValueError(
-                                            "Could not find a product id for the protein {}-->{}".format(
-                                                protein_id, sub_sub_component
-                                            )
-                                        )
+                                        raise ValueError("Could not find a product id for the protein {}-->{}".format(protein_id, sub_sub_component))
                         elif sub_component in RegulatoryComplex.product_ids:
                             if coefficient is not None and sub_coefficient is not None:
                                 sub_coefficient *= coefficient
@@ -294,31 +191,16 @@ class RegulatoryComplex(Base):
                                 "products_id": sub_component,
                                 "coefficient": sub_coefficient,
                             }
-                            product_object = {
-                                k: v for k, v in product_object.items() if v is not None
-                            }
+                            product_object = {k: v for k, v in product_object.items() if v is not None}
                             products.append(product_object.copy())
-                        elif (
-                            sub_component in RegulatoryComplex.compound_ids
-                            and sub_component not in compounds
-                        ):
+                        elif sub_component in RegulatoryComplex.compound_ids and sub_component not in compounds:
                             compounds.append(sub_component)
             elif component in RegulatoryComplex.product_ids:
-                coefficient = RegulatoryComplex.pt_connection.get_value_annot(
-                    protein_id,
-                    EC.SLOT_COMPONENTS_CLASS,
-                    component,
-                    EC.SLOT_COEFFICIENT_CLASS,
-                )
+                coefficient = RegulatoryComplex.pt_connection.get_value_annot(protein_id, EC.SLOT_COMPONENTS_CLASS, component, EC.SLOT_COEFFICIENT_CLASS)
                 product_id = component
                 product_object = {"products_id": product_id, "coefficient": coefficient}
-                product_object = {
-                    k: v for k, v in product_object.items() if v is not None
-                }
+                product_object = {k: v for k, v in product_object.items() if v is not None}
                 products.append(product_object.copy())
-            elif (
-                component in RegulatoryComplex.compound_ids
-                and component not in compounds
-            ):
+            elif component in RegulatoryComplex.compound_ids and component not in compounds:
                 compounds.append(component)
         return products, compounds

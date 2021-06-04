@@ -15,6 +15,5 @@ def get_regulondb_cryptic_prophages(cryptic_prophages_ids=None, only_properties_
             "synonyms": cryptic_prophage.synonyms,
         }
         if only_properties_with_values is True:
-            cryptic_prophages_object = cryptic_prophage.get_only_properties_with_values(
-                cryptic_prophages_object)
+            cryptic_prophages_object = cryptic_prophage.get_only_properties_with_values(cryptic_prophages_object)
         yield cryptic_prophages_object

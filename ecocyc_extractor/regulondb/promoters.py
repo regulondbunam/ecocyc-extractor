@@ -22,6 +22,5 @@ def get_regulondb_promoters(promoter_ids=None, only_properties_with_values=False
             "transcriptionStartSite": promoter.transcription_start_site,
         }
         if only_properties_with_values is True:
-            promoter_object = promoter.get_only_properties_with_values(
-                promoter_object)
+            promoter_object = promoter.get_only_properties_with_values(promoter_object)
         yield promoter_object

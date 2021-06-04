@@ -15,18 +15,15 @@ class CrypticProphages(object):
     @staticmethod
     def get_ids(ids=None):
         if ids is None:
-            cryptic_prophages_ids = CrypticProphages.pt_connection.get_class_all_instances(
-                EC.CRYPTIC_PROPHAGES)
+            cryptic_prophages_ids = CrypticProphages.pt_connection.get_class_all_instances(EC.CRYPTIC_PROPHAGES)
         else:
             cryptic_prophages_ids = ids
-        cryptic_prophages_ids = utils.get_unique_elements(
-            cryptic_prophages_ids)
+        cryptic_prophages_ids = utils.get_unique_elements(cryptic_prophages_ids)
         return cryptic_prophages_ids
 
     @property
     def objects(self):
-        cryptic_prophages_objects = CrypticProphages.pt_connection.get_frame_objects(
-            self.ids)
+        cryptic_prophages_objects = CrypticProphages.pt_connection.get_frame_objects(self.ids)
         for raw_prophage in cryptic_prophages_objects:
             prophage = CrypticProphages.set_cryptic_prophage(raw_prophage)
             logging.info('Working on promoter: {}'.format(prophage["id"]))

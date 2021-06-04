@@ -17,6 +17,5 @@ def get_regulondb_segments(segments_ids=None, only_properties_with_values=False)
             "type": segment.segment_type,
         }
         if only_properties_with_values is True:
-            segments_object = segment.get_only_properties_with_values(
-                segments_object)
+            segments_object = segment.get_only_properties_with_values(segments_object)
         yield segments_object
