@@ -22,24 +22,6 @@ class Operon(object):
         self.regulation_positions = kwargs.get("regulation_positions", None)
 
     @property
-    def db_links(self):
-        return self._db_links
-
-    @db_links.setter
-    def db_links(self, db_links):
-        self._db_links = []
-        try:
-            self._db_links.extend(utils.get_external_cross_references(db_links))
-        except TypeError:
-            pass
-
-        ecocyc_reference = {
-            "externalCrossReferences_id": "|ECOCYC|",
-            "objectId": self.id.replace("|", ""),
-        }
-        self._db_links.append(ecocyc_reference.copy())
-
-    @property
     def id(self):
         return self._formatted_id
 

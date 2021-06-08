@@ -62,9 +62,27 @@ class Base(object):
 
     @db_links.setter
     def db_links(self, external_cross_references):
-        self._db_links = utils.get_external_cross_references(
-            external_cross_references)
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(external_cross_references))
+        except TypeError:
+            pass
+            
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        
+        if ecocyc_reference not in self._db_links:
+            self._db_links.append(ecocyc_reference.copy())
 
+        if self.bnumber:
+            bnumber_reference = {
+                "externalCrossReferences_id": "|REFSEQ|",
+                "objectId": self.bnumber,
+            }
+            self._db_links.append(bnumber_reference.copy())
+    
     @property
     def name(self):
         return self._name
