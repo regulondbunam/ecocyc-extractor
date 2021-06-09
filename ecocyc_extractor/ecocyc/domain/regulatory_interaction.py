@@ -1,5 +1,6 @@
 from .base import Base
 from ..utils import constants as EC
+from ..utils import utils
 from ..collections.products import Products
 
 
@@ -11,12 +12,31 @@ class RegulatoryInteraction(Base):
     def __init__(self, **kwargs):
         super(RegulatoryInteraction, self).__init__(**kwargs)
         self.binding_site = kwargs.get("site", None)
+        self.accessory_proteins = kwargs.get("accessory_proteins", None)
+        self.db_links = kwargs.get("db_links", None)
         self.function_ = kwargs.get("mode", None)
         self.regulated_entity = kwargs.get("regulated_entity", None)
         self.regulated_entities = kwargs.get("regulated_entity", None)
         self.regulator = kwargs.get("regulator", None)
-
+        self.mechanism = kwargs.get("mechanism", None)
+        self.regulation_type = kwargs.get("regulation_type", None)
         self.center_position = kwargs.get("center_position", None)
+
+    @property
+    def regulation_type(self):
+        return self._regulation_type
+
+    @regulation_type.setter
+    def regulation_type(self, regulation_type):
+        all_parents = self.pt_connection.get_frame_all_parents(self.id)
+        if EC.RNA_MEDIATED_TRANSLATION_REGULATION in all_parents:
+            self._regulation_type = "sRNA-Regulation"
+        elif EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION in all_parents:
+            self._regulation_type = "Protein-Regulation"
+        elif EC.REGULATION_OF_TRANSCRIPTION in all_parents:
+            self._regulation_type = "Transcription"
+        else:
+            self._regulation_type = "Unknown"
 
     @property
     def binding_site(self):
@@ -59,11 +79,14 @@ class RegulatoryInteraction(Base):
     def regulated_entity(self, regulated_entity=None):
         if regulated_entity is not None:
             regulated_type = None
-            regulated_entity_class = self.pt_connection.get_frame_direct_parents(regulated_entity)
+            regulated_entity_class = self.pt_connection.get_frame_all_parents(regulated_entity)
+
             if EC.TRANSCRIPTION_UNIT_CLASS in regulated_entity_class:
                 regulated_type = "transcriptionUnit"
             elif EC.PROMOTER_CLASS in regulated_entity_class:
                 regulated_type = "promoter"
+            elif EC.GENE_CLASS in regulated_entity_class:
+                regulated_type = "gene"
 
             self._regulated_entity = {
                 "_id": regulated_entity,
@@ -85,7 +108,7 @@ class RegulatoryInteraction(Base):
             regulated_entities = []
             regulated_entity = {
                 "_id": regulated_entity_id,
-                "name": self.pt_connection.get_name_by_id(regulated_entity_id)
+                "name": self.pt_connection.get_name_by_id(regulated_entity_id),
             }
             regulated_entity = self.get_only_properties_with_values(regulated_entity)
 
@@ -125,8 +148,9 @@ class RegulatoryInteraction(Base):
             self._regulator = {
                 "_id": regulator,
                 "name": self.pt_connection.get_name_by_id(regulator),
-                "type": regulator_type
+                "type": regulator_type,
             }
-            self._regulator = self.get_only_properties_with_values(self._regulator)
+            self._regulator = self.get_only_properties_with_values(
+                self._regulator)
         else:
             self._regulator = regulator

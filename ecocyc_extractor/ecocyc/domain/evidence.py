@@ -1,10 +1,12 @@
 from .base import Base
+from ..utils import constants as EC
+from ..utils import utils
 
 
 class Evidence(Base):
-
     def __init__(self, **kwargs):
         super(Evidence, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.code = kwargs.get("code", None)
         self.pertains_to = kwargs.get("pertains_to", None)
 
@@ -16,8 +18,7 @@ class Evidence(Base):
     def code(self, name=None):
         evidence_code_to_return = None
         if name is not None:
-            tokens_to_exclude = ['of', 'in', 'by', 'on', 'from', 'to', 'is', 'a',
-                                 'that']
+            tokens_to_exclude = ["of", "in", "by", "on", "from", "to", "is", "a", "that"]
             # Replacing "-" with an empty space from the name, Since there are evidences that may seem
             # with a repeated
             # i.e: "CHIP-chip evidence" AND "CHIP-exo evidence", would end up with CE and CE as evidence code

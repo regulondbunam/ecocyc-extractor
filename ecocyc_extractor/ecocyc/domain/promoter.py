@@ -8,6 +8,7 @@ from ..utils import constants as EC
 class Promoter(Base):
     def __init__(self, **kwargs):
         super(Promoter, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.minus_10_left = kwargs.get("minus_10_left", None)
         self.minus_10_right = kwargs.get("minus_10_right", None)
         self.minus_35_left = kwargs.get("minus_35_left", None)
@@ -18,6 +19,33 @@ class Promoter(Base):
         self.binding_sigma_factor = kwargs.get("binding_sigma_factor", None)
         self.score = kwargs.get("score", None)
         self.transcription_start_site = kwargs.get("absolute_plus_1_pos", None)
+        self.distance_to_gene = kwargs.get("distance_to_gene", None)
+
+    @property
+    def distance_to_gene(self):
+        return self._distance_to_gene
+
+    @distance_to_gene.setter
+    def distance_to_gene(self, distance_to_gene=None):
+        absolute_pos = self.pos1
+        if absolute_pos is not None:
+            components = self.pt_connection.get_slot_values(
+                self.id, EC.COMPONENT_OF_SLOT)
+            if len(components) > 0:
+                for component in components:
+                    component_patents = self.pt_connection.get_frame_all_parents(
+                        component)
+                    if EC.TRANSCRIPTION_UNIT_CLASS in component_patents:
+                        tu_first_gene_pos = self.pt_connection.get_tu_first_gene_start_pos(
+                            component)
+                        self._distance_to_gene = abs(
+                            absolute_pos-tu_first_gene_pos)
+                    else:
+                        self._distance_to_gene = None
+            else:
+                self._distance_to_gene = None
+        else:
+            self._distance_to_gene = None
 
     @property
     def binds_sigma_factor(self):
@@ -42,23 +70,15 @@ class Promoter(Base):
                 if self.strand.lower() == "reverse":
                     initial_position = self.pos1 - (self._offset * 0.25)
                     end_position = self.pos1 + (self._offset * 0.75)
-                    sequence = self.pt_connection.get_sequence(
-                        initial_position, end_position, "X"
-                    )
+                    sequence = self.pt_connection.get_sequence(initial_position, end_position, "X")
                     sequence = self.pt_connection.get_reverse_complement(sequence)
                 else:
                     initial_position = self.pos1 - (self._offset * 0.75)
                     end_position = self.pos1 + (self._offset * 0.25)
-                    sequence = self.pt_connection.get_sequence(
-                        initial_position, end_position, "X"
-                    )
+                    sequence = self.pt_connection.get_sequence(initial_position, end_position, "X")
                 initial = int(self._offset * 0.75)
                 last = int(self._offset * 0.25)
-                sequence = (
-                    sequence[:initial].lower()
-                    + sequence[initial : initial + 1]
-                    + sequence[-last:].lower()
-                )
+                sequence = (sequence[:initial].lower() + sequence[initial: initial + 1] + sequence[-last:].lower())
 
                 self._sequence = sequence
             else:
@@ -82,9 +102,7 @@ class Promoter(Base):
                     "rightEndPosition": pos1,
                     "range": range_,
                 }
-                transcription_start_site = {
-                    k: v for k, v in transcription_start_site.items() if v is not None
-                }
+                transcription_start_site = {k: v for k, v in transcription_start_site.items() if v is not None}
             except TypeError:
                 transcription_start_site = None
             self._transcription_start_site = transcription_start_site
@@ -128,16 +146,12 @@ class Promoter(Base):
     def binding_sigma_factor(self, binding_sigma_factor=None):
         try:
             sigma_factor_id = binding_sigma_factor[0]
-            citations = Promoter.citations_binding_sigma_factor(
-                self.id, sigma_factor_id
-            )
+            citations = Promoter.citations_binding_sigma_factor(self.id, sigma_factor_id)
             binding_sigma_factor = {
                 "sigmaFactors_id": sigma_factor_id,
                 "citations": citations,
             }
-            binding_sigma_factor = self.get_only_properties_with_values(
-                binding_sigma_factor
-            )
+            binding_sigma_factor = self.get_only_properties_with_values(binding_sigma_factor)
             if binding_sigma_factor:
                 self._binding_sigma_factor = binding_sigma_factor
             else:
@@ -147,34 +161,22 @@ class Promoter(Base):
 
     @staticmethod
     def citations_binding_sigma_factor(promoter_feature_id, sigma_factor_id):
-        citations = Promoter.pt_connection.get_value_annot_list(
-            promoter_feature_id,
-            EC.BINDS_SIGMA_FACTOR_SLOT,
-            sigma_factor_id,
-            EC.CITATIONS_SLOT,
-        )
+        citations = Promoter.pt_connection.get_value_annot_list(promoter_feature_id, EC.BINDS_SIGMA_FACTOR_SLOT, sigma_factor_id, EC.CITATIONS_SLOT)
         citations = utils.get_citations(citations)
         return citations
 
     def get_promoter_boxes(self, minus_signals=None):
         if minus_signals is None:
             minus_signals = []
-            for minus_box in [
-                (self.minus_10_left, self.minus_10_right, "minus10"),
-                (self.minus_35_left, self.minus_35_right, "minus35"),
-            ]:
+            for minus_box in [(self.minus_10_left, self.minus_10_right, "minus10"), (self.minus_35_left, self.minus_35_right, "minus35")]: 
                 if minus_box[0] or minus_box[1]:
                     minus_signal = dict(
                         leftEndPosition=minus_box[0],
                         rightEndPosition=minus_box[1],
-                        sequence=Base.get_sequence(
-                            minus_box[0], minus_box[1], self.strand
-                        ),
+                        sequence=Base.get_sequence(minus_box[0], minus_box[1], self.strand), 
                         type=minus_box[2],
                     )
-                    minus_signal = {
-                        k: v for k, v in minus_signal.items() if v is not None
-                    }
+                    minus_signal = {k: v for k, v in minus_signal.items() if v is not None}
                     if minus_signal not in minus_signals:
                         minus_signals.append(minus_signal.copy())
             if not minus_signals:

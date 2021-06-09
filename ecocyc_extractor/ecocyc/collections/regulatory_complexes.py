@@ -22,10 +22,9 @@ class RegulatoryComplexes(object):
     @staticmethod
     def get_ids(ids=None, include_inactive=True):
         if ids is None:
-            regulator_ids = RegulatoryComplexes.get_regulator_ids(RegulatoryComplexes.regulatory_interaction_ids)
-            regulatory_complex_ids = RegulatoryComplexes.get_protein_cplx_ids_from_regulators(
-                regulator_ids
-            )
+            regulator_ids = RegulatoryComplexes.get_regulator_ids(
+                RegulatoryComplexes.regulatory_interaction_ids)
+            regulatory_complex_ids = RegulatoryComplexes.get_protein_cplx_ids_from_regulators(regulator_ids)
             if include_inactive is True:
                 for tf_id in RegulatoryComplexes.transcription_factor_ids:
                     inactive_conformation_ids = TranscriptionFactor.get_tf_inactive_conformations(tf_id)
@@ -49,7 +48,6 @@ class RegulatoryComplexes(object):
         new_regulatory_complex = dict(
             id=regulatory_complex[EC.ID],
             abbreviated_name=regulatory_complex[EC.ABBREV_NAME],
-            citations=regulatory_complex[EC.CITATIONS],
             comment=regulatory_complex[EC.COMMENT],
             components=regulatory_complex[EC.COMPONENTS],
             dblinks=regulatory_complex[EC.DBLINKS],

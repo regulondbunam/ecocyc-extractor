@@ -70,7 +70,8 @@ def get_citations(citations):
     try:
         object_citations = []
         for citation in sorted(citations):
-            citation = citation.replace('"', "").replace("[", "").replace("]", "").replace(" ", "").replace(",", "")
+            citation = citation.replace('"', "").replace(
+                "[", "").replace("]", "").replace(" ", "").replace(",", "")
             citation = citation.strip()
             evidence_id, publication_id = get_citation_elements(citation)
 

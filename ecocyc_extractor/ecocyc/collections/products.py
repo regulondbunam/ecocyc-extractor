@@ -24,11 +24,9 @@ class Products(object):
                 polypeptide_ids = Products.pt_connection.get_slot_values(gene_id, EC.SLOT_PRODUCT_CLASS)
                 for polypeptide_id in polypeptide_ids:
                     object_classes = Products.pt_connection.get_frame_all_parents(polypeptide_id)
-                    unmodified_form = Products.pt_connection.get_slot_value(polypeptide_id,
-                                                                            EC.SLOT_UNMODIFIED_FORM_CLASS)
+                    unmodified_form = Products.pt_connection.get_slot_value(polypeptide_id, EC.SLOT_UNMODIFIED_FORM_CLASS)
                     # Validating if the protein is from the previous given classes and if it is not a modified form
-                    if (any(product_class in product_classes for product_class in object_classes) and
-                            unmodified_form is None):
+                    if any(product_class in product_classes for product_class in object_classes) and unmodified_form is None:
                         product_ids.append(str(polypeptide_id))
         product_ids = utils.get_unique_elements(product_ids)
         return product_ids

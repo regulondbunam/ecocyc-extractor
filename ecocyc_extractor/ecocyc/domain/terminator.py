@@ -1,11 +1,12 @@
 from .base import Base
 from ..utils import constants as EC
+from ..utils import utils
 
 
 class Terminator(Base):
-
     def __init__(self, **kwargs):
         super(Terminator, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.class_ = kwargs.get("class", None)
         self.transcription_termination_site = kwargs.get("transcription_termination_site", None)
 
@@ -37,11 +38,10 @@ class Terminator(Base):
             try:
                 transcription_termination_site = {
                     "leftEndPosition": self.left_end_position,
-                    "rightEndPosition": self.right_end_position
+                    "rightEndPosition": self.right_end_position,
                 }
                 # This will drop any key whose value is None
-                transcription_termination_site = {k: v for k, v in transcription_termination_site.items() if
-                                                  v is not None}
+                transcription_termination_site = {k: v for k, v in transcription_termination_site.items() if v is not None}
             except TypeError:
                 transcription_termination_site = None
 

@@ -1,10 +1,12 @@
 from .base import Base
+from ..utils import constants as EC
+from ..utils import utils
 
 
 class Ontology(object):
-
     def __init__(self, **kwargs):
         self.id = kwargs.get("id", None)
+        self.db_links = kwargs.get("dblinks", None)
         self.comment = kwargs.get("comment", None)
         self.name = kwargs.get("name", None)
 

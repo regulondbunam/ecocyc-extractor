@@ -11,7 +11,8 @@ def argument_entities_provided(arguments):
     entities["log"] = False
     entities["organism"] = False
     if not any(entities.values()):
-        argparse.ArgumentError("No objects' arguments provided. Use -h for help.")
+        argparse.ArgumentError(
+            "No objects' arguments provided. Use -h for help.")
 
 
 def get_arguments():
@@ -69,6 +70,20 @@ def get_arguments():
         "--promoters",
         help="Sets the extractor to download Promoters",
         action="store_true",
+    )
+    parser.add_argument(
+        "-pph",
+        "--prophages",
+        help="Sets the extractor to download Cryptic Prophages",
+        action="store_true",
+        dest="prophages",
+    )
+    parser.add_argument(
+        "-sg",
+        "--segments",
+        help="Sets the extractor to download Segments",
+        action="store_true",
+        dest="segments",
     )
     parser.add_argument(
         "-tf",
@@ -201,6 +216,15 @@ def get_arguments():
         help="Path where the json files of the process will be stored.",
         metavar="./Results/source/ecocyc",
         default="./Results/source/ecocyc",
+    )
+
+    parser.add_argument(
+        "-r",
+        "--report",
+        # TODO: Implement Report Generation
+        help="Path where the report files of the process will be stored.",
+        metavar="./Results/log",
+        default="./Results/log",
     )
     arguments = parser.parse_args()
     return arguments

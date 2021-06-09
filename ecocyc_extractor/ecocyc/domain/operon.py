@@ -14,6 +14,7 @@ class Operon(object):
     def __init__(self, **kwargs):
         self.id = kwargs.get("transcription_unit_ids", None)
         self.transcription_unit_ids = kwargs.get("transcription_unit_ids", None)
+        self.db_links = kwargs.get("dblinks", None)
         self.genes = kwargs.get("transcription_unit_ids", None)
         self.name = kwargs.get("name", None)
         self.organism = kwargs.get("organism", None)
@@ -152,9 +153,9 @@ class Operon(object):
             right_end_positions.append(max(sites_right_positions))
 
         right_end_positions = [rend for rend in right_end_positions if rend]
-        #try:
+        # try:
         #    right_end_positions.remove(None)
-        #except ValueError:
+        # except ValueError:
         #    pass
         right_end_position = max(right_end_positions)
 
@@ -166,16 +167,16 @@ class Operon(object):
         if promoters_pos_1s:
             left_end_positions.append(min(promoters_pos_1s))
 
-        #try:
+        # try:
         #    left_end_positions.remove(None)
-        #except ValueError:
+        # except ValueError:
         #    pass
         left_end_positions = [lend for lend in left_end_positions if lend]
         left_end_position = min(left_end_positions)
 
         regulation_positions = {
-            'leftEndPosition': left_end_position,
-            'rightEndPosition': right_end_position
+            "leftEndPosition": left_end_position,
+            "rightEndPosition": right_end_position,
         }
 
         return regulation_positions
