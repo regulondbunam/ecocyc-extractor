@@ -20,7 +20,27 @@ class Operon(object):
         self.organism = kwargs.get("organism", None)
         self.strand = kwargs.get("strand", None)
         self.regulation_positions = kwargs.get("regulation_positions", None)
+    
+    @property
+    def db_links(self):
+        return self._db_links
 
+    @db_links.setter
+    def db_links(self, external_cross_references):
+        self._db_links = []
+        try:
+            self._db_links.extend(utils.get_external_cross_references(external_cross_references))
+        except TypeError:
+            pass
+            
+        ecocyc_reference = {
+            "externalCrossReferences_id": "|ECOCYC|",
+            "objectId": self.id.replace("|", ""),
+        }
+        
+        if ecocyc_reference not in self._db_links:
+            self._db_links.append(ecocyc_reference.copy())
+    
     @property
     def id(self):
         return self._formatted_id
