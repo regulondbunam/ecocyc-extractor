@@ -16,7 +16,8 @@ class TranscriptionFactorRegulatorySites(object):
     def get_ids(site_ids=None):
         if site_ids is None:
             site_ids = []
-            ri_ids = RegulatoryInteractions.get_ids(transcription_factors_ris=False)
+            ri_ids = RegulatoryInteractions.get_ids(
+                transcription_factors_ris=False)
 
             for ri_id in ri_ids:
                 ri_site_ids = TranscriptionFactorRegulatorySite.pt_connection.get_slot_values(ri_id, EC.ASSOCIATED_BINDING_SITE_SLOT)
@@ -44,7 +45,10 @@ class TranscriptionFactorRegulatorySites(object):
             dblinks=site[EC.DBLINKS],
             internal_comment=site[EC.INTERNAL_COMMENT],
             involved_in_regulation=site[EC.INVOLVED_IN_REGULATION],
+            regulation_type=site[EC.REGULATION_TYPE],
             length=site[EC.DNA_FOOTPRINT_SIZE],
-            organism=EC.ORGANISM_ID,
+            lend=site[EC.LEND],
+            rend=site[EC.REND],
+            organism=EC.ORGANISM_ID
         )
         return site

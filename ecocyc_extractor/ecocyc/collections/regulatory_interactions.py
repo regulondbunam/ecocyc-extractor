@@ -19,7 +19,9 @@ class RegulatoryInteractions(object):
         elif ids is None and transcription_factors_ris is False:
             regulatory_interaction_ids = RegulatoryInteractions.pt_connection.get_class_all_instances(EC.TRANSCRIPTION_FACTOR_BINDING_CLASS)
             regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(EC.ALLOSTERIC_REGULATION_OF_RNAP))
-            #TODO: We need to add the new RIs from Soco's notes
+            regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(EC.RNA_MEDIATED_TRANSLATION_REGULATION))
+            regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION))
+            # TODO: We need to add the new RIs from Soco's notes
         else:
             regulatory_interaction_ids = ids
         regulatory_interaction_ids = utils.get_unique_elements(regulatory_interaction_ids)
@@ -38,15 +40,18 @@ class RegulatoryInteractions(object):
     def set_regulatory_interaction(regulatory_interaction):
         new_regulatory_interaction = dict(
             id=regulatory_interaction[EC.ID],
+            accessory_proteins=regulatory_interaction[EC.ACCESSORY_PROTEINS],
+            center_position=regulatory_interaction[EC.ABSOLUTE_CENTER_POSITION],
             citations=regulatory_interaction[EC.CITATIONS],
             comment=regulatory_interaction[EC.COMMENT],
             dblinks=regulatory_interaction[EC.DBLINKS],
             internal_comment=regulatory_interaction[EC.INTERNAL_COMMENT],
             mode=regulatory_interaction[EC.MODE],
+            mechanism=regulatory_interaction[EC.MECHANISM],
             organism=EC.ORGANISM_ID,
             regulated_entity=regulatory_interaction[EC.REGULATED_ENTITY],
+            regulation_type=regulatory_interaction[EC.REGULATION_TYPE],
             regulator=regulatory_interaction[EC.REGULATOR],
             site=regulatory_interaction[EC.ASSOCIATED_BINDING_SITE]
         )
         return new_regulatory_interaction
-

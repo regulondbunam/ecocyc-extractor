@@ -14,6 +14,7 @@ class Product(Base):
         self.coding_segments = kwargs.get("coding_segments", None)
         self.consensus_sequences = kwargs.get("consensus_sequences", None)
         self.component_of = kwargs.get("component_of", None)
+        self.db_links = kwargs.get("dblinks", None)
         self.gene = kwargs.get("gene", None)
         self.isoelectric_points = kwargs.get("isoelectric_point", None)
         self.locations = kwargs.get("locations", None)
@@ -115,7 +116,11 @@ class Product(Base):
     def name(self):
         if self._name is None:
             try:
-                self._name = self.abbreviated_name if self.abbreviated_name is not None else "/".join(self.catalyzes)
+                self._name = (
+                    self.abbreviated_name
+                    if self.abbreviated_name is not None
+                    else "/".join(self.catalyzes)
+                )
             except TypeError:
                 pass
         return self._name
@@ -140,7 +145,9 @@ class Product(Base):
     @symmetries.setter
     def symmetries(self, symmetries):
         try:
-            self._symmetries = [symmetry.capitalize().replace("|", "") for symmetry in symmetries]
+            self._symmetries = [
+                symmetry.capitalize().replace("|", "") for symmetry in symmetries
+            ]
         except TypeError:
             self._symmetries = None
 
@@ -150,40 +157,32 @@ class Product(Base):
 
     @terms.setter
     def terms(self, terms):
-        self._terms = {
-            'biologicalProcess': [],
-            'cellularComponent': [],
-            'molecularFunction': []
-        }
+        self._terms = {"biologicalProcess": [], "cellularComponent": [], "molecularFunction": []}
         try:
             terms = sorted(list(set(terms)))
             for term_id in terms:
                 term_genbank_feature = self.pt_connection.map_go_term_genbank_feature(term_id)
                 term_name = self.pt_connection.get_name_by_id(term_id)
-                term_object = {
-                    "terms_id": term_id,
-                    "terms_name": term_name
-                }
+                term_object = {"terms_id": term_id, "terms_name": term_name}
 
-                citations_term = self.pt_connection.get_value_annot_list(self.id, EC.GO_TERMS_SLOT,
-                                                                         term_id, EC.CITATIONS_SLOT)
+                citations_term = self.pt_connection.get_value_annot_list(self.id, EC.GO_TERMS_SLOT, term_id, EC.CITATIONS_SLOT)
                 citations_term = utils.get_citations(citations_term)
                 if citations_term is not None:
                     term_object["citations"] = citations_term
 
-                if term_genbank_feature == 'go_process':
-                    self._terms['biologicalProcess'].append(term_object.copy())
-                elif term_genbank_feature == 'go_component':
-                    self._terms['cellularComponent'].append(term_object.copy())
-                elif term_genbank_feature == 'go_function':
+                if term_genbank_feature == "go_process":
+                    self._terms["biologicalProcess"].append(term_object.copy())
+                elif term_genbank_feature == "go_component":
+                    self._terms["cellularComponent"].append(term_object.copy())
+                elif term_genbank_feature == "go_function":
 
-                    self._terms['molecularFunction'].append(term_object.copy())
+                    self._terms["molecularFunction"].append(term_object.copy())
 
-            if not self._terms['biologicalProcess']:
+            if not self._terms["biologicalProcess"]:
                 self._terms["biologicalProcess"] = None
-            if not self._terms['cellularComponent']:
+            if not self._terms["cellularComponent"]:
                 self._terms["cellularComponent"] = None
-            if not self._terms['molecularFunction']:
+            if not self._terms["molecularFunction"]:
                 self._terms["molecularFunction"] = None
             self._terms = self.get_only_properties_with_values(self._terms)
 
@@ -204,7 +203,7 @@ class Product(Base):
                 "|snRNAs|": "snRNA",
                 "|tmRNAs|": "tmRNA",
                 "|Regulatory-RNAs|": "small RNA",
-                "|Misc-RNAs|": "small RNA"
+                "|Misc-RNAs|": "small RNA",
             }
             for rna_class_id, product_type in rnas_classes.items():
                 if self.pt_connection.get_instance_all_instance_of_p(self.id, rna_class_id):

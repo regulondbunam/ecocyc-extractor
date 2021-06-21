@@ -19,45 +19,23 @@ class Gene(Base):
         self.name = kwargs.get("name", None)
 
     @property
-    def db_links(self):
-        return self._db_links
-
-    @db_links.setter
-    def db_links(self, db_links):
-        self._db_links = []
-        try:
-            self._db_links.extend(utils.get_external_cross_references(db_links))
-        except TypeError:
-            pass
-
-        ecocyc_reference = {
-            "externalCrossReferences_id": "|ECOCYC|",
-            "objectId": self.id.replace("|", "")
-        }
-        self._db_links.append(ecocyc_reference.copy())
-
-        if self.bnumber:
-            bnumber_reference = {
-                "externalCrossReferences_id": "|REFSEQ|",
-                "objectId": self.bnumber
-            }
-            self._db_links.append(bnumber_reference.copy())
-
-    @property
     def fragments(self):
         fragments = []
         if self._fragments is not None:
             fragment_objects = self.pt_connection.get_frame_objects(self._fragments)
             for fragment_object in fragment_objects:
                 new_fragment_object = {
+                    'id': fragment_object[EC.ID],
                     'centisomePosition': fragment_object[EC.CENTISOME_POSITION],
+                    'name': fragment_object[EC.NAME],
                     'leftEndPosition': fragment_object[EC.LEND],
                     'rightEndPosition': fragment_object[EC.REND],
                     'sequence': self.pt_connection.get_gene_sequence(fragment_object[EC.ID]),
                     'strand': self.get_strand(fragment_object[EC.TRANSCRIPTION_DIRECTION])
                 }
                 # This will drop any key whose value is None
-                new_fragment_object_filtered = {k: v for k, v in new_fragment_object.items() if v is not None}
+                new_fragment_object_filtered = {
+                    k: v for k, v in new_fragment_object.items() if v is not None}
                 fragments.append(new_fragment_object_filtered.copy())
         if not fragments:
             fragments = None
@@ -69,7 +47,7 @@ class Gene(Base):
         if self._sequence is not None and self._gc_content is None:
             format_value = "%.2f"
             self._gc_content = self.sequence.count('C') + self.sequence.count('G')
-            self._gc_content = ((float(self._gc_content) * 100) / len(self.sequence))
+            self._gc_content = (float(self._gc_content) * 100) / len(self.sequence)
             # self._gc_content = format_value % self._gc_content
         return self._gc_content
 
@@ -92,8 +70,7 @@ class Gene(Base):
                 object_classes = self.pt_connection.get_frame_all_parents(product_id)
                 unmodified_form = self.pt_connection.get_slot_value(product_id, EC.SLOT_UNMODIFIED_FORM_CLASS)
                 # Validating if the protein is from the previous given classes and if it is not a modified form
-                if any(product_class in product_classes for product_class in
-                       object_classes) and unmodified_form is None:
+                if any(product_class in product_classes for product_class in object_classes) and unmodified_form is None:
                     products.append(product_id)
         if not products:
             products = None

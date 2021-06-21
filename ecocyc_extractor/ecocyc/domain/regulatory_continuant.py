@@ -1,6 +1,7 @@
 from .base import Base
 from ..utils import constants as EC
-from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+from ..utils import utils
+from ecocyc_extractor.ecocyc.collections.regulatory_interactions import (RegulatoryInteractions)
 
 
 class RegulatoryContinuant(Base):
@@ -9,6 +10,7 @@ class RegulatoryContinuant(Base):
 
     def __init__(self, **kwargs):
         super(RegulatoryContinuant, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.type_ = kwargs.get("type", None)
         self.is_regulator = kwargs.get("regulates", None)
 

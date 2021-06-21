@@ -1,5 +1,7 @@
 from .base import Base
 from ecocyc_extractor.ecocyc.collections.terminators import Terminators
+from ..utils import constants as EC
+from ..utils import utils
 
 
 class TranscriptionUnit(Base):
@@ -9,6 +11,7 @@ class TranscriptionUnit(Base):
 
     def __init__(self, **kwargs):
         super(TranscriptionUnit, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.gene_ids = kwargs.get("genes", None)
         self.promoter_ids = kwargs.get("promoter", None)
         self.operon_id = kwargs.get("operon", None)
@@ -41,7 +44,7 @@ class TranscriptionUnit(Base):
                 for sigma_factor_id in sigma_factor_ids:
                     promoter_ids.append(";".join([promoter_id, sigma_factor_id]))
             else:
-                promoter_ids = [promoter_id]
+                promoter_ids = promoter_id
         self._promoter_ids = promoter_ids
 
     @property

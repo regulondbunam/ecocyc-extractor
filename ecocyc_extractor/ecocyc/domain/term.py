@@ -2,6 +2,7 @@ from .base import Base
 from ..collections.genes import Genes
 from ..collections.products import Products
 from ..utils import constants as EC
+from ..utils import utils
 
 
 class Term(Base):
@@ -11,6 +12,7 @@ class Term(Base):
 
     def __init__(self, **kwargs):
         super(Term, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.definition = kwargs.get("definition", None)
         self.ontology_id = kwargs.get("ontology_id", None)
         self.parents_ids = kwargs.get("parents_ids", None)

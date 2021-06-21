@@ -10,6 +10,7 @@ def get_transcription_direction(transcription_direction):
         elif transcription_direction == "-":
             return "reverse"
 
+
 pt_conn = pythoncyc.select_organism("ecoli")
 
 cryptic_prophages_ids = pt_conn.get_class_all_instances("|Cryptic-Prophages|")
@@ -31,7 +32,7 @@ with open("cryptic_prophages.tsv", 'w') as cp_fp:
             cryptic_prophage["common_name"],
             cryptic_prophage["left_end_position"],
             cryptic_prophage["right_end_position"],
-            get_transcription_direction(cryptic_prophage["transcription_direction"]),
+            get_transcription_direction(
+                cryptic_prophage["transcription_direction"]),
             ", ".join(cryptic_prophage["citations"])
         ))
-

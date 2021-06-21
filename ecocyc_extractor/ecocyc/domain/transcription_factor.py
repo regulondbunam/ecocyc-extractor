@@ -1,5 +1,6 @@
 from .base import Base
 from ..utils import constants as EC
+from ..utils import utils
 from ..collections.products import Products
 
 
@@ -9,10 +10,13 @@ class TranscriptionFactor(Base):
 
     def __init__(self, **kwargs):
         super(TranscriptionFactor, self).__init__(**kwargs)
+        self.db_links = kwargs.get("dblinks", None)
         self.abbreviated_name = kwargs.get("abbreviated_name", None)
         self.active_conformations = kwargs.get("active_conformations", None)
+        self.citations = kwargs.get("citations", None)
         self.global_function = None
-        self.inactive_conformations = kwargs.get("inactive_conformations", None)
+        self.inactive_conformations = kwargs.get(
+            "inactive_conformations", None)
         self.name = kwargs.get("name", None)
         self.site_length = kwargs.get("site_length", None)
 
@@ -80,11 +84,10 @@ class TranscriptionFactor(Base):
         else:
             tf_monomers = TranscriptionFactor.pt_connection.monomers_of_protein(self.id)
             for monomer_id in tf_monomers:
-                parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(monomer_id)
+                parent_classes = (TranscriptionFactor.pt_connection.get_frame_all_parents(monomer_id))
                 if EC.POLYPEPTIDE_CLASS in parent_classes:
                     product_ids.append(monomer_id)
         return product_ids
-
 
     @staticmethod
     def get_tf_active_conformations(transcription_factor_id):
@@ -126,7 +129,7 @@ class TranscriptionFactor(Base):
     @staticmethod
     def get_absolute_function(functions):
         functions = list(set(functions))
-        if all(function in functions for function in ['activator', 'repressor']):
+        if all(function in functions for function in ["activator", "repressor"]):
             protein_function = "dual"
         elif all("activator" == function for function in functions):
             protein_function = "activator"
@@ -135,3 +138,36 @@ class TranscriptionFactor(Base):
         else:
             protein_function = None
         return protein_function
+
+    @property
+    def citations(self):
+        return self._citations
+
+    @citations.setter
+    def citations(self, citations):
+        citations = utils.get_citations(citations)
+        # print("OLD_CITATIONS: ", citations)
+        # print("TF_ID: ", self.id)
+        all_conf = (self.get_tf_active_conformations(self.id) +
+                    self.get_tf_inactive_conformations(self.id))
+        # print("conf_Len: ", len(all_conf))
+        for tf_conf in all_conf:
+            # print("CLPX_ID: ", tf_conf)
+            conf_citations = (TranscriptionFactor.pt_connection.get_slot_values(
+                tf_conf, '|CITATIONS|'))
+            new_citations = utils.get_citations(conf_citations)
+            # print("NEW_CITATIONS: ", new_citations)
+            if citations:
+                if new_citations:
+                    citations.extend(citation for citation in new_citations if citation not in citations)
+            elif new_citations:
+                citations = new_citations
+        # print("CITATIONS: ", citations)
+        if not citations:
+            citations = None
+        self._citations = citations
+
+class TFComplexes(Base):
+
+    def __init__(self, **kwargs):
+        super(TFComplexes, self).__init__(**kwargs)
