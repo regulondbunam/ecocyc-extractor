@@ -1,5 +1,5 @@
 def get_regulondb_transcription_factors(transcription_factor_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.transcription_factors import TranscriptionFactors
+    from ecocyc.collections.transcription_factors import TranscriptionFactors
     transcription_factors = TranscriptionFactors(transcription_factor_ids)
 
     for transcription_factor in transcription_factors.objects:

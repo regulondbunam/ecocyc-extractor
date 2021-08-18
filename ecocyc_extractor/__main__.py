@@ -28,6 +28,7 @@ from regulondb import publications
 from libs import arguments
 from libs import utils
 
+
 def set_json_object(filename, objects_to_json, organism, class_acronym, subclass_acronym):
     if "terms" in filename or "ontologies" in filename:
         if "multifun" in filename:

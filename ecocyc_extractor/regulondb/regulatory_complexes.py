@@ -1,5 +1,5 @@
 def get_regulondb_regulatory_complexes(regulatory_complex_ids=None, only_properties_with_values=False, include_inactive=False):
-    from ecocyc_extractor.ecocyc.collections.regulatory_complexes import (RegulatoryComplexes)
+    from ecocyc.collections.regulatory_complexes import (RegulatoryComplexes)
 
     regulatory_complexes = RegulatoryComplexes(regulatory_complex_ids, include_inactive)
 

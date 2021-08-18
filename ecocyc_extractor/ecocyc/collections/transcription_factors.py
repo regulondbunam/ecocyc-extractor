@@ -1,9 +1,9 @@
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC
-from ecocyc_extractor.ecocyc.domain.transcription_factor import TranscriptionFactor
-from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC
+from ecocyc.domain.transcription_factor import TranscriptionFactor
+from ecocyc.collections.regulatory_interactions import RegulatoryInteractions
 
 
 class TranscriptionFactors(object):
@@ -69,7 +69,6 @@ class TranscriptionFactors(object):
                 # regulatory complexes collection in the property isTranscriptionFactor = True
                 transcription_factor_ids.append(regulator_id)
         return transcription_factor_ids
-
 
     @staticmethod
     def get_regulator_ids(ri_ids):

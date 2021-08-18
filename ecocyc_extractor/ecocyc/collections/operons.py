@@ -1,7 +1,7 @@
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.domain.operon import Operon
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.domain.operon import Operon
 from ..utils import constants as EC
 
 

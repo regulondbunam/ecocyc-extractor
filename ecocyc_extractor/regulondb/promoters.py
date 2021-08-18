@@ -1,5 +1,5 @@
 def get_regulondb_promoters(promoter_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.promoters import Promoters
+    from ecocyc.collections.promoters import Promoters
 
     promoters = Promoters(promoter_ids)
 

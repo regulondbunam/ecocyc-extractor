@@ -1,5 +1,5 @@
 def get_regulondb_operons(only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.operons import Operons
+    from ecocyc.collections.operons import Operons
 
     operons = Operons()
 

@@ -1,6 +1,6 @@
 import pythoncyc
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import utils
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import utils
 
 
 class Base(object):
@@ -67,12 +67,12 @@ class Base(object):
             self._db_links.extend(utils.get_external_cross_references(external_cross_references))
         except TypeError:
             pass
-            
+
         ecocyc_reference = {
             "externalCrossReferences_id": "|ECOCYC|",
             "objectId": self.id.replace("|", ""),
         }
-        
+
         if ecocyc_reference not in self._db_links:
             self._db_links.append(ecocyc_reference.copy())
 
@@ -82,7 +82,7 @@ class Base(object):
                 "objectId": self.bnumber,
             }
             self._db_links.append(bnumber_reference.copy())
-    
+
     @property
     def name(self):
         return self._name

@@ -1,5 +1,5 @@
 def get_regulondb_genes(gene_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.genes import Genes
+    from ecocyc.collections.genes import Genes
     genes = Genes(gene_ids)
 
     for gene in genes.objects:
@@ -27,4 +27,3 @@ def get_regulondb_genes(gene_ids=None, only_properties_with_values=False):
         if only_properties_with_values is True:
             gene_object = gene.get_only_properties_with_values(gene_object)
         yield gene_object
-

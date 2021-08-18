@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.transcription_unit import TranscriptionUnit
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.transcription_unit import TranscriptionUnit
 
 
 class TranscriptionUnits(object):

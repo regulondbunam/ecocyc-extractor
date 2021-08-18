@@ -1,5 +1,5 @@
 def get_regulondb_motifs(motif_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.motifs import Motifs
+    from ecocyc.collections.motifs import Motifs
     motifs = Motifs(motif_ids)
 
     for motif in motifs.objects:
@@ -26,4 +26,3 @@ def get_regulondb_motifs(motif_ids=None, only_properties_with_values=False):
         if only_properties_with_values is True:
             motif_object = motif.get_only_properties_with_values(motif_object)
         yield motif_object
-

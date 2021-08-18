@@ -34,6 +34,14 @@ def get_arguments():
         help="Sets the extractor to download Genes",
         action="store_true",
     )
+
+    parser.add_argument(
+        "-gcpc",
+        "--growth-condition-phrase-catalog",
+        help="Sets the extractor to download Growth Condition Phrase Catalog",
+        action="store_true",
+    )
+
     parser.add_argument(
         "-pd",
         "--products",

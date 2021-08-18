@@ -1,5 +1,5 @@
 def get_regulondb_cryptic_prophages(cryptic_prophages_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.cryptic_prophages import CrypticProphages
+    from ecocyc.collections.cryptic_prophages import CrypticProphages
 
     cryptic_prophages = CrypticProphages(cryptic_prophages_ids)
 
