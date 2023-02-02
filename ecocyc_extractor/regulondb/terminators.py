@@ -1,5 +1,5 @@
 def get_regulondb_terminators(terminator_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.terminators import Terminators
+    from ecocyc.collections.terminators import Terminators
     terminators = Terminators(terminator_ids)
 
     for terminator in terminators.objects:

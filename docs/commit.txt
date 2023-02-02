@@ -1,0 +1,18 @@
+UPDATE|FIX|PERF|BUILD|DOCS|REFACTOR|STYLE|TEST|CI|FEATURE: __Title__
+
+__Description__
+
+Author: __NAME__
+
+``` HELP
+    UPDATE: Changes that does not affects the user. And not already implemented.
+    FIX: Fixes a bug that affects the user.
+    PERF: Changes that improve the performance of the site.
+    BUILD: Changes to the build system, deployment or installation tasks.
+    DOCS: Documentation changes.
+    REFACTOR: Refactoring of code such as variable or function name changes.
+    STYLE: Format changes, tabulations, spaces or semicolons, etc; they do not affect the user.
+    TEST: Add tests or refactor an existing one.
+    CI: Changes in continuous integration.
+    FEATURE: A new feature for the user.
+```

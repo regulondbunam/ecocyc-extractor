@@ -1,5 +1,5 @@
 def get_regulondb_transcription_factors(transcription_factor_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.transcription_factors import TranscriptionFactors
+    from ecocyc.collections.transcription_factors import TranscriptionFactors
     transcription_factors = TranscriptionFactors(transcription_factor_ids)
 
     for transcription_factor in transcription_factors.objects:
@@ -18,5 +18,6 @@ def get_regulondb_transcription_factors(transcription_factor_ids=None, only_prop
             "synonyms": transcription_factor.synonyms,
         }
         if only_properties_with_values is True:
-            transcription_factor_rdb_object = transcription_factor.get_only_properties_with_values(transcription_factor_rdb_object)
+            transcription_factor_rdb_object = transcription_factor.get_only_properties_with_values(
+                transcription_factor_rdb_object)
         yield transcription_factor_rdb_object

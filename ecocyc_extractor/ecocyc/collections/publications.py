@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.publication import Publication
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.publication import Publication
 
 
 class Publications(object):
@@ -17,15 +17,18 @@ class Publications(object):
         if registered_ids:
             publication_ids = utils.get_publication_ids()
         else:
-            publication_ids = Publications.pt_connection.get_class_all_instances(EC.PUBLICATIONS_CLASS)
+            publication_ids = Publications.pt_connection.get_class_all_instances(
+                EC.PUBLICATIONS_CLASS)
         return publication_ids
 
     @property
     def objects(self):
-        publication_objects = Publications.pt_connection.get_frame_objects(self.ids)
+        publication_objects = Publications.pt_connection.get_frame_objects(
+            self.ids)
         for publication in publication_objects:
             publication = Publications.set_publication(publication)
-            logging.info('Working on publication: {}'.format(publication["id"]))
+            logging.info(
+                'Working on publication: {}'.format(publication["id"]))
             ecocyc_publication = Publication(**publication)
             yield ecocyc_publication
 

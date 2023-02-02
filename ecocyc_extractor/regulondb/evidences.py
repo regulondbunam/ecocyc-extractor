@@ -1,5 +1,5 @@
 def get_regulondb_evidences(registered_ids=False, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.evidences import Evidences
+    from ecocyc.collections.evidences import Evidences
 
     evidences = Evidences(registered_ids)
 

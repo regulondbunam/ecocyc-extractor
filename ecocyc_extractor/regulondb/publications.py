@@ -1,5 +1,5 @@
 def get_regulondb_publications(registered_ids=False, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.publications import Publications
+    from ecocyc.collections.publications import Publications
 
     publications = Publications(registered_ids)
 

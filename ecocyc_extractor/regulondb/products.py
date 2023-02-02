@@ -1,5 +1,5 @@
 def get_regulondb_products(product_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.products import Products
+    from ecocyc.collections.products import Products
     products = Products(product_ids)
 
     for product in products.objects:

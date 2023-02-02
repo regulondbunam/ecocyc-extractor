@@ -1,11 +1,13 @@
 import re
 
 from .pathway_tools.connection import Connection
+from .growth_conditions import GrowthCondition
 
 pt_connection = Connection()
 _publication_ids = []
 _evidence_ids = []
 _external_db_ids = []
+citations_pattern = re.compile("(\[[0-9]+\])")
 
 
 def add_pmids_to_extraction_from(comment):
@@ -146,3 +148,83 @@ def get_external_databases_ids():
     _external_db_ids.append("|REFSEQ|")
     _external_db_ids.append("|ECOCYC|")
     return get_unique_elements(_external_db_ids)
+
+
+def get_citations2(growth_condition, gc_evidences, gc_pmids):
+    pmids_found = re.findall(citations_pattern, growth_condition)
+    pmids_found = list(set(pmids_found))
+    gc_evidences.extend([])
+    gc_pmids.extend(pmids_found)
+
+
+pattern = "(GCs_GeneExpression_EXP:.+)\s*(GCs_GeneExpression_CONTROL:.+)\s*(<a href.*<\/a>)*"
+pattern_2 = r"(Growth Condition-chip-Experiment:.+)\s*(Growth Conditions_GeneExpression_CONTROL:.+)\s*(<a href.*<\/a>)*"
+
+
+def get_growth_condition_from_comment(comment, ob_id):
+    if not comment:
+        return []
+    #print('Comment >> ', comment, ob_id)
+    growth_conditions = re.match(pattern, comment)
+    if growth_conditions is None:
+        growth_conditions = re.match(pattern_2, comment)
+    if growth_conditions is None:
+        return []
+
+    growth_conditions_phrases = []
+
+    if growth_conditions is not None:
+        experiment_gc = growth_conditions.group(1)
+        experiment_gc = experiment_gc.replace("GCs_GeneExpression_EXP: ", "")
+        experiment_gc = experiment_gc.replace(
+            "Growth Condition-chip-Experiment: ", "")
+        experiment_gc = experiment_gc.replace("| ", "|")
+        # print(experiment_gc)
+        experiment_gc = experiment_gc.replace("/", "|")
+        growth_conditions_phrases.append(experiment_gc)
+        #print('Experiment >>', experiment_gc, ob_id)
+        '''experiment_gc_terms = None
+        if '|' in experiment_gc and experiment_gc is not None:
+            experiment_gc_terms = experiment_gc.split('|')
+        if '/' in experiment_gc and experiment_gc is not None:
+            experiment_gc_terms = experiment_gc.split('/')
+        print(experiment_gc_terms)'''
+
+        control_gcs = growth_conditions.group(2)
+        control_gcs = control_gcs.replace("; Es", "; /Es")
+        control_gcs = control_gcs.split("; /")
+        for control_gc in control_gcs:
+            control_gc = control_gc.replace("GCs_GeneExpression_CONTROL: ", "")
+            control_gc = control_gc.replace(
+                "Growth Conditions_GeneExpression_CONTROL: ", "")
+            control_gc = control_gc.lstrip("2")
+            control_gc = control_gc.lstrip(":")
+            control_gc = control_gc.lstrip()
+            control_gc = control_gc.replace("| ", "|")
+            # print(control_gc)
+            control_gc = control_gc.replace("/", "|")
+            growth_conditions_phrases.append(control_gc)
+        #print('Control >>', control_gc, ob_id)
+        '''control_gc_terms = None
+        if '|' in control_gc and control_gc is not None:
+            control_gc_terms = control_gc.split('|')
+        if '/' in control_gc and control_gc is not None:
+            control_gc_terms = control_gc.split('/')
+        print(control_gc_terms)'''
+
+    return growth_conditions_phrases
+
+
+def transform_growth_conditions(growth_conditions):
+    transformed_gc = []
+    if not growth_conditions:
+        return None
+    for growth_condition in growth_conditions:
+        if "control" not in growth_condition.lower():
+            continue
+        growth_condition = growth_condition.replace("CONTROL2 ", "CONTROL:")
+        growth_condition = growth_condition.replace("CONTROL: ", "CONTROL")
+        growth_condition = growth_condition.replace("\n", "")
+        growth_conditions = growth_condition.split('CONTROL')
+        transformed_gc.extend(growth_conditions)
+    return transformed_gc

@@ -1,5 +1,5 @@
 def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+    from ecocyc.collections.regulatory_interactions import RegulatoryInteractions
     regulatory_interactions = RegulatoryInteractions(regulatory_interaction_ids)
 
     for regulatory_interaction in regulatory_interactions.objects:

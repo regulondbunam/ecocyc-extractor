@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC
-from ecocyc_extractor.ecocyc.domain.ontology import Ontology
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC
+from ecocyc.domain.ontology import Ontology
 
 
 class Ontologies(object, ):

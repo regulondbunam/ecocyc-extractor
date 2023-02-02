@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.external_database import ExternalDatabase
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.external_database import ExternalDatabase
 
 
 class ExternalDatabases(object):

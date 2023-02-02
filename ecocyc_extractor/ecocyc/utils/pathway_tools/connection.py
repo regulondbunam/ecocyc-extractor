@@ -1,10 +1,10 @@
 import pythoncyc
-import ecocyc_extractor.ecocyc.utils.constants
+import ecocyc.utils.constants
 
 
 class Connection(object):
     _connection = None
-    _organism_id = ecocyc_extractor.ecocyc.utils.constants.ORGANISM_ID
+    _organism_id = ecocyc.utils.constants.ORGANISM_ID
 
     def __new__(cls):
         if cls._connection is None:

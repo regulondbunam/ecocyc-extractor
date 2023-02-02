@@ -1,5 +1,5 @@
 def get_regulondb_terms(only_properties_with_values=False, term_type="gene-ontology"):
-    from ecocyc_extractor.ecocyc.collections.terms import Terms
+    from ecocyc.collections.terms import Terms
     terms = Terms(term_type)
 
     for term in terms.objects:
@@ -17,4 +17,3 @@ def get_regulondb_terms(only_properties_with_values=False, term_type="gene-ontol
         if only_properties_with_values is True:
             term_object = term.get_only_properties_with_values(term_object)
         yield term_object
-

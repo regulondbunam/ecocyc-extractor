@@ -1,5 +1,5 @@
 def get_regulondb_external_databases(registered_ids=False, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.external_databases import ExternalDatabases
+    from ecocyc.collections.external_databases import ExternalDatabases
     external_databases = ExternalDatabases(registered_ids)
 
     for external_database in external_databases.objects:

@@ -28,6 +28,7 @@ class RegulatoryInteraction(Base):
 
     @regulation_type.setter
     def regulation_type(self, regulation_type):
+        # TODO: Cambiar propiedades
         all_parents = self.pt_connection.get_frame_all_parents(self.id)
         if EC.RNA_MEDIATED_TRANSLATION_REGULATION in all_parents:
             self._regulation_type = "sRNA-Regulation"

@@ -1,0 +1,55 @@
+{
+  "url": "",
+  "db": "",
+  "organism": "",
+  "version": "",
+  "source": "",
+  "source_version": 0,
+  "ptools_config": {
+    "ptools_docker_dir": "",
+    "compose_file": "",
+    "dotenv_file": ""
+  },
+  "ecocyc_extractor_config": {
+    "main_path": "",
+    "raw_data": "",
+    "log_dir": ""
+  },
+  "schema_loader_config": {
+    "main_path": "",
+    "schemas": "",
+    "log_dir": ""
+  },
+  "validation_config": {
+    "main_path": "",
+    "raw_data": "",
+    "schemas": "",
+    "verified_data": "",
+    "invalid_data": "",
+    "log_dir": ""
+  },
+  "create_identifiers_config": {
+    "main_path": "",
+    "verified_data": "",
+    "log_dir": ""
+  },
+  "replace_identifiers_config": {
+    "main_path": "",
+    "verified_data": "",
+    "persistent_identifiers": "",
+    "log_dir": ""
+  },
+  "revalidation_config": {
+    "main_path": "",
+    "persistent_identifiers": "",
+    "schemas": "",
+    "verified_persistent_identifiers": "",
+    "invalid_data": "",
+    "log_dir": ""
+  },
+  "data_upload_config": {
+    "main_path": "",
+    "verified_persistent_identifiers": "",
+    "log_dir": ""
+  }
+}

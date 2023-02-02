@@ -1,0 +1,12 @@
+channels:
+  - bioconda
+  - conda-forge
+  - local
+dependencies:
+  - python = 3.9
+  - mongoengine
+  - pymongo = 3.12.1
+  - dnspython
+  - pip
+  - pip:
+      - ../../../libs/identifiers/
