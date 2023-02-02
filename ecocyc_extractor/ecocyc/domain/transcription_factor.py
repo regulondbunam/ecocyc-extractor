@@ -33,7 +33,8 @@ class TranscriptionFactor(Base):
                     conformation_class = "product"
                 else:
                     conformation_class = "regulatoryComplex"
-                tf_active_conformations.append({"_id": conformation_id, "type": conformation_class})
+                tf_active_conformations.append(
+                    {"_id": conformation_id, "type": conformation_class})
             self._active_conformations = tf_active_conformations
         else:
             self._active_conformations = active_conformations
@@ -47,7 +48,8 @@ class TranscriptionFactor(Base):
         if inactive_conformations is None:
             tf_inactive_conformations = []
             for conformation_id in TranscriptionFactor.get_tf_inactive_conformations(self.id):
-                tf_inactive_conformations.append({"_id": conformation_id, "type": "regulatoryComplex"})
+                tf_inactive_conformations.append(
+                    {"_id": conformation_id, "type": "regulatoryComplex"})
             self._inactive_conformations = tf_inactive_conformations
         else:
             self._inactive_conformations = inactive_conformations
@@ -72,19 +74,24 @@ class TranscriptionFactor(Base):
         regulates = []
         if global_function is None:
             for conformation in self.active_conformations:
-                regulates = self.pt_connection.get_slot_values(conformation["_id"], EC.REGULATES_SLOT)
-            global_function = TranscriptionFactor.get_protein_function(regulates)
+                regulates = self.pt_connection.get_slot_values(
+                    conformation["_id"], EC.REGULATES_SLOT)
+            global_function = TranscriptionFactor.get_protein_function(
+                regulates)
         self._global_function = global_function
 
     def get_products_ids(self):
         product_ids = []
-        parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(self.id)
+        parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(
+            self.id)
         if EC.POLYPEPTIDE_CLASS in parent_classes or EC.PSEUDO_PRODUCT_CLASS in parent_classes:
             product_ids.append(self.id)
         else:
-            tf_monomers = TranscriptionFactor.pt_connection.monomers_of_protein(self.id)
+            tf_monomers = TranscriptionFactor.pt_connection.monomers_of_protein(
+                self.id)
             for monomer_id in tf_monomers:
-                parent_classes = (TranscriptionFactor.pt_connection.get_frame_all_parents(monomer_id))
+                parent_classes = (
+                    TranscriptionFactor.pt_connection.get_frame_all_parents(monomer_id))
                 if EC.POLYPEPTIDE_CLASS in parent_classes:
                     product_ids.append(monomer_id)
         return product_ids
@@ -92,10 +99,13 @@ class TranscriptionFactor(Base):
     @staticmethod
     def get_tf_active_conformations(transcription_factor_id):
         active_regulator_ids = []
-        containers_of_tf = TranscriptionFactor.pt_connection.modified_containers(transcription_factor_id)
+        containers_of_tf = TranscriptionFactor.pt_connection.modified_containers(
+            transcription_factor_id)
         for container_of_id in containers_of_tf:
-            parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(container_of_id)
-            regulates = TranscriptionFactor.pt_connection.get_slot_values(container_of_id, EC.REGULATES_SLOT)
+            parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(
+                container_of_id)
+            regulates = TranscriptionFactor.pt_connection.get_slot_values(
+                container_of_id, EC.REGULATES_SLOT)
             if regulates and any(protein_class in EC.PROTEIN_CLASSES for protein_class in parent_classes):
                 active_regulator_ids.append(container_of_id)
         return active_regulator_ids
@@ -103,10 +113,13 @@ class TranscriptionFactor(Base):
     @staticmethod
     def get_tf_inactive_conformations(transcription_factor_id):
         inactive_regulator_ids = []
-        containers_of_tf = TranscriptionFactor.pt_connection.modified_containers(transcription_factor_id)
+        containers_of_tf = TranscriptionFactor.pt_connection.modified_containers(
+            transcription_factor_id)
         for container_of_id in containers_of_tf:
-            parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(container_of_id)
-            regulates = TranscriptionFactor.pt_connection.get_slot_values(container_of_id, EC.REGULATES_SLOT)
+            parent_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(
+                container_of_id)
+            regulates = TranscriptionFactor.pt_connection.get_slot_values(
+                container_of_id, EC.REGULATES_SLOT)
             if EC.PROTEIN_SMC_CLASS in parent_classes and not regulates:
                 inactive_regulator_ids.append(container_of_id)
         return inactive_regulator_ids
@@ -115,7 +128,8 @@ class TranscriptionFactor(Base):
     def get_protein_function(protein_ris):
         functions = []
         for ri_id in protein_ris:
-            function = TranscriptionFactor.pt_connection.get_slot_value(ri_id, EC.MODE_SLOT)
+            function = TranscriptionFactor.pt_connection.get_slot_value(
+                ri_id, EC.MODE_SLOT)
             if function is not None:
                 if "+" in function:
                     functions.append("activator")
@@ -159,13 +173,15 @@ class TranscriptionFactor(Base):
             # print("NEW_CITATIONS: ", new_citations)
             if citations:
                 if new_citations:
-                    citations.extend(citation for citation in new_citations if citation not in citations)
+                    citations.extend(
+                        citation for citation in new_citations if citation not in citations)
             elif new_citations:
                 citations = new_citations
         # print("CITATIONS: ", citations)
         if not citations:
             citations = None
         self._citations = citations
+
 
 class TFComplexes(Base):
 

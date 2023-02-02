@@ -205,7 +205,7 @@ def get_arguments():
     parser.add_argument(
         "-org",
         "--organism",
-        help="Organism whose information is been downloaded",
+        help="Organism whose information is been downloaded.",
         default="ECOLI",
         metavar="ecoli",
     )

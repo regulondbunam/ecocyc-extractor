@@ -5,3 +5,5 @@ Results/
 pgc_requests_tmp/
 __pycache__
 *.log
+.snakemake/
+pgc_requests_tmp/

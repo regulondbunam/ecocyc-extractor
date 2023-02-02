@@ -1,3 +1,4 @@
+import re
 from ecocyc.collections.products import Products
 from .base import Base
 from .product import Product
@@ -15,6 +16,7 @@ class Motif(Base):
         self.alternate_sequence = kwargs.get("alternate_sequence", None)
         self.attached_group = kwargs.get("attached_group", None)
         self.db_links = kwargs.get("dblinks", None)
+        self.citations = kwargs.get("citations", None)
         self.class_ = kwargs.get("class", None)
         self.data_source = kwargs.get("data_source", None)
         self.description = kwargs.get("name", None)
@@ -34,8 +36,10 @@ class Motif(Base):
         try:
             names = []
             for group_id in groups:
-                if " " not in group_id:
+                if " " not in group_id and re.findall('(?<=\|)[^|]+(?=\|)', group_id) != []:
                     names.append(self.pt_connection.get_name_by_id(group_id))
+                else:
+                    print(self.id, group_id)
             self._attached_group = ", ".join(names)
         except TypeError:
             self._attached_group = None
@@ -70,7 +74,8 @@ class Motif(Base):
 
     @product_id.setter
     def product_id(self, product_ids):
-        self._product_id = self.get_feature_of(product_ids, self._gene_product_ids)
+        self._product_id = self.get_feature_of(
+            product_ids, self._gene_product_ids)
 
     @property
     def sequence(self):
@@ -82,7 +87,8 @@ class Motif(Base):
             try:
                 if self.left_end_position and self.right_end_position:
                     if self.left_end_position == self.right_end_position:
-                        self._sequence = product.sequence[self.left_end_position - 1: self.right_end_position]
+                        self._sequence = product.sequence[self.left_end_position -
+                                                          1: self.right_end_position]
                     else:
                         self._sequence = product.sequence[self.left_end_position: self.right_end_position]
                 else:
