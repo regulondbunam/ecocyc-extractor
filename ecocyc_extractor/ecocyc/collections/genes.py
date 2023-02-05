@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.gene import Gene
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import constants as EC, utils
+from ecocyc_extractor.ecocyc.domain.gene import Gene
 
 
 class Genes(object):
@@ -14,7 +14,8 @@ class Genes(object):
     @staticmethod
     def get_ids(gene_ids=None):
         if gene_ids is None:
-            gene_ids = Genes.pt_connection.get_class_all_instances(EC.GENE_CLASS)
+            gene_ids = Genes.pt_connection.get_class_all_instances(
+                EC.GENE_CLASS)
         gene_ids = utils.get_unique_elements(gene_ids)
         return gene_ids
 

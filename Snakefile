@@ -57,7 +57,7 @@ rule ecocyc_extractor:
     shell:
         "python {params.main_path} -a -out {params.output_dir} -l {params.log_dir}"
 
-'''rule schema_loader:
+rule schema_loader:
     params:
         main_path = schema_loader_config["main_path"],
         db = config["db"],
@@ -70,7 +70,7 @@ rule ecocyc_extractor:
         "envs/db_dependencies.yaml"
     priority: 9
     shell:
-        "python {params.main_path} -db {params.db} -u {params.url} -s {params.schemas} -l {params.log} -d"'''
+        "python {params.main_path} -db {params.db} -u {params.url} -s {params.schemas} -l {params.log} -d"
 
 rule data_validator:
     params:

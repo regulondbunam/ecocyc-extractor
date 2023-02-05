@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.evidence import Evidence
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import constants as EC, utils
+from ecocyc_extractor.ecocyc.domain.evidence import Evidence
 
 
 class Evidences(object):
@@ -11,13 +11,15 @@ class Evidences(object):
 
     def __init__(self, registered_ids=False):
         self.ids = Evidences.get_ids(registered_ids)
+        print(self.ids)
 
     @staticmethod
     def get_ids(registered_ids=False):
         if registered_ids:
             evidence_ids = utils.get_evidence_ids()
         else:
-            evidence_ids = Evidences.pt_connection.get_class_all_subs(EC.EVIDENCE_CLASS)
+            evidence_ids = Evidences.pt_connection.get_class_all_subs(
+                EC.EVIDENCE_CLASS)
         return evidence_ids
 
     @property

@@ -1,24 +1,31 @@
 # Ecocyc Extractor Changelog
 
-This version solves the changes on Ecocyc 26.0 release.
+This version is in testing process with new Ecocyc release 26.5 for the RegulonDB 11.2 release.
 
-## [1.0.0](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/1.0.0) - 2023-02-02
+## [1.0.1](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/1.0.1) - 2023-02-04
 
 ### Added
 
-- Documentation files
-- Manuals
-- Diagrams
+- Testing modules
+  - Module checks functions works for debogging porposes.
+  - Module can test if there where minor changes in the extracted collections related to the collections in our database based on the IDs registered.
+  - The module was tested with Python [**unittest**](https://docs.python.org/3/library/unittest.html) and [**PyTest**](https://docs.pytest.org/en/7.2.x/) frameworks
 
 ### Changed
 
-- The import paths have been fixed for better integration with the snakemake script.
-- Now the snakemake script can be fully utilized for full Ecocyc data extraction without human intervention.
+- Some files has modifications in the import statements for testing porposes, it does not affect the code execution and will be implemented eventually in the rest of the files.
+  - ecocyc_extractor/ecocyc/collections/evidences.py
+  - ecocyc_extractor/ecocyc/collections/external_databases.py
+  - ecocyc_extractor/ecocyc/collections/genes.py
+  - ecocyc_extractor/ecocyc/domain/base.py
+  - ecocyc_extractor/ecocyc/utils/constants.py
+  - ecocyc_extractor/ecocyc/utils/pathway_tools/connection.py
 
 ### Deprecated
 
-- GrowthConditions collection extraction is in code but is not available, this keep for future releases.
+- Without changes.
 
 ### Fixed
 
-- Motif extraction has a problem with a property, fixed.
+- Readme badges versions and links update and orthographics corrections.
+- Snakefile has a block of code commented.

@@ -3,10 +3,10 @@
   <img alt="RegulonDB Logo" style="width:50%;height:25%;" src="https://drive.google.com/uc?export=view&id=1BtKqNvtchMidDMUSyeJZPCnfMb-saaYm"></img>
 </p>
 
-![Licence](https://img.shields.io/badge/licence-MIT-brightgreen?style=plastic)
-![RegulonDBVersion](https://img.shields.io/badge/RegulonDB_version-11.1-blue?style=plastic&link=https://regulondb.ccg.unam.mx/)
-![EcocycVersion](https://img.shields.io/badge/last_Ecocyc_version_tested-26.0-red?style=plastic&link=https://ecocyc.org/)
-![Status](https://img.shields.io/badge/status-in_development-yellowgreen?style=plastic)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen?style=plastic)](LICENSE)
+[![RegulonDBVersion](https://img.shields.io/badge/RegulonDB_version-11.2-blue?style=plastic)](https://regulondb.ccg.unam.mx/)
+[![EcocycVersion](https://img.shields.io/badge/last_Ecocyc_version_tested-26.5-red?style=plastic)](https://ecocyc.org/)
+[![Status](https://img.shields.io/badge/status-in_development-yellowgreen?style=plastic)](CHANGELOG)
 
 This [software](https://lucid.app/folder/invitations/accept/813e6281-f3fb-4a08-967a-251e1e5af6b7) has the function of extracting the information from the Ecocyc database and transforming it for use in RegulonDB with respect to the [Multigenomic Model](https://app.lucidchart.com/lucidchart/invitations/accept/0056e953-5ccb-439d-9411-afcb9c875953)
 
