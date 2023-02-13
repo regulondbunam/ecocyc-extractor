@@ -2,30 +2,35 @@
 
 This version is in testing process with new Ecocyc release 26.5 for the RegulonDB 11.2 release.
 
-## [1.0.1](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/1.0.1) - 2023-02-04
+## [1.0.2](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/1.0.2) - 2023-02-13
 
 ### Added
 
-- Testing modules
-  - Module checks functions works for debogging porposes.
-  - Module can test if there where minor changes in the extracted collections related to the collections in our database based on the IDs registered.
-  - The module was tested with Python [**unittest**](https://docs.python.org/3/library/unittest.html) and [**PyTest**](https://docs.pytest.org/en/7.2.x/) frameworks
+- Without changes.
 
 ### Changed
 
-- Some files has modifications in the import statements for testing porposes, it does not affect the code execution and will be implemented eventually in the rest of the files.
-  - ecocyc_extractor/ecocyc/collections/evidences.py
-  - ecocyc_extractor/ecocyc/collections/external_databases.py
-  - ecocyc_extractor/ecocyc/collections/genes.py
-  - ecocyc_extractor/ecocyc/domain/base.py
-  - ecocyc_extractor/ecocyc/utils/constants.py
-  - ecocyc_extractor/ecocyc/utils/pathway_tools/connection.py
+- Files modified in this patch.
+  - [`CHANGELOG.md`](CHANGELOG.md)
+  - [`README.md`](README.md)
+  - [`ecocyc_extractor/__main__.py`](ecocyc_extractor/__main__.py)
+  - [`ecocyc_extractor/ecocyc/collections/evidences.py`](ecocyc_extractor/ecocyc/collections/evidences.py)
+  - [`ecocyc_extractor/ecocyc/domain/evidence.py`](ecocyc_extractor/ecocyc/domain/evidence.py)
+  - [`ecocyc_extractor/ecocyc/domain/product.py`](ecocyc_extractor/ecocyc/domain/product.py)
+- New Evidence Code generation, now is generated using the Evidence ID.
 
 ### Deprecated
 
-- Without changes.
+- Old Evidence Code generation, Code was generated using the Evidence name.
 
 ### Fixed
 
-- Readme badges versions and links update and orthographics corrections.
-- Snakefile has a block of code commented.
+- Readme badges CHANGELOG link update.
+- Products Crash.
+- There was a problem with the product extraction:
+  - This error occurred when trying to get the term_genbank_feature of a Product term when calling the map_go_term_genbank_feature() function of the pathwaytools pythoncyc API. This function seems to return the term feature mapped to genbank. The possible results are:
+    go_process
+    go_component
+    go_function
+    This indicates that possibly the terms that cause the error are not mapped with genebank or something similar, it should be noted that in version 26.0 of Ecocyc these GOTerms already existed, for now the IDs of the Products were captured with the terms that caused the failure to Determine what to do with them.
+- There was an unnecessary print in the evidence extraction.

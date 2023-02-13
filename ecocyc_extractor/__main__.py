@@ -167,7 +167,7 @@ if __name__ == '__main__':
             only_properties_with_values=True, term_type="gene-ontology"), organism, "ONTOL", "GON"
 
     if arguments.all or arguments.multifun_ontology:
-        print("Setting up Ontologies' process")
+        print("Setting up Multifun Ontologies' process")
         files["multifun_ontologies"] = ontologies.get_regulondb_ontologies(
             only_properties_with_values=True, ontology_name="multifun"), organism, "ONTOL", "MTF"
 

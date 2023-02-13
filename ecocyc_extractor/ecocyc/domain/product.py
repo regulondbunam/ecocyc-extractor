@@ -1,4 +1,7 @@
 from .base import Base
+
+import pythoncyc
+
 from ..utils import constants as EC
 from ..utils import utils
 
@@ -37,7 +40,8 @@ class Product(Base):
         self._catalyzes = []
         try:
             for catalyze_id in catalyzes:
-                self._catalyzes.append(self.pt_connection.get_name_by_id(catalyze_id))
+                self._catalyzes.append(
+                    self.pt_connection.get_name_by_id(catalyze_id))
             self._catalyzes = list(set(self._catalyzes))
         except TypeError:
             self._catalyzes = None
@@ -50,7 +54,8 @@ class Product(Base):
     def consensus_sequences(self, consensus_sequences):
         self._consensus_sequences = []
         try:
-            self._consensus_sequences = [consensus_sequence.strip() for consensus_sequence in consensus_sequences]
+            self._consensus_sequences = [consensus_sequence.strip(
+            ) for consensus_sequence in consensus_sequences]
         except TypeError:
             self._consensus_sequences = None
 
@@ -63,7 +68,8 @@ class Product(Base):
         self._component_of = []
         try:
             for id_component_of in component_of:
-                self.component_of.append(self.pt_connection.get_name_by_id(id_component_of))
+                self.component_of.append(
+                    self.pt_connection.get_name_by_id(id_component_of))
         except TypeError:
             self._component_of = None
 
@@ -95,7 +101,8 @@ class Product(Base):
         self._locations = []
         try:
             for location_id in locations:
-                self._locations.append(self.pt_connection.get_name_by_id(location_id))
+                self._locations.append(
+                    self.pt_connection.get_name_by_id(location_id))
         except TypeError:
             self._locations = None
 
@@ -108,7 +115,8 @@ class Product(Base):
         self._modified_forms = []
         try:
             for id_modified_form_id in modified_forms:
-                self._modified_forms.append(self.pt_connection.get_name_by_id(id_modified_form_id))
+                self._modified_forms.append(
+                    self.pt_connection.get_name_by_id(id_modified_form_id))
         except TypeError:
             self._modified_forms = None
 
@@ -157,15 +165,24 @@ class Product(Base):
 
     @terms.setter
     def terms(self, terms):
-        self._terms = {"biologicalProcess": [], "cellularComponent": [], "molecularFunction": []}
+        self._terms = {"biologicalProcess": [],
+                       "cellularComponent": [], "molecularFunction": []}
         try:
             terms = sorted(list(set(terms)))
             for term_id in terms:
-                term_genbank_feature = self.pt_connection.map_go_term_genbank_feature(term_id)
+                term_genbank_feature = None
+                try:
+                    term_genbank_feature = self.pt_connection.map_go_term_genbank_feature(
+                        term_id)
+                except pythoncyc.PTools.PToolsError:
+                    term_genbank_feature = None
+                    print(self.id, term_id)
+
                 term_name = self.pt_connection.get_name_by_id(term_id)
                 term_object = {"terms_id": term_id, "terms_name": term_name}
 
-                citations_term = self.pt_connection.get_value_annot_list(self.id, EC.GO_TERMS_SLOT, term_id, EC.CITATIONS_SLOT)
+                citations_term = self.pt_connection.get_value_annot_list(
+                    self.id, EC.GO_TERMS_SLOT, term_id, EC.CITATIONS_SLOT)
                 citations_term = utils.get_citations(citations_term)
                 if citations_term is not None:
                     term_object["citations"] = citations_term
@@ -175,7 +192,6 @@ class Product(Base):
                 elif term_genbank_feature == "go_component":
                     self._terms["cellularComponent"].append(term_object.copy())
                 elif term_genbank_feature == "go_function":
-
                     self._terms["molecularFunction"].append(term_object.copy())
 
             if not self._terms["biologicalProcess"]:
