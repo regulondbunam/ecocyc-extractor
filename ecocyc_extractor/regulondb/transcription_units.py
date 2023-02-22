@@ -6,6 +6,7 @@ def get_regulondb_transcription_units(transcription_unit_ids=None, only_properti
         transcription_unit_object = {
             "_id": transcription_unit.id,
             "citations": transcription_unit.citations,
+            "confidenceLevel": transcription_unit.confidence_level,
             "externalCrossReferences": transcription_unit.db_links,
             "genes_ids": transcription_unit.gene_ids,
             "internalComment": transcription_unit.internal_comment,
@@ -18,5 +19,6 @@ def get_regulondb_transcription_units(transcription_unit_ids=None, only_properti
             "synonyms": transcription_unit.synonyms
         }
         if only_properties_with_values is True:
-            transcription_unit_object = transcription_unit.get_only_properties_with_values(transcription_unit_object)
+            transcription_unit_object = transcription_unit.get_only_properties_with_values(
+                transcription_unit_object)
         yield transcription_unit_object

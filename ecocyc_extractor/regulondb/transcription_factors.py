@@ -7,6 +7,7 @@ def get_regulondb_transcription_factors(transcription_factor_ids=None, only_prop
             "_id": transcription_factor.id,
             "activeConformations": transcription_factor.active_conformations,
             "citations": transcription_factor.citations,
+            "confidenceLevel": transcription_factor.confidence_level,
             "externalCrossReferences": transcription_factor.db_links,
             "globalFunction": transcription_factor.global_function,
             "inactiveConformations": transcription_factor.inactive_conformations,

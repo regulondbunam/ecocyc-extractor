@@ -9,6 +9,7 @@ def get_regulondb_promoters(promoter_ids=None, only_properties_with_values=False
             "bindsSigmaFactor": promoter.binding_sigma_factor,
             "boxes": promoter.get_promoter_boxes(),
             "citations": promoter.citations,
+            "confidenceLevel": promoter.confidence_level,
             "distanceToGene": promoter.distance_to_gene,
             "externalCrossReferences": promoter.db_links,
             "internalComment": promoter.internal_comment,

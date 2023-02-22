@@ -8,6 +8,7 @@ def get_regulondb_segments(segments_ids=None, only_properties_with_values=False)
             "_id": segment.id,
             "absoluteCenterPosition": segment.center_position,
             "citations": segment.citations,
+            "confidenceLevel": segment.confidence_level,
             "externalCrossReferences": segment.db_links,
             "name": segment.name,
             "leftEndPosition": segment.left_end_position,
@@ -17,5 +18,6 @@ def get_regulondb_segments(segments_ids=None, only_properties_with_values=False)
             "type": segment.segment_type,
         }
         if only_properties_with_values is True:
-            segments_object = segment.get_only_properties_with_values(segments_object)
+            segments_object = segment.get_only_properties_with_values(
+                segments_object)
         yield segments_object
