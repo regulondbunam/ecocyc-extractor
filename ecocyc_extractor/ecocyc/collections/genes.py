@@ -36,6 +36,7 @@ class Genes(object):
             dblinks=gene[EC.DBLINKS],
             centisome_position=gene[EC.CENTISOME_POSITION],
             citations=gene[EC.CITATIONS],
+            confidenceLevel=gene[EC.CONFIDENCE_LEVEL],
             comment=gene[EC.COMMENT],
             fragments=gene[EC.FRAGMENTS],
             interrupted=gene[EC.INTERRUPTED],

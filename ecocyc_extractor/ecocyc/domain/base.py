@@ -23,6 +23,7 @@ class Base(object):
         self.strand = kwargs.get("strand", None)
         self._sequence = None
         self._synonyms = kwargs.get("synonyms", None)
+        self.confidence_level = kwargs.get("confidence_level", None)
 
     @property
     def comment(self):

@@ -8,6 +8,7 @@ def get_regulondb_genes(gene_ids=None, only_properties_with_values=False):
             "bnumber": gene.bnumber,
             "centisomePosition": gene.centisome_position,
             "citations": gene.citations,
+            "confidenceLevel": gene.confidence_level,
             "externalCrossReferences": gene.db_links,
             "fragments": gene.fragments,
             "gcContent": gene.gc_content,
