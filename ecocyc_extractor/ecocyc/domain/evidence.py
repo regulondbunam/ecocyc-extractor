@@ -9,6 +9,14 @@ class Evidence(Base):
         self.db_links = kwargs.get("dblinks", None)
         self.code = kwargs.get("code", None)
         self.pertains_to = kwargs.get("pertains_to", None)
+        self.type = kwargs.get("type", None)
+        self.cross_evidence_code_rule = kwargs.get(
+            "cross_evidence_code_rule", None
+        )
+        self.evidence_class = kwargs.get("evidence_class", None)
+        self.evidence_category = kwargs.get("evidence_category", None)
+        self.evidence_approach = kwargs.get("evidence_approach", None)
+        self.note_web = kwargs.get("note_web", None)
 
     @property
     def code(self):

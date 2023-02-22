@@ -74,6 +74,12 @@ TRANSCRIPTION_DIRECTION = "transcription_direction"
 UNMODIFIED_FORM = "unmodified_form"
 URL = "url"
 YEAR = "year"
+TYPE = "type"
+CROSS_EVIDENCE_CODE_RULE = "cross_evidence_eode_rule"
+EVIDENCE_CLASS_PROPERTY = "evidence_class"
+EVIDENCE_CATEGORY = "evidence_category"
+EVIDENCE_APPROACH = "evidence_approach"
+NOTE_WEB = "note_web"
 
 # ecocyc classes' names
 ALLOSTERIC_REGULATION_OF_RNAP = "|Allosteric-Regulation-of-RNAP|"

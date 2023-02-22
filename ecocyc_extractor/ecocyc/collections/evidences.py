@@ -41,5 +41,11 @@ class Evidences(object):
             internal_comment=evidence[EC.INTERNAL_COMMENT],
             name=evidence[EC.NAME],
             pertains_to=evidence[EC.PERTAINS_TO],
+            type=evidence[EC.TYPE],
+            crossEvidenceCodeRule=evidence[EC.CROSS_EVIDENCE_CODE_RULE],
+            evidenceClass=evidence[EC.EVIDENCE_CLASS_PROPERTY],
+            evidenceCategory=evidence[EC.EVIDENCE_CATEGORY],
+            evidenceApproach=evidence[EC.EVIDENCE_APPROACH],
+            noteWeb=evidence[EC.NOTE_WEB]
         )
         return new_evidence
