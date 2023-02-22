@@ -9,6 +9,7 @@ def get_regulondb_products(product_ids=None, only_properties_with_values=False):
             "anticodon": product.anticodon,
             "catalyzes": product.catalyzes,
             "codingSegments": product.coding_segments,
+            "confidenceLevel": product.confidence_level,
             "componentOf": product.component_of,
             "citations": product.citations,
             "consensusSequences": product.consensus_sequences,
@@ -32,5 +33,6 @@ def get_regulondb_products(product_ids=None, only_properties_with_values=False):
             "type": product.type_
         }
         if only_properties_with_values is True:
-            product_object = product.get_only_properties_with_values(product_object)
+            product_object = product.get_only_properties_with_values(
+                product_object)
         yield product_object
