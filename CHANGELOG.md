@@ -2,20 +2,19 @@
 
 This version is in testing process with new Ecocyc release 26.5 for the RegulonDB 11.2 release.
 
-## [1.0.7](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/1.0.7) - 2023-02-22
+## [1.0.8](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/1.0.8) - 2023-02-22
 
 ### Added
 
-- Without changes.
+- Symmetry TF property.
   
 ### Changed
 
 - Files modified in this patch.
-  - [`ecocyc_extractor/ecocyc/collections/regulatory_interactions.py`](ecocyc_extractor/ecocyc/collections/regulatory_interactions.py)
-  - [`ecocyc_extractor/ecocyc/domain/regulatory_interaction.py`](ecocyc_extractor/ecocyc/domain/regulatory_interaction.py)
+  - [`ecocyc_extractor/ecocyc/collections/transcription_factors.py`](ecocyc_extractor/ecocyc/collections/transcription_factors.py)
+  - [`ecocyc_extractor/ecocyc/domain/transcription_factor.py`](ecocyc_extractor/ecocyc/domain/transcription_factor.py)
   - [`ecocyc_extractor/ecocyc/utils/constants.py`](ecocyc_extractor/ecocyc/utils/constants.py)
-  - [`ecocyc_extractor/regulondb/regulatory_interactions.py`](ecocyc_extractor/regulondb/regulatory_interactions.py)
-- absoluteCenterPosition changed to relativeDistSitePromoter.
+  - [`ecocyc_extractor/regulondb/transcription_factors.py`](ecocyc_extractor/regulondb/transcription_factors.py)
 
 ### Deprecated
 
@@ -23,4 +22,4 @@ This version is in testing process with new Ecocyc release 26.5 for the RegulonD
 
 ### Fixed
 
-- Without changes.
+- SiteLength property extracted correctly.

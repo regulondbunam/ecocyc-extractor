@@ -20,11 +20,15 @@ class TranscriptionFactors(object):
 
     @property
     def objects(self):
-        transcription_factor_objects = self.pt_connection.get_frame_objects(self.ids)
+        transcription_factor_objects = self.pt_connection.get_frame_objects(
+            self.ids)
         for transcription_factor in transcription_factor_objects:
-            transcription_factor = TranscriptionFactors.set_transcription_factor(transcription_factor)
-            logging.info('Working on transcription factor: {}'.format(transcription_factor["id"]))
-            ecocyc_transcription_factor = TranscriptionFactor(**transcription_factor)
+            transcription_factor = TranscriptionFactors.set_transcription_factor(
+                transcription_factor)
+            logging.info('Working on transcription factor: {}'.format(
+                transcription_factor["id"]))
+            ecocyc_transcription_factor = TranscriptionFactor(
+                **transcription_factor)
             yield ecocyc_transcription_factor
 
     @staticmethod
@@ -40,7 +44,8 @@ class TranscriptionFactors(object):
             name=transcription_factor[EC.NAME],
             organism=EC.ORGANISM_ID,
             site_length=transcription_factor[EC.SITE_LENGTH],
-            synonyms=transcription_factor[EC.SYNONYMS]
+            synonyms=transcription_factor[EC.SYNONYMS],
+            symmetry=transcription_factor[EC.SYMMETRY]
         )
 
         return new_transcription_factor
@@ -55,9 +60,11 @@ class TranscriptionFactors(object):
         transcription_factor_ids = []
         regulator_ids = TranscriptionFactors.get_regulator_ids(ri_ids)
         for regulator_id in regulator_ids:
-            monomer_ids = TranscriptionFactors.pt_connection.monomers_of_protein(regulator_id, unmodify=True)
+            monomer_ids = TranscriptionFactors.pt_connection.monomers_of_protein(
+                regulator_id, unmodify=True)
 
-            regulator_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(regulator_id)
+            regulator_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(
+                regulator_id)
 
             if not monomer_ids and EC.COMPOUNDS_CLASS not in regulator_classes:
                 transcription_factor_ids.append(regulator_id)
@@ -74,7 +81,8 @@ class TranscriptionFactors(object):
     def get_regulator_ids(ri_ids):
         regulator_ids = []
         for ri_id in ri_ids:
-            regulator = TranscriptionFactors.pt_connection.get_slot_value(ri_id, EC.REGULATOR_SLOT)
+            regulator = TranscriptionFactors.pt_connection.get_slot_value(
+                ri_id, EC.REGULATOR_SLOT)
             if regulator:
                 regulator_ids.append(regulator)
 
