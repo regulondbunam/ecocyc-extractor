@@ -7,7 +7,8 @@ from ..collections.products import Products
 class RegulatoryInteraction(Base):
 
     product_ids = Products.get_ids()
-    compound_ids = Base.pt_connection.get_class_all_instances(EC.COMPOUNDS_CLASS)
+    compound_ids = Base.pt_connection.get_class_all_instances(
+        EC.COMPOUNDS_CLASS)
 
     def __init__(self, **kwargs):
         super(RegulatoryInteraction, self).__init__(**kwargs)
@@ -20,7 +21,8 @@ class RegulatoryInteraction(Base):
         self.regulator = kwargs.get("regulator", None)
         self.mechanism = kwargs.get("mechanism", None)
         self.regulation_type = kwargs.get("regulation_type", None)
-        self.center_position = kwargs.get("center_position", None)
+        self.relative_dist_site_promoter = kwargs.get(
+            "relative_dist_site_promoter", None)
 
     @property
     def regulation_type(self):
@@ -50,14 +52,15 @@ class RegulatoryInteraction(Base):
         self._binding_site = site_id
 
     @property
-    def center_position(self):
-        return self._center_position
+    def relative_dist_site_promoter(self):
+        return self._relative_dist_site_promoter
 
-    @center_position.setter
-    def center_position(self, center_position=None):
+    @relative_dist_site_promoter.setter
+    def relative_dist_site_promoter(self, relative_dist_site_promoter=None):
         if self.binding_site and self.regulated_entity:
-            center_position = self.pt_connection.get_binding_site_promoter_offset(self.binding_site, self.regulated_entity["_id"])
-        self._center_position = center_position
+            relative_dist_site_promoter = self.pt_connection.get_binding_site_promoter_offset(
+                self.binding_site, self.regulated_entity["_id"])
+        self._relative_dist_site_promoter = relative_dist_site_promoter
 
     @property
     def function_(self):
@@ -80,7 +83,8 @@ class RegulatoryInteraction(Base):
     def regulated_entity(self, regulated_entity=None):
         if regulated_entity is not None:
             regulated_type = None
-            regulated_entity_class = self.pt_connection.get_frame_all_parents(regulated_entity)
+            regulated_entity_class = self.pt_connection.get_frame_all_parents(
+                regulated_entity)
 
             if EC.TRANSCRIPTION_UNIT_CLASS in regulated_entity_class:
                 regulated_type = "transcriptionUnit"
@@ -94,7 +98,8 @@ class RegulatoryInteraction(Base):
                 "name": self.pt_connection.get_name_by_id(regulated_entity),
                 "type": regulated_type,
             }
-            self._regulated_entity = self.get_only_properties_with_values(self._regulated_entity)
+            self._regulated_entity = self.get_only_properties_with_values(
+                self._regulated_entity)
         else:
             self._regulated_entity = None
 
@@ -111,20 +116,24 @@ class RegulatoryInteraction(Base):
                 "_id": regulated_entity_id,
                 "name": self.pt_connection.get_name_by_id(regulated_entity_id),
             }
-            regulated_entity = self.get_only_properties_with_values(regulated_entity)
+            regulated_entity = self.get_only_properties_with_values(
+                regulated_entity)
 
-            regulated_entity_class = self.pt_connection.get_frame_direct_parents(regulated_entity_id)
+            regulated_entity_class = self.pt_connection.get_frame_direct_parents(
+                regulated_entity_id)
             if EC.TRANSCRIPTION_UNIT_CLASS in regulated_entity_class:
                 regulated_entity["type"] = "transcriptionUnit"
                 regulated_entities.append(regulated_entity)
             elif EC.PROMOTER_CLASS in regulated_entity_class:
                 regulated_entity["type"] = "promoter"
 
-                sigma_factor_ids = self.pt_connection.get_promoter_sigma_factor(regulated_entity_id)
+                sigma_factor_ids = self.pt_connection.get_promoter_sigma_factor(
+                    regulated_entity_id)
                 sigma_factor_ids = list(set(sigma_factor_ids))
                 if len(sigma_factor_ids) > 1:
                     for sigma_factor_id in sigma_factor_ids:
-                        regulated_entity["_id"] = ";".join([regulated_entity_id, sigma_factor_id])
+                        regulated_entity["_id"] = ";".join(
+                            [regulated_entity_id, sigma_factor_id])
                         regulated_entities.append(regulated_entity.copy())
                 else:
                     regulated_entities.append(regulated_entity.copy())

@@ -7,7 +7,7 @@ def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_
         regulatory_interaction_object = {
             "_id": regulatory_interaction.id,
             "accessoryProteins": regulatory_interaction.accessory_proteins,
-            "absoluteCenterPosition": regulatory_interaction.center_position,
+            "relativeDistSitePromoter": regulatory_interaction.relative_dist_site_promoter,
             "citations": regulatory_interaction.citations,
             "confidenceLevel": regulatory_interaction.confidence_level,
             "externalCrossReferences": regulatory_interaction.db_links,

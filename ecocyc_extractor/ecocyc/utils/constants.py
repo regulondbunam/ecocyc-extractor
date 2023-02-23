@@ -81,6 +81,7 @@ EVIDENCE_CATEGORY = "evidence_category"
 EVIDENCE_APPROACH = "evidence_approach"
 NOTE_WEB = "note_web"
 CONFIDENCE_LEVEL = "confidence_level"
+RELATIVE_DIST_SITE_PROMOTER = "relative_dist_site_promoter"
 
 # ecocyc classes' names
 ALLOSTERIC_REGULATION_OF_RNAP = "|Allosteric-Regulation-of-RNAP|"
