@@ -38,3 +38,4 @@ This version is for extraction process with new Ecocyc release 26.5 for the Regu
 - Some files has modifications in the import statements for testing porposes, it does not affect the code execution and will be implemented eventually in the rest of the files.
 - Products crash fixed.
 - TF SiteLength property extracted correctly.
+- Restored staticmethod in Ontology.
