@@ -9,6 +9,14 @@ class Evidence(Base):
         self.db_links = kwargs.get("dblinks", None)
         self.code = kwargs.get("code", None)
         self.pertains_to = kwargs.get("pertains_to", None)
+        self.type = kwargs.get("type", None)
+        self.cross_evidence_code_rule = kwargs.get(
+            "cross_evidence_code_rule", None
+        )
+        self.evidence_class = kwargs.get("evidence_class", None)
+        self.evidence_category = kwargs.get("evidence_category", None)
+        self.evidence_approach = kwargs.get("evidence_approach", None)
+        self.note_web = kwargs.get("note_web", None)
 
     @property
     def code(self):
@@ -16,32 +24,8 @@ class Evidence(Base):
 
     @code.setter
     def code(self, name=None):
-        evidence_code_to_return = None
         if name is not None:
-            tokens_to_exclude = ["of", "in", "by", "on", "from", "to", "is", "a", "that"]
-            # Replacing "-" with an empty space from the name, Since there are evidences that may seem
-            # with a repeated
-            # i.e: "CHIP-chip evidence" AND "CHIP-exo evidence", would end up with CE and CE as evidence code
-            # with this change now the code will be CCE and CEE
-            evidence_code_list = name.replace("-", " ")
-            # we create a list, each word of the evidence name will be an element
-            # of the list
-            evidence_code_list = evidence_code_list.split(" ")
-            evidence_code_to_return = ""
-            # Looping through tokensToExclude's elements to remove them from the
-            # evidenceCodeList
-            for token in tokens_to_exclude:
-                # Removing the element of tokensToExclude that is inside the
-                # evidenceCodeList
-                while token in evidence_code_list:
-                    evidence_code_list.remove(token)
-            # We take the first character of each element from the
-            # evidenceCodeList to
-            # create the evidence code
-            for evidence_code in evidence_code_list:
-                if evidence_code != "":
-                    evidence_code_to_return = evidence_code_to_return + evidence_code[0]
-            self._code = evidence_code_to_return.upper()
+            self._code = (self.id).replace("EV-", "")
         else:
             self._code = None
 

@@ -9,6 +9,7 @@ def get_regulondb_transcription_factor_regulatory_sites(site_ids=None, only_prop
             "_id": site.id,
             "absolutePosition": site.absolute_position,
             "citations": site.citations,
+            "confidenceLevel": site.confidence_level,
             "externalCrossReferences": site.db_links,
             "internalComment": site.internal_comment,
             "leftEndPosition": site.left_end_position,

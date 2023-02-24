@@ -1,6 +1,6 @@
 import pythoncyc
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import utils
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import utils
 
 
 class Base(object):
@@ -23,6 +23,7 @@ class Base(object):
         self.strand = kwargs.get("strand", None)
         self._sequence = None
         self._synonyms = kwargs.get("synonyms", None)
+        self.confidence_level = kwargs.get("confidence_level", None)
 
     @property
     def comment(self):
@@ -64,7 +65,8 @@ class Base(object):
     def db_links(self, external_cross_references):
         self._db_links = []
         try:
-            self._db_links.extend(utils.get_external_cross_references(external_cross_references))
+            self._db_links.extend(
+                utils.get_external_cross_references(external_cross_references))
         except TypeError:
             pass
 
@@ -90,7 +92,8 @@ class Base(object):
     @property
     def sequence(self):
         if self._sequence is None:
-            self._sequence = self.get_sequence(self.left_end_position, self.right_end_position, self.strand, self._offset)
+            self._sequence = self.get_sequence(
+                self.left_end_position, self.right_end_position, self.strand, self._offset)
         return self._sequence
 
     @property
@@ -101,7 +104,8 @@ class Base(object):
     def strand(self, strand=None):
         if strand is None:
             try:
-                strand = Base.pt_connection.get_transcription_direction(self.id)
+                strand = Base.pt_connection.get_transcription_direction(
+                    self.id)
             except pythoncyc.PTools.PToolsError:
                 strand = None
         self._strand = self.get_strand(strand)
@@ -143,9 +147,11 @@ class Base(object):
                 # sequence
                 sequence = Base.pt_connection.get_sequence(lend, rend, "X")
                 sequence = sequence[:offset].lower() + sequence[offset:]
-                sequence = sequence[: len(sequence) - offset] + sequence[-offset:].lower()
+                sequence = sequence[: len(
+                    sequence) - offset] + sequence[-offset:].lower()
             else:
-                sequence = Base.pt_connection.get_sequence(left_end_position, right_end_position, "X")
+                sequence = Base.pt_connection.get_sequence(
+                    left_end_position, right_end_position, "X")
             if strand == "reverse" and sequence is not None:
                 sequence = Base.pt_connection.get_reverse_complement(sequence)
         return sequence

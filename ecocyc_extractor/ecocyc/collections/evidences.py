@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.evidence import Evidence
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import constants as EC, utils
+from ecocyc_extractor.ecocyc.domain.evidence import Evidence
 
 
 class Evidences(object):
@@ -17,7 +17,8 @@ class Evidences(object):
         if registered_ids:
             evidence_ids = utils.get_evidence_ids()
         else:
-            evidence_ids = Evidences.pt_connection.get_class_all_subs(EC.EVIDENCE_CLASS)
+            evidence_ids = Evidences.pt_connection.get_class_all_subs(
+                EC.EVIDENCE_CLASS)
         return evidence_ids
 
     @property
@@ -40,5 +41,11 @@ class Evidences(object):
             internal_comment=evidence[EC.INTERNAL_COMMENT],
             name=evidence[EC.NAME],
             pertains_to=evidence[EC.PERTAINS_TO],
+            type=evidence[EC.TYPE],
+            crossEvidenceCodeRule=evidence[EC.CROSS_EVIDENCE_CODE_RULE],
+            evidenceClass=evidence[EC.EVIDENCE_CLASS_PROPERTY],
+            evidenceCategory=evidence[EC.EVIDENCE_CATEGORY],
+            evidenceApproach=evidence[EC.EVIDENCE_APPROACH],
+            noteWeb=evidence[EC.NOTE_WEB]
         )
         return new_evidence

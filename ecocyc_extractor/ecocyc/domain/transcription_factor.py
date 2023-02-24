@@ -19,6 +19,7 @@ class TranscriptionFactor(Base):
             "inactive_conformations", None)
         self.name = kwargs.get("name", None)
         self.site_length = kwargs.get("site_length", None)
+        self.symmetry = kwargs.get("symmetry", None)
 
     @property
     def active_conformations(self):
@@ -79,6 +80,34 @@ class TranscriptionFactor(Base):
             global_function = TranscriptionFactor.get_protein_function(
                 regulates)
         self._global_function = global_function
+
+    @property
+    def site_length(self):
+        return self._site_length
+
+    @site_length.setter
+    def site_length(self, site_length=None):
+        if site_length is None:
+            site_length = self.pt_connection.get_slot_value(
+                self.id, EC.TF_SITE_LENTGH
+            )
+            self._site_length = site_length
+        else:
+            self._site_length = site_length
+
+    @property
+    def symmetry(self):
+        return self._symmetry
+
+    @symmetry.setter
+    def symmetry(self, symmetry=None):
+        if symmetry is None:
+            symmetry = self.pt_connection.get_slot_value(
+                self.id, EC.TF_SYMMETRY
+            )
+            self._symmetry = symmetry
+        else:
+            self._symmetry = symmetry
 
     def get_products_ids(self):
         product_ids = []

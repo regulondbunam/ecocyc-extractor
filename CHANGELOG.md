@@ -1,24 +1,40 @@
 # Ecocyc Extractor Changelog
 
-This version solves the changes on Ecocyc 26.0 release.
+This version is for extraction process with new Ecocyc release 26.5 for the RegulonDB 11.2 release.
 
-## [1.0.0](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/1.0.0) - 2023-02-02
+## [2.0.0](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.0) - 2023-02-24
 
 ### Added
 
-- Documentation files
-- Manuals
-- Diagrams
+- Test Module: This module checks functions works for debugging porposes.
+- New Evidence Code generation, now is generated using the Evidence ID.
+- New Evidence properties added.
+  - type
+  - crossEvidenceCodeRule
+  - evidenceClass
+  - evidenceCategory
+  - evidenceApproach
+  - noteWeb
+- confidenceLevel property added.
+  - The confidenceLevel property added in genes, products, promoters, regulatory complexes, regulatory continuants, regulatory interactions, segments, sigma factors, terminators, sites, transcription factors and transcription units.
+- Symmetry TF property
 
 ### Changed
 
-- The import paths have been fixed for better integration with the snakemake script.
-- Now the snakemake script can be fully utilized for full Ecocyc data extraction without human intervention.
+- The Evidence properties where added for future Ecocyc releases, these changes is to maintain parity with the MultigenomicModel
+- Regulatory Interactions absoluteCenterPosition changed to relativeDistSitePromoter
 
 ### Deprecated
 
-- GrowthConditions collection extraction is in code but is not available, this keep for future releases.
+- Old Evidence Code generation, Code was generated using the Evidence name
+- Removed an unnecessary print in the evidence extraction
 
 ### Fixed
 
-- Motif extraction has a problem with a property, fixed.
+- README:
+  - Badges versions update and orthographics corrections.
+  - Badges CHANGELOG link update.
+- Snakefile: Commented code corrected.
+- Some files has modifications in the import statements for testing porposes, it does not affect the code execution and will be implemented eventually in the rest of the files.
+- Products crash fixed.
+- TF SiteLength property extracted correctly.

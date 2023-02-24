@@ -7,6 +7,7 @@ def get_regulondb_terminators(terminator_ids=None, only_properties_with_values=F
             "_id": terminator.id,
             "class": terminator.class_,
             "citations": terminator.citations,
+            "confidenceLevel": terminator.confidence_level,
             "externalCrossReferences": terminator.db_links,
             "internalComment": terminator.internal_comment,
             "note": terminator.comment,
@@ -15,5 +16,6 @@ def get_regulondb_terminators(terminator_ids=None, only_properties_with_values=F
             "transcriptionTerminationSite": terminator.transcription_termination_site
         }
         if only_properties_with_values is True:
-            terminator_object = terminator.get_only_properties_with_values(terminator_object)
+            terminator_object = terminator.get_only_properties_with_values(
+                terminator_object)
         yield terminator_object

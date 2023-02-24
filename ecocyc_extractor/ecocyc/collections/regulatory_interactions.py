@@ -15,26 +15,37 @@ class RegulatoryInteractions(object):
     @staticmethod
     def get_ids(ids=None, transcription_factors_ris=False):
         if ids is None and transcription_factors_ris is True:
-            regulatory_interaction_ids = RegulatoryInteractions.pt_connection.get_class_all_instances(EC.TRANSCRIPTION_FACTOR_BINDING_CLASS)
-            regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(EC.ALLOSTERIC_REGULATION_OF_RNAP))
+            regulatory_interaction_ids = RegulatoryInteractions.pt_connection.get_class_all_instances(
+                EC.TRANSCRIPTION_FACTOR_BINDING_CLASS)
+            regulatory_interaction_ids.extend(
+                RegulatoryInteractions.pt_connection.get_class_all_instances(EC.ALLOSTERIC_REGULATION_OF_RNAP))
         elif ids is None and transcription_factors_ris is False:
-            regulatory_interaction_ids = RegulatoryInteractions.pt_connection.get_class_all_instances(EC.TRANSCRIPTION_FACTOR_BINDING_CLASS)
-            regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(EC.ALLOSTERIC_REGULATION_OF_RNAP))
-            regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(EC.RNA_MEDIATED_TRANSLATION_REGULATION))
-            regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION))
+            regulatory_interaction_ids = RegulatoryInteractions.pt_connection.get_class_all_instances(
+                EC.TRANSCRIPTION_FACTOR_BINDING_CLASS)
+            regulatory_interaction_ids.extend(
+                RegulatoryInteractions.pt_connection.get_class_all_instances(EC.ALLOSTERIC_REGULATION_OF_RNAP))
+            regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(
+                EC.RNA_MEDIATED_TRANSLATION_REGULATION))
+            regulatory_interaction_ids.extend(RegulatoryInteractions.pt_connection.get_class_all_instances(
+                EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION))
             # TODO: We need to add the new RIs from Soco's notes
         else:
             regulatory_interaction_ids = ids
-        regulatory_interaction_ids = utils.get_unique_elements(regulatory_interaction_ids)
+        regulatory_interaction_ids = utils.get_unique_elements(
+            regulatory_interaction_ids)
         return regulatory_interaction_ids
 
     @property
     def objects(self):
-        regulatory_interaction_objects = RegulatoryInteractions.pt_connection.get_frame_objects(self.ids)
+        regulatory_interaction_objects = RegulatoryInteractions.pt_connection.get_frame_objects(
+            self.ids)
         for regulatory_interaction in regulatory_interaction_objects:
-            regulatory_interaction = RegulatoryInteractions.set_regulatory_interaction(regulatory_interaction)
-            logging.info('Working on regulatory interaction: {}'.format(regulatory_interaction["id"]))
-            ecocyc_regulatory_interaction = RegulatoryInteraction(**regulatory_interaction)
+            regulatory_interaction = RegulatoryInteractions.set_regulatory_interaction(
+                regulatory_interaction)
+            logging.info('Working on regulatory interaction: {}'.format(
+                regulatory_interaction["id"]))
+            ecocyc_regulatory_interaction = RegulatoryInteraction(
+                **regulatory_interaction)
             yield ecocyc_regulatory_interaction
 
     @staticmethod
@@ -42,7 +53,7 @@ class RegulatoryInteractions(object):
         new_regulatory_interaction = dict(
             id=regulatory_interaction[EC.ID],
             accessory_proteins=regulatory_interaction[EC.ACCESSORY_PROTEINS],
-            center_position=regulatory_interaction[EC.ABSOLUTE_CENTER_POSITION],
+            relative_dist_site_promoter=regulatory_interaction[EC.RELATIVE_DIST_SITE_PROMOTER],
             citations=regulatory_interaction[EC.CITATIONS],
             comment=regulatory_interaction[EC.COMMENT],
             dblinks=regulatory_interaction[EC.DBLINKS],
