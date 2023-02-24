@@ -2,7 +2,7 @@
 
 This version is for extraction process with new Ecocyc release 26.5 for the RegulonDB 11.2 release.
 
-## [2.0.0](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.0) - 2023-02-24
+## [2.0.1](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.1) - 2023-02-24
 
 ### Added
 
@@ -38,3 +38,4 @@ This version is for extraction process with new Ecocyc release 26.5 for the Regu
 - Some files has modifications in the import statements for testing porposes, it does not affect the code execution and will be implemented eventually in the rest of the files.
 - Products crash fixed.
 - TF SiteLength property extracted correctly.
+- Restored staticmethod in Ontology.
