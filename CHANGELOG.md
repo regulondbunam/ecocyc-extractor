@@ -2,7 +2,7 @@
 
 This version is for extraction process with new Ecocyc release 26.5 for the RegulonDB 11.2 release.
 
-## [2.0.0](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.0) - 2023-02-24
+## [2.0.1](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.1) - 2023-02-24
 
 ### Added
 
