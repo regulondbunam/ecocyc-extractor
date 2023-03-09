@@ -17,12 +17,12 @@ rule ecocyc_extractor_workflow:
     input:
         "logs/ptools_docker_log/ptools_docker_log.log",
         "logs/ecocyc_extractor_log/ecocyc_extractor_log.log",
-        #"logs/schema_loader_log/schema_loader_log.log",
+        "logs/schema_loader_log/schema_loader_log.log",
         "logs/validation_log/validation_log.log",
         "logs/create_identifiers_log/create_identifiers_log.log",
         "logs/replace_identifiers_log/replace_identifiers_log.log",
         "logs/re_validation_log/validation_log.log",
-        #"logs/data_uploader_log/data_uploader_log.log"
+        "logs/data_uploader_log/data_uploader_log.log"
     log: 
         "logs/ecocyc_extractor_log.log"
     run:
@@ -71,6 +71,7 @@ rule schema_loader:
     priority: 9
     shell:
         "python {params.main_path} -db {params.db} -u {params.url} -s {params.schemas} -l {params.log} -d"
+        
 
 rule data_validator:
     params:
@@ -87,6 +88,7 @@ rule data_validator:
     priority: 8
     shell:
         "python {params.main_path} -i {params.data} -s {params.schemas} -v {params.valid_data} -iv {params.invalid_data} -l {params.log} -sp"
+
 
 rule create_identifiers:
     params:
@@ -106,7 +108,8 @@ rule create_identifiers:
     priority: 7
     shell:
         'python3 {params.main_path} -u {params.url} -i {params.valid_data} -org {params.organism} -s {params.source} -sv {params.source_version} -v {params.version} -db "{params.db}" -l {params.log}'
-     
+
+
 rule replace_identifiers:
     params:
         main_path = replace_identifiers_config["main_path"],
@@ -123,7 +126,8 @@ rule replace_identifiers:
         "envs/db_dependencies.yaml"
     priority: 6
     shell:
-        "python {params.main_path} -org {params.organism} -i {params.valid_data} -o {params.replaced_ids} -u {params.url} -v {params.version} -db {params.db} -l {params.log}"        
+        "python {params.main_path} -org {params.organism} -i {params.valid_data} -o {params.replaced_ids} -u {params.url} -v {params.version} -db {params.db} -l {params.log}"
+
 
 rule re_validate_data:
     params:
@@ -140,6 +144,7 @@ rule re_validate_data:
     priority: 5
     shell:
         "python {params.main_path} -i {params.data} -s {params.schemas} -v {params.valid_data} -iv {params.invalid_data} -l {params.log}"
+
 
 rule data_uploader:
     params:

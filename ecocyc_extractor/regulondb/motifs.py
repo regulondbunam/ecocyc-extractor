@@ -7,7 +7,6 @@ def get_regulondb_motifs(motif_ids=None, only_properties_with_values=False):
             "_id": motif.id,
             "alternateSequence": motif.alternate_sequence,
             "attachedGroup": motif.attached_group,
-            "citations": motif.citations,
             "class": motif.class_,
             "color": motif.feature_color,
             "dataSource": motif.data_source,

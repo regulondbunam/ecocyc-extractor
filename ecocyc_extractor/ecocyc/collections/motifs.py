@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.motif import Motif
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import constants as EC, utils
+from ecocyc_extractor.ecocyc.domain.motif import Motif
 from .products import Products
 
 
@@ -58,7 +58,6 @@ class Motifs(object):
             alternate_sequence=motif[EC.ALTERNATE_SEQUENCE],
             attached_group=motif[EC.ATTACHED_GROUP],
             comment=motif[EC.COMMENT],
-            citations=motif[EC.CITATIONS],
             data_source=motif[EC.DATA_SOURCE],
             dblinks=motif[EC.DBLINKS],
             feature_color=motif[EC.FEATURE_COLOR],

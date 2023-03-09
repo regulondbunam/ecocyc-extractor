@@ -2,7 +2,7 @@
 
 This version is for extraction process with new Ecocyc release 26.5 for the RegulonDB 11.2 release.
 
-## [2.0.1](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.1) - 2023-02-24
+## [2.0.2](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.2) - 2023-03-09
 
 ### Added
 
@@ -23,6 +23,7 @@ This version is for extraction process with new Ecocyc release 26.5 for the Regu
 
 - The Evidence properties where added for future Ecocyc releases, these changes is to maintain parity with the MultigenomicModel
 - Regulatory Interactions absoluteCenterPosition changed to relativeDistSitePromoter
+- Snakemake config file updated to the new release version.
 
 ### Deprecated
 
@@ -39,3 +40,5 @@ This version is for extraction process with new Ecocyc release 26.5 for the Regu
 - Products crash fixed.
 - TF SiteLength property extracted correctly.
 - Restored staticmethod in Ontology.
+- citations extacted in motifs where removed.
+- Some paths of imports fixed.

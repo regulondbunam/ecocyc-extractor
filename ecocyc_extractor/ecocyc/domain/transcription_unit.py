@@ -1,5 +1,5 @@
 from .base import Base
-from ecocyc.collections.terminators import Terminators
+from ecocyc_extractor.ecocyc.collections.terminators import Terminators
 from ..utils import constants as EC
 from ..utils import utils
 
@@ -35,14 +35,17 @@ class TranscriptionUnit(Base):
     def promoter_ids(self, promoter_id=None):
         promoter_ids = None
         if promoter_id is None:
-            promoter_id = self.pt_connection.transcription_unit_promoter(self.id)
+            promoter_id = self.pt_connection.transcription_unit_promoter(
+                self.id)
         if promoter_id:
-            sigma_factor_ids = self.pt_connection.get_promoter_sigma_factor(promoter_id)
+            sigma_factor_ids = self.pt_connection.get_promoter_sigma_factor(
+                promoter_id)
             sigma_factor_ids = list(set(sigma_factor_ids))
             if len(sigma_factor_ids) > 1:
                 promoter_ids = []
                 for sigma_factor_id in sigma_factor_ids:
-                    promoter_ids.append(";".join([promoter_id, sigma_factor_id]))
+                    promoter_ids.append(
+                        ";".join([promoter_id, sigma_factor_id]))
             else:
                 promoter_ids = promoter_id
         self._promoter_ids = promoter_ids
@@ -55,7 +58,8 @@ class TranscriptionUnit(Base):
     def terminator_ids(self, terminator_ids=None):
         if terminator_ids is None:
             self._terminator_ids = []
-            tu_terminator_ids = self.pt_connection.transcription_unit_terminators(self.id)
+            tu_terminator_ids = self.pt_connection.transcription_unit_terminators(
+                self.id)
             tu_terminator_ids = tu_terminator_ids
             for tu_terminator_id in tu_terminator_ids:
                 if tu_terminator_id in self._all_terminator_class_ids:
