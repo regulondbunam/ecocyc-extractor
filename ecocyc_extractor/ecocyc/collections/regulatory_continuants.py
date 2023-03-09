@@ -1,9 +1,9 @@
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.regulatory_continuant import RegulatoryContinuant
-from ecocyc.collections.regulatory_complexes import RegulatoryComplexes
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import constants as EC, utils
+from ecocyc_extractor.ecocyc.domain.regulatory_continuant import RegulatoryContinuant
+from ecocyc_extractor.ecocyc.collections.regulatory_complexes import RegulatoryComplexes
 
 
 class RegulatoryContinuants(object):

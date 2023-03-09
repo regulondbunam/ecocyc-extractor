@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.segment import Segment
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import constants as EC, utils
+from ecocyc_extractor.ecocyc.domain.segment import Segment
 
 
 class Segments(object):
@@ -10,13 +10,15 @@ class Segments(object):
     pt_connection = Connection()
 
     def __init__(self, ids=None):
-        self.ids = Segments.get_ids(ids)
+        self.ids = self.get_ids(ids)
 
     @staticmethod
     def get_ids(ids=None):
         if ids is None:
-            dna_segments_ids = Segments.pt_connection.get_class_all_instances(EC.DNA_SEGMENTS)
-            mrna_segments_ids = Segments.pt_connection.get_class_all_instances(EC.MRNA_SEGMENTS)
+            dna_segments_ids = Segments.pt_connection.get_class_all_instances(
+                EC.DNA_SEGMENTS)
+            mrna_segments_ids = Segments.pt_connection.get_class_all_instances(
+                EC.MRNA_SEGMENTS)
             segments_ids = dna_segments_ids + mrna_segments_ids
         else:
             segments_ids = ids

@@ -1,8 +1,8 @@
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.publication import Publication
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import constants as EC, utils
+from ecocyc_extractor.ecocyc.domain.publication import Publication
 
 
 class Publications(object):
@@ -10,15 +10,19 @@ class Publications(object):
     pt_connection = Connection()
 
     def __init__(self, registered_ids=False):
+        # print(registered_ids)
         self.ids = Publications.get_ids(registered_ids)
 
     @staticmethod
     def get_ids(registered_ids=False):
         if registered_ids:
             publication_ids = utils.get_publication_ids()
+            print('Using local publications: ',
+                  len(utils.get_publication_ids()))
         else:
             publication_ids = Publications.pt_connection.get_class_all_instances(
                 EC.PUBLICATIONS_CLASS)
+            print('Using all publications: ', len(publication_ids))
         return publication_ids
 
     @property

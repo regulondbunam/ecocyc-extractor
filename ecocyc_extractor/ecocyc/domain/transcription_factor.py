@@ -88,10 +88,13 @@ class TranscriptionFactor(Base):
     @site_length.setter
     def site_length(self, site_length=None):
         if site_length is None:
-            site_length = self.pt_connection.get_slot_value(
+            site_length = self.pt_connection.get_slot_values(
                 self.id, EC.TF_SITE_LENTGH
             )
-            self._site_length = site_length
+            if site_length:
+                self._site_length = site_length
+            else:
+                self._site_length = site_length
         else:
             self._site_length = site_length
 
@@ -102,7 +105,7 @@ class TranscriptionFactor(Base):
     @symmetry.setter
     def symmetry(self, symmetry=None):
         if symmetry is None:
-            symmetry = self.pt_connection.get_slot_value(
+            symmetry = self.pt_connection.get_slot_values(
                 self.id, EC.TF_SYMMETRY
             )
             self._symmetry = symmetry

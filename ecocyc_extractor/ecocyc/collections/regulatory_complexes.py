@@ -1,11 +1,11 @@
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.regulatory_complex import RegulatoryComplex
-from ecocyc.collections.regulatory_interactions import RegulatoryInteractions
-from ecocyc.collections.transcription_factors import TranscriptionFactors
-from ecocyc.domain.transcription_factor import TranscriptionFactor
+from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc_extractor.ecocyc.utils import constants as EC, utils
+from ecocyc_extractor.ecocyc.domain.regulatory_complex import RegulatoryComplex
+from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+from ecocyc_extractor.ecocyc.collections.transcription_factors import TranscriptionFactors
+from ecocyc_extractor.ecocyc.domain.transcription_factor import TranscriptionFactor
 
 
 class RegulatoryComplexes(object):

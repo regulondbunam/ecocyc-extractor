@@ -1,5 +1,5 @@
 import re
-from ecocyc.collections.products import Products
+from ecocyc_extractor.ecocyc.collections.products import Products
 from .base import Base
 from .product import Product
 from ..utils import constants as EC
@@ -16,7 +16,6 @@ class Motif(Base):
         self.alternate_sequence = kwargs.get("alternate_sequence", None)
         self.attached_group = kwargs.get("attached_group", None)
         self.db_links = kwargs.get("dblinks", None)
-        self.citations = kwargs.get("citations", None)
         self.class_ = kwargs.get("class", None)
         self.data_source = kwargs.get("data_source", None)
         self.description = kwargs.get("name", None)
