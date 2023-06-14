@@ -1,29 +1,16 @@
 # Ecocyc Extractor Changelog
 
-This version is for extraction process with new Ecocyc release 26.5 for the RegulonDB 11.2 release.
+This version is for extraction process with new Ecocyc release 27.0 for the RegulonDB 12.0 release.
 
-## [2.0.2](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.2) - 2023-03-09
+## [2.0.3](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.3) - 2023-06-14
 
 ### Added
 
-- Test Module: This module checks functions works for debugging porposes.
-- New Evidence Code generation, now is generated using the Evidence ID.
-- New Evidence properties added.
-  - type
-  - crossEvidenceCodeRule
-  - evidenceClass
-  - evidenceCategory
-  - evidenceApproach
-  - noteWeb
-- confidenceLevel property added.
-  - The confidenceLevel property added in genes, products, promoters, regulatory complexes, regulatory continuants, regulatory interactions, segments, sigma factors, terminators, sites, transcription factors and transcription units.
-- Symmetry TF property
+- New RegulatoryIteractions property 'regulationClass'.
 
 ### Changed
 
-- The Evidence properties where added for future Ecocyc releases, these changes is to maintain parity with the MultigenomicModel
-- Regulatory Interactions absoluteCenterPosition changed to relativeDistSitePromoter
-- Snakemake config file updated to the new release version.
+- Now when a new conformation will be added it's checked if this is not a TF.
 
 ### Deprecated
 
@@ -32,13 +19,8 @@ This version is for extraction process with new Ecocyc release 26.5 for the Regu
 
 ### Fixed
 
-- README:
-  - Badges versions update and orthographics corrections.
-  - Badges CHANGELOG link update.
-- Snakefile: Commented code corrected.
-- Some files has modifications in the import statements for testing porposes, it does not affect the code execution and will be implemented eventually in the rest of the files.
-- Products crash fixed.
-- TF SiteLength property extracted correctly.
-- Restored staticmethod in Ontology.
-- citations extacted in motifs where removed.
-- Some paths of imports fixed.
+- Without changes.
+
+### To Fix
+
+- There's a possibility to modify the regulationClass property format.
