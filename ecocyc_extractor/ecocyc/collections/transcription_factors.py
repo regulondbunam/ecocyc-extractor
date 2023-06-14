@@ -25,6 +25,7 @@ class TranscriptionFactors(object):
         for transcription_factor in transcription_factor_objects:
             transcription_factor = TranscriptionFactors.set_transcription_factor(
                 transcription_factor)
+            transcription_factor.update({'tf_ids': self.ids})
             logging.info('Working on transcription factor: {}'.format(
                 transcription_factor["id"]))
             ecocyc_transcription_factor = TranscriptionFactor(

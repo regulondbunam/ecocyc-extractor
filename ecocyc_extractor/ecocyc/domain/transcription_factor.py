@@ -10,6 +10,7 @@ class TranscriptionFactor(Base):
 
     def __init__(self, **kwargs):
         super(TranscriptionFactor, self).__init__(**kwargs)
+        self.tf_ids = kwargs.get('tf_ids', None)
         self.db_links = kwargs.get("dblinks", None)
         self.abbreviated_name = kwargs.get("abbreviated_name", None)
         self.active_conformations = kwargs.get("active_conformations", None)
@@ -30,6 +31,8 @@ class TranscriptionFactor(Base):
         if active_conformations is None:
             tf_active_conformations = []
             for conformation_id in TranscriptionFactor.get_tf_active_conformations(self.id):
+                if conformation_id in self.tf_ids:
+                    continue
                 if conformation_id in TranscriptionFactor.product_ids:
                     conformation_class = "product"
                 else:
@@ -49,6 +52,8 @@ class TranscriptionFactor(Base):
         if inactive_conformations is None:
             tf_inactive_conformations = []
             for conformation_id in TranscriptionFactor.get_tf_inactive_conformations(self.id):
+                if conformation_id in self.tf_ids:
+                    continue
                 tf_inactive_conformations.append(
                     {"_id": conformation_id, "type": "regulatoryComplex"})
             self._inactive_conformations = tf_inactive_conformations
