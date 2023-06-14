@@ -23,6 +23,7 @@ class RegulatoryInteraction(Base):
         self.regulation_type = kwargs.get("regulation_type", None)
         self.relative_dist_site_promoter = kwargs.get(
             "relative_dist_site_promoter", None)
+        self.regulation_class = kwargs.get("regulation_class", None)
 
     @property
     def regulation_type(self):
@@ -164,3 +165,16 @@ class RegulatoryInteraction(Base):
                 self._regulator)
         else:
             self._regulator = regulator
+
+    @property
+    def regulation_class(self):
+        return self._regulation_class
+
+    @regulation_class.setter
+    def regulation_class(self, regulation_class=None):
+        if regulation_class is None:
+            direct_parents = self.pt_connection.get_frame_direct_parents(
+                self.id)
+            self._regulation_class = direct_parents
+        else:
+            self._regulation_class = regulation_class
