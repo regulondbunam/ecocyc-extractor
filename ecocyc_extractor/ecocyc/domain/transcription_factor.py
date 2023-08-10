@@ -30,15 +30,28 @@ class TranscriptionFactor(Base):
     def active_conformations(self, active_conformations):
         if active_conformations is None:
             tf_active_conformations = []
+            temp_conformations = []
+            cplx_conf = 0
             for conformation_id in TranscriptionFactor.get_tf_active_conformations(self.id):
-                if conformation_id in self.tf_ids:
-                    continue
                 if conformation_id in TranscriptionFactor.product_ids:
                     conformation_class = "product"
                 else:
                     conformation_class = "regulatoryComplex"
-                tf_active_conformations.append(
-                    {"_id": conformation_id, "type": conformation_class})
+                    cplx_conf += 1
+                temp_conformations.append(
+                    {"_id": conformation_id, "type": conformation_class}
+                )
+
+            if cplx_conf == 0:
+                # Add the product
+                tf_active_conformations = temp_conformations.copy()
+            else:
+                for conformation in temp_conformations:
+                    if conformation.get("_id") in self.tf_ids:
+                        continue
+                    else:
+                        tf_active_conformations.append(conformation)
+
             self._active_conformations = tf_active_conformations
         else:
             self._active_conformations = active_conformations
@@ -51,11 +64,27 @@ class TranscriptionFactor(Base):
     def inactive_conformations(self, inactive_conformations):
         if inactive_conformations is None:
             tf_inactive_conformations = []
+            temp_conformations = []
+            cplx_conf = 0
             for conformation_id in TranscriptionFactor.get_tf_inactive_conformations(self.id):
-                if conformation_id in self.tf_ids:
-                    continue
-                tf_inactive_conformations.append(
-                    {"_id": conformation_id, "type": "regulatoryComplex"})
+                if conformation_id in TranscriptionFactor.product_ids:
+                    conformation_class = "product"
+                else:
+                    conformation_class = "regulatoryComplex"
+                    cplx_conf += 1
+                temp_conformations.append(
+                    {"_id": conformation_id, "type": conformation_class}
+                )
+
+            if cplx_conf == 0:
+                # Add the product
+                tf_inactive_conformations = temp_conformations.copy()
+            else:
+                for conformation in temp_conformations:
+                    if conformation.get("_id") in self.tf_ids:
+                        continue
+                    else:
+                        tf_inactive_conformations.append(conformation)
             self._inactive_conformations = tf_inactive_conformations
         else:
             self._inactive_conformations = inactive_conformations
