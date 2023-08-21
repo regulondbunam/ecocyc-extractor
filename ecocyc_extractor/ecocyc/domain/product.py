@@ -124,11 +124,27 @@ class Product(Base):
     def name(self):
         if self._name is None:
             try:
+                gene_name = self.pt_connection.get_name_by_id(self.gene)
+                print('ID: ', self.id, 'GENE: ', gene_name)
+                print('ABB_Name: ', self.abbreviated_name)
                 self._name = (
                     self.abbreviated_name
                     if self.abbreviated_name is not None
                     else "/".join(self.catalyzes)
                 )
+                if self.abbreviated_name is None:
+                    synonyms = self.synonyms
+                    short_name = utils.get_similar_string(gene_name, synonyms)
+                    if short_name is None:
+                        short_name = min(synonyms, key=len)
+                        for synonym in synonyms:
+                            if synonym in self._name:
+                                short_name = synonym
+                                continue
+                    else:
+                        short_name = short_name[0]
+                    self._name = short_name
+                print('Final Name: ', self._name)
             except TypeError:
                 pass
         return self._name

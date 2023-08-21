@@ -1,4 +1,5 @@
 import re
+from difflib import get_close_matches
 
 from .pathway_tools.connection import Connection
 from .growth_conditions import GrowthCondition
@@ -8,6 +9,21 @@ _publication_ids = []
 _evidence_ids = []
 _external_db_ids = []
 citations_pattern = re.compile("(\[[0-9]+\])")
+
+
+def get_similar_string(word, word_list):
+    '''
+    Gets closest word from list.
+
+    Param
+        - word, String, Word to compare.
+        - word_list, List, Word list to find the closest word.
+
+    Returns
+        - closest_words, List, List with the closest words.
+    '''
+    closest_words = get_close_matches(word, word_list)
+    return closest_words
 
 
 def add_pmids_to_extraction_from(comment):
