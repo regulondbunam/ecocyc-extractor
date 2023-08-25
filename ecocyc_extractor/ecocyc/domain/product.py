@@ -11,7 +11,6 @@ class Product(Base):
     def __init__(self, **kwargs):
         super(Product, self).__init__(**kwargs)
         self.type_ = None
-        self.abbreviated_name = kwargs.get("abbreviated_name", None)
         self.anticodon = kwargs.get("anticodon", None)
         self.catalyzes = kwargs.get("catalyzes", None)
         self.coding_segments = kwargs.get("coding_segments", None)
@@ -19,6 +18,7 @@ class Product(Base):
         self.component_of = kwargs.get("component_of", None)
         self.db_links = kwargs.get("dblinks", None)
         self.gene = kwargs.get("gene", None)
+        self.abbreviated_name = kwargs.get("abbreviated_name", None)
         self.isoelectric_points = kwargs.get("isoelectric_point", None)
         self.locations = kwargs.get("locations", None)
         self.modified_forms = kwargs.get("modified_forms", None)
@@ -30,6 +30,7 @@ class Product(Base):
         self.splice_form_introns = kwargs.get("splice_form_introns", None)
         self.symmetries = kwargs.get("symmetries", None)
         self.terms = kwargs.get("terms", None)
+        self.name = kwargs.get("name", None)
 
     @property
     def catalyzes(self):
@@ -121,33 +122,53 @@ class Product(Base):
             self._modified_forms = None
 
     @property
+    def abbreviated_name(self):
+        return self._abbreviated_name
+
+    @abbreviated_name.setter
+    def abbreviated_name(self, short_name=None):
+        abb_name = self.pt_connection.get_slot_value(
+            self.id, EC.ABBREV_NAME_SLOT)
+        gene_name = self.pt_connection.get_name_by_id(self.gene)
+        #print('ID: ', self.id, 'GENE: ', gene_name)
+        gene_name = utils.capitalize_first_letter(gene_name)
+        #print('ABB_Name: ', abb_name)
+        short_name = abb_name
+        if abb_name is None:
+            synonyms = self.synonyms
+            if synonyms is not None and synonyms != []:
+                short_name = utils.get_similar_string(gene_name, synonyms)
+            #print('SHORT_Name: ', short_name)
+            if short_name is None and synonyms is not None and synonyms != []:
+                short_name = min(synonyms, key=len)
+                for synonym in synonyms:
+                    if synonym in short_name:
+                        short_name = synonym
+                        continue
+            elif short_name != [] and short_name is not None:
+                short_name = short_name[0]
+            else:
+                short_name = gene_name
+            short_name = short_name
+        self._abbreviated_name = short_name
+        #print('Final Short Name: ', short_name)
+
+    @property
     def name(self):
-        if self._name is None:
-            try:
-                gene_name = self.pt_connection.get_name_by_id(self.gene)
-                print('ID: ', self.id, 'GENE: ', gene_name)
-                print('ABB_Name: ', self.abbreviated_name)
-                self._name = (
-                    self.abbreviated_name
-                    if self.abbreviated_name is not None
-                    else "/".join(self.catalyzes)
-                )
-                if self.abbreviated_name is None:
-                    synonyms = self.synonyms
-                    short_name = utils.get_similar_string(gene_name, synonyms)
-                    if short_name is None:
-                        short_name = min(synonyms, key=len)
-                        for synonym in synonyms:
-                            if synonym in self._name:
-                                short_name = synonym
-                                continue
-                    else:
-                        short_name = short_name[0]
-                    self._name = short_name
-                print('Final Name: ', self._name)
-            except TypeError:
-                pass
         return self._name
+
+    @name.setter
+    def name(self, name=None):
+        if name is None:
+            name = self._name
+            if name is None:
+                if self.catalyzes:
+                    #print('Catalyzes: ', self.catalyzes)
+                    name = "".join(self.catalyzes)
+            if name is None:
+                name = self.abbreviated_name
+        #print('Final Name: ', name)
+        self._name = name
 
     @property
     def sequence(self):

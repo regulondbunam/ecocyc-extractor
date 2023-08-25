@@ -26,6 +26,22 @@ def get_similar_string(word, word_list):
     return closest_words
 
 
+def capitalize_first_letter(word):
+    '''
+    Sets only first letter in a string to capital.
+
+    Param
+        - word, String, Word to compare.
+
+    Returns
+        - , String, New word processed.
+    '''
+    letters = list(word)
+    letters[0] = letters[0].capitalize()
+    #print(f'First: {letters[0]}\tLast: {letters[-1]}')
+    return "".join(letters)
+
+
 def add_pmids_to_extraction_from(comment):
     citations_pattern = re.compile("(\[[0-9]+\])")
     pmids_search = re.findall(citations_pattern, comment)
