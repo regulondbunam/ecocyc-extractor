@@ -23,10 +23,12 @@ class SigmaFactors(object):
 
     @property
     def objects(self):
-        sigma_factor_objects = SigmaFactors.pt_connection.get_frame_objects(self.ids)
+        sigma_factor_objects = SigmaFactors.pt_connection.get_frame_objects(
+            self.ids)
         for sigma_factor in sigma_factor_objects:
             sigma_factor = SigmaFactors.set_sigma_factor(sigma_factor)
-            logging.info('Working on sigma factor: {}'.format(sigma_factor["id"]))
+            logging.info('Working on sigma factor: {}'.format(
+                sigma_factor["id"]))
             ecocyc_sigma_factor = SigmaFactor(**sigma_factor)
             yield ecocyc_sigma_factor
 
@@ -34,6 +36,7 @@ class SigmaFactors(object):
     def set_sigma_factor(sigma_factor):
         new_sigma_factor = dict(
             id=sigma_factor[EC.ID],
+            abbreviated_name=sigma_factor[EC.ABBREV_NAME],
             citations=sigma_factor[EC.CITATIONS],
             comment=sigma_factor[EC.COMMENT],
             dblinks=sigma_factor[EC.DBLINKS],

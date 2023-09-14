@@ -6,6 +6,7 @@ def get_regulondb_transcription_factors(transcription_factor_ids=None, only_prop
         transcription_factor_rdb_object = {
             "_id": transcription_factor.id,
             "activeConformations": transcription_factor.active_conformations,
+            "abbreviatedName": transcription_factor.abbreviated_name,
             "citations": transcription_factor.citations,
             "confidenceLevel": transcription_factor.confidence_level,
             "externalCrossReferences": transcription_factor.db_links,

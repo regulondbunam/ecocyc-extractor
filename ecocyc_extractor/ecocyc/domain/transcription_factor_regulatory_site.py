@@ -90,10 +90,16 @@ class TranscriptionFactorRegulatorySite(Base):
             try:
                 # if both positions have identical values then it means that there's an inconsistency
                 # on the site positions' data or pathway tool's functions
-                if self.left_end_position == self.right_end_position:
+                if not self.length:
                     sequence = None
                 else:
-                    sequence = Base.get_sequence(self.left_end_position, self.right_end_position, strand, offset)
+                    if self.left_end_position == self.right_end_position:
+                        sequence = None
+                    elif self.left_end_position is None or self.right_end_position is None:
+                        sequence = None
+                    else:
+                        sequence = Base.get_sequence(
+                            self.left_end_position, self.right_end_position, strand, offset)
             except TypeError:
                 self._sequence = None
         self._sequence = sequence
@@ -104,8 +110,10 @@ class TranscriptionFactorRegulatorySite(Base):
 
     @regulation_type.setter
     def regulation_type(self, regulation_type):
-        regulatory_interaction_id = self.pt_connection.get_slot_value(self.id, EC.INVOLVED_IN_REGULATION)
-        all_parents = self.pt_connection.get_frame_all_parents(regulatory_interaction_id)
+        regulatory_interaction_id = self.pt_connection.get_slot_value(
+            self.id, EC.INVOLVED_IN_REGULATION)
+        all_parents = self.pt_connection.get_frame_all_parents(
+            regulatory_interaction_id)
         if EC.RNA_MEDIATED_TRANSLATION_REGULATION in all_parents:
             self._regulation_level = "sRNA-Regulation"
         elif EC.PROTEIN_MEDIATED_TRANSLATION_REGULATION in all_parents:

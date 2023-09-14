@@ -5,6 +5,7 @@ def get_regulondb_sigma_factors(sigma_factor_ids=None, only_properties_with_valu
     for sigma_factor in sigma_factors.objects:
         sigma_factor_object = {
             "_id": sigma_factor.id,
+            "abbreviatedName": sigma_factor.abbreviated_name,
             "citations": sigma_factor.citations,
             "confidenceLevel": sigma_factor.confidence_level,
             "externalCrossReferences": sigma_factor.db_links,
