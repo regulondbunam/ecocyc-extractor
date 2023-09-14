@@ -2,20 +2,22 @@
 
 This version is for extraction process with new Ecocyc release 27.0 for the RegulonDB 12.0 release.
 
-## [2.0.3](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.3) - 2023-06-14
+## [2.0.4](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.4) - 2023-09-14
 
 ### Added
 
-- New RegulatoryIteractions property 'regulationClass'.
+- Without changes.
 
 ### Changed
 
-- Now when a new conformation will be added it's checked if this is not a TF.
+- TF Conformations are only registered if not are in TF IDs list.
+- Products abbv_name and name extracted as expected.
+- SigmaFactors abbv_name and name extracted as expected.
+- TF abbv_name and name extracted as expected.
 
 ### Deprecated
 
-- Old Evidence Code generation, Code was generated using the Evidence name
-- Removed an unnecessary print in the evidence extraction
+- Without changes.
 
 ### Fixed
 
@@ -23,4 +25,4 @@ This version is for extraction process with new Ecocyc release 27.0 for the Regu
 
 ### To Fix
 
-- There's a possibility to modify the regulationClass property format.
+- Without changes.
