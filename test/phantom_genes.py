@@ -17,7 +17,13 @@ database = "regulondbmultigenomic"
 url = "mongodb://localhost:27017/"
 
 mongo_client = pymongo.MongoClient(url)
-db = mongo_client[database]
+db = mongo_client['regulondbidentifiers']
+collection = db["identifiers"]
+query = {
+    "objectOriginalSourceId": 'AE_ID(EXP-IDA-HPT-TRANSCR-INIT-M-RACE-MAP/COMP-AINF)'}
+id_objs = collection.find_one(query)
+print(id_objs)
+exit()
 
 gene_names = [
     "tmk",

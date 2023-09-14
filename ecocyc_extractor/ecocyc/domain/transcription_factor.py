@@ -90,15 +90,48 @@ class TranscriptionFactor(Base):
             self._inactive_conformations = inactive_conformations
 
     @property
+    def abbreviated_name(self):
+        return self._abbreviated_name
+
+    @abbreviated_name.setter
+    def abbreviated_name(self, abb_name=None):
+        abb_name = self.pt_connection.get_slot_value(
+            self.id, EC.ABBREV_NAME_SLOT)
+        short_name = []
+        if abb_name is None:
+            synonyms = self.synonyms
+            products_ids = TranscriptionFactor.get_products_ids(self)
+            products_genes_names = []
+            for product_id in products_ids:
+                gene_id = self.pt_connection.get_slot_value(
+                    product_id, EC.GENE_SLOT)
+                if gene_id is not None:
+                    gene_name = self.pt_connection.get_slot_value(
+                        gene_id, EC.COMMON_NAME_SLOT)
+                    gene_name = utils.capitalize_first_letter(gene_name)
+                products_genes_names.append(gene_name)
+            for product_name in products_genes_names:
+                if synonyms is not None and synonyms != []:
+                    short_name = utils.get_similar_string(
+                        product_name, synonyms)
+                    if short_name != []:
+                        continue
+        if short_name != []:
+            self._abbreviated_name = short_name[0]
+        else:
+            self._abbreviated_name = abb_name
+
+    @property
     def name(self):
         return self._name
 
     @name.setter
-    def name(self, name):
-        if self.abbreviated_name is not None:
-            self._name = self.abbreviated_name
-        else:
-            self._name = name
+    def name(self, name=None):
+        name = self.pt_connection.get_slot_value(
+            self.id, EC.COMMON_NAME_SLOT)
+        if name is None and self.abbreviated_name is not None:
+            name = self.abbreviated_name
+        self._name = name
 
     @property
     def global_function(self):
@@ -226,24 +259,18 @@ class TranscriptionFactor(Base):
     @citations.setter
     def citations(self, citations):
         citations = utils.get_citations(citations)
-        # print("OLD_CITATIONS: ", citations)
-        # print("TF_ID: ", self.id)
         all_conf = (self.get_tf_active_conformations(self.id) +
                     self.get_tf_inactive_conformations(self.id))
-        # print("conf_Len: ", len(all_conf))
         for tf_conf in all_conf:
-            # print("CLPX_ID: ", tf_conf)
             conf_citations = (TranscriptionFactor.pt_connection.get_slot_values(
                 tf_conf, '|CITATIONS|'))
             new_citations = utils.get_citations(conf_citations)
-            # print("NEW_CITATIONS: ", new_citations)
             if citations:
                 if new_citations:
                     citations.extend(
                         citation for citation in new_citations if citation not in citations)
             elif new_citations:
                 citations = new_citations
-        # print("CITATIONS: ", citations)
         if not citations:
             citations = None
         self._citations = citations
