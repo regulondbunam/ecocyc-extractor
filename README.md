@@ -51,7 +51,7 @@ python ecocyc-extractor/ -a
 
 # License
 
-RegulonDB Ecocyc Extractor is [MIT licensed](LICENSE).
+RegulonDB Ecocyc Extractor is [Apache 2.0 licensed](LICENSE).
 
 # Contributors
 

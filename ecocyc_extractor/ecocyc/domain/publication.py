@@ -1,3 +1,5 @@
+from Bio import Entrez, Medline
+
 from .base import Base
 from ..utils import constants as EC
 from ..utils import utils
@@ -6,9 +8,10 @@ from ..utils import utils
 class Publication(Base):
     def __init__(self, **kwargs):
         super(Publication, self).__init__(**kwargs)
+        self.pmid = [kwargs.get("medline_id", None),
+                     kwargs.get("pubmed_id", None)]
         self.authors = kwargs.get("authors", None)
         self.db_links = kwargs.get("dblinks", None)
-        self.pmid = [kwargs.get("medline_id", None), kwargs.get("pubmed_id", None)]
         self.source = kwargs.get("source", None)
         self.title = kwargs.get("title", None)
         self.url = kwargs.get("url", None)
@@ -21,7 +24,11 @@ class Publication(Base):
     @authors.setter
     def authors(self, authors=None):
         if authors:
-            authors = list(set(authors))
+            authors = authors
+            if len(authors) != len(list(set(authors))):
+                print(self.pmid)
+                print(authors)
+                print(list(set(authors)))
         self._authors = authors
 
     @property
