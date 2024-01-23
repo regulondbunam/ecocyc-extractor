@@ -28,6 +28,7 @@ from regulondb import growth_condition_phrase_catalogs
 
 from libs import arguments
 from libs import utils
+from libs import banner
 
 
 def set_json_object(filename, objects_to_json, organism, class_acronym, subclass_acronym):
@@ -62,6 +63,7 @@ def set_json_object(filename, objects_to_json, organism, class_acronym, subclass
 
 
 if __name__ == '__main__':
+    banner.show_banner()
     arguments = arguments.load_arguments()
 
     # organism usage can be seen in the utils.constants module and on the

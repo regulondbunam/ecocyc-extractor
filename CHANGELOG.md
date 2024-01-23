@@ -1,8 +1,8 @@
 # Ecocyc Extractor Changelog
 
-This version is for extraction process with new Ecocyc release 27.0 for the RegulonDB 12.0 release.
+This version is for extraction process with new Ecocyc release 27.5 for the RegulonDB 12.5 release.
 
-## [2.0.4](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.4) - 2023-09-14
+## [2.0.5](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.5) - 2024-01-23
 
 ### Added
 
@@ -10,14 +10,12 @@ This version is for extraction process with new Ecocyc release 27.0 for the Regu
 
 ### Changed
 
-- TF Conformations are only registered if not are in TF IDs list.
-- Products abbv_name and name extracted as expected.
-- SigmaFactors abbv_name and name extracted as expected.
-- TF abbv_name and name extracted as expected.
+- Banners versions in Readme updated.
+- Config file versions update.
 
 ### Deprecated
 
-- Without changes.
+- Removed some debug outputs.
 
 ### Fixed
 

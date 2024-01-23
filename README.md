@@ -3,10 +3,10 @@
   <img alt="RegulonDB Logo" style="width:50%;height:25%;" src="https://drive.google.com/uc?export=view&id=1BtKqNvtchMidDMUSyeJZPCnfMb-saaYm"></img>
 </p>
 
-[![License](https://img.shields.io/badge/license-MIT-brightgreen?style=plastic)](LICENSE)
-[![RegulonDBVersion](https://img.shields.io/badge/RegulonDB_version-12.0-blue?style=plastic)](https://regulondb.ccg.unam.mx/)
-[![EcocycVersion](https://img.shields.io/badge/last_Ecocyc_version_tested-27.0-red?style=plastic)](https://ecocyc.org/)
-[![Status](https://img.shields.io/badge/status-release_candidate-yellowgreen?style=plastic)](CHANGELOG.md)
+[![License](https://img.shields.io/badge/license-APACHE-brightgreen?style=plastic)](LICENSE)
+[![RegulonDBVersion](https://img.shields.io/badge/RegulonDB_version-12.5-blue?style=plastic)](https://regulondb.ccg.unam.mx/)
+[![EcocycVersion](https://img.shields.io/badge/last_Ecocyc_version_tested-27.5-red?style=plastic)](https://ecocyc.org/)
+[![Status](https://img.shields.io/badge/status-release_2.0.5-yellowgreen?style=plastic)](CHANGELOG.md)
 
 This [software](https://lucid.app/folder/invitations/accept/813e6281-f3fb-4a08-967a-251e1e5af6b7) has the function of extracting the information from the Ecocyc database and transforming it for use in RegulonDB with respect to the [Multigenomic Model](https://app.lucidchart.com/lucidchart/invitations/accept/0056e953-5ccb-439d-9411-afcb9c875953)
 
@@ -23,7 +23,7 @@ This software was made to extract all the necessary data from Ecocyc.
   - [Python 3.10](https://www.python.org/) or above
   - [RegulonDB PythonCyc Fork](https://github.com/regulondbunam/PythonCyc)
   - [PathwayTools Docker](https://github.com/pablo-epl/pathway-tools-docker)
-  - [PathwayTools 27.0](http://bioinformatics.ai.sri.com/ptools/)
+  - [PathwayTools 27.5](http://bioinformatics.ai.sri.com/ptools/)
 - Hardware:
   - RAM: 8 GB (recommended)
   

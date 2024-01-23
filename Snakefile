@@ -72,7 +72,7 @@ rule schema_loader:
     priority: 9
     shell:
         "python {params.main_path} -db {params.db} -u {params.url} -s {params.schemas} -l {params.log} -d"
-     
+
 
 rule data_validator:
     params:
