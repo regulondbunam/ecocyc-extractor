@@ -3,7 +3,6 @@ channels:
   - conda-forge
   - local
 dependencies:
-  - python = 3.10
   - pip
   - pip:
       - ../../../libs/PythonCyc-master/

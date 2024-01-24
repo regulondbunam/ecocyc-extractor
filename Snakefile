@@ -15,8 +15,8 @@ rule ecocyc_extractor_workflow:
         compose_file = {ptools_config["compose_file"]}, # -f
         dotenv_file = {ptools_config["dotenv_file"]}, # --env-file
     input:
-        #"logs/ptools_docker_log/ptools_docker_log.log",
-        #"logs/ecocyc_extractor_log/ecocyc_extractor_log.log",
+        "logs/ptools_docker_log/ptools_docker_log.log",
+        "logs/ecocyc_extractor_log/ecocyc_extractor_log.log",
         "logs/schema_loader_log/schema_loader_log.log",
         "logs/validation_log/validation_log.log",
         "logs/create_identifiers_log/create_identifiers_log.log",
@@ -27,7 +27,7 @@ rule ecocyc_extractor_workflow:
         "logs/ecocyc_extractor_log.log"
     run:
         shell('python ../log_cleaner/log_cleaner.py'),
-        #shell("docker-compose -f {params.compose_file} --env-file {params.dotenv_file} stop")
+        shell("docker-compose -f {params.compose_file} --env-file {params.dotenv_file} stop")
 
 rule ptools_docker:
     params:

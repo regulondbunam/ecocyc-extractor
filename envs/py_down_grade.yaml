@@ -2,5 +2,4 @@ channels:
  - bioconda
  - conda-forge
 dependencies:
- - python = 2.7
- - jsonschema
+ - jsonschema 
