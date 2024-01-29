@@ -31,11 +31,13 @@ def get_pubmed_data(pmid, email='reguadm@ccg.unam.mx'):
     publication = {}
     record = Medline.read(handle)
     pubmed_authors = record.get('AU')
-    print(record)
+    # print(record)
     if isinstance(pubmed_authors, str):
         pubmed_authors = pubmed_authors.split(',')
     publication.setdefault('authors', pubmed_authors)
-    publication.setdefault('abstract', record.get('AB'))
+    publication.setdefault('internalComents', record.get('IC'))
+    publication.setdefault('source', record.get('SO'))
+    # publication.setdefault('abstract', record.get('AB'))
     publication.setdefault('date', record.get('DP'))
     publication.setdefault('pmcid', record.get('PMC'))
     publication.setdefault('pmid', int(record.get('PMID')))
@@ -50,6 +52,15 @@ def get_pubmed_data(pmid, email='reguadm@ccg.unam.mx'):
     return publications
 
 
-pmid = 12558182
-pubmed_publication = get_pubmed_data(pmid=pmid)
-print(pubmed_publication)
+pmid = 34824476
+pmids = [
+    34824476,
+    29394395,
+    26843427,
+    34791440,
+    33172971,
+    34196371
+]
+for pmid in pmids:
+    pubmed_publication = get_pubmed_data(pmid=pmid)
+    print(pubmed_publication, '\n\n\n')

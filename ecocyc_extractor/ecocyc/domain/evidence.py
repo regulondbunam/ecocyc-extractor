@@ -26,6 +26,7 @@ class Evidence(Base):
     def code(self, name=None):
         if name is not None:
             self._code = (self.id).replace("EV-", "")
+            self._code = (self.id).replace("|", "")
         else:
             self._code = None
 

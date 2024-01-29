@@ -15,8 +15,8 @@ rule ecocyc_extractor_workflow:
         compose_file = {ptools_config["compose_file"]}, # -f
         dotenv_file = {ptools_config["dotenv_file"]}, # --env-file
     input:
-        #"logs/ptools_docker_log/ptools_docker_log.log",
-        #"logs/ecocyc_extractor_log/ecocyc_extractor_log.log",
+        "logs/ptools_docker_log/ptools_docker_log.log",
+        "logs/ecocyc_extractor_log/ecocyc_extractor_log.log",
         "logs/schema_loader_log/schema_loader_log.log",
         "logs/validation_log/validation_log.log",
         "logs/create_identifiers_log/create_identifiers_log.log",
@@ -27,9 +27,9 @@ rule ecocyc_extractor_workflow:
         "logs/ecocyc_extractor_log.log"
     run:
         shell('python ../log_cleaner/log_cleaner.py'),
-        #shell("docker-compose -f {params.compose_file} --env-file {params.dotenv_file} stop")
+        shell("docker-compose -f {params.compose_file} --env-file {params.dotenv_file} stop")
 
-'''rule ptools_docker:
+rule ptools_docker:
     params:
         compose_file = {ptools_config["compose_file"]}, # -f
         dotenv_file = {ptools_config["dotenv_file"]} # --env-file
@@ -41,8 +41,8 @@ rule ecocyc_extractor_workflow:
         shell("docker-compose -f {params.compose_file} --env-file {params.dotenv_file} up -d")
         shell('echo "Please Wait for PTools Startup"')
         shell("sleep 10s")
-'''        
-'''rule ecocyc_extractor:
+        
+rule ecocyc_extractor:
     params:
         main_path = ecocyc_extractor_config["main_path"],
         output_dir = ecocyc_extractor_config["raw_data"],
@@ -56,7 +56,7 @@ rule ecocyc_extractor_workflow:
     priority: 10
     shell:
         "python {params.main_path} -a -out {params.output_dir} -l {params.log_dir}"
-'''
+
 
 rule schema_loader:
     params:
@@ -72,7 +72,7 @@ rule schema_loader:
     priority: 9
     shell:
         "python {params.main_path} -db {params.db} -u {params.url} -s {params.schemas} -l {params.log} -d"
-        
+
 
 rule data_validator:
     params:

@@ -25,10 +25,11 @@ class Publication(Base):
     def authors(self, authors=None):
         if authors:
             authors = authors
+            ''' For testing when authors names are disordered and/or repeated
             if len(authors) != len(list(set(authors))):
                 print(self.pmid)
                 print(authors)
-                print(list(set(authors)))
+                print(list(set(authors)))'''
         self._authors = authors
 
     @property

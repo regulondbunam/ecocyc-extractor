@@ -66,12 +66,15 @@ class TranscriptionFactors(object):
 
             regulator_classes = TranscriptionFactor.pt_connection.get_frame_all_parents(
                 regulator_id)
-
+            # print(regulator_id)
             if not monomer_ids and EC.COMPOUNDS_CLASS not in regulator_classes:
+                # print('\t No monomers and regulator not in compound_class')
                 transcription_factor_ids.append(regulator_id)
             if len(monomer_ids) == 1:
+                # print('\t Only one monomer')
                 transcription_factor_ids.append(monomer_ids[0])
             elif len(monomer_ids) > 1:
+                # print('\t More than one monomers')
                 # For those TFs that are protein dimers, that is to say, that is formed through two different
                 # polypeptides we save the protein complex(dimer) and store it as a TF, they will be seen in the
                 # regulatory complexes collection in the property isTranscriptionFactor = True
