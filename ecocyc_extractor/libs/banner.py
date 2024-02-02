@@ -18,7 +18,7 @@ REGULONDB's
 ███████╗╚██████╗╚██████╔╝╚██████╗   ██║   ╚██████╗    ███████╗██╔╝ ██╗   ██║   ██║  ██║██║  ██║╚██████╗   ██║   ╚██████╔╝██║  ██║
 ╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝   ╚═╝    ╚═════╝    ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-Version: {regulondb_version}
+Version: {extractor_version}
 RegulonDB Version: {regulondb_version}
 Ecocyc Version: {ecocyc_version}
 GitHub: https://github.com/regulondbunam/ecocyc-extractor

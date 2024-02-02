@@ -13,34 +13,34 @@
   "ecocyc_extractor_config": {
     "main_path": "ecocyc_extractor",
     "raw_data": "../RawData/",
-    "log_dir": "logs/ecocyc_extractor_log/"
+    "log_dir": "../logs/ecocyc_extractor_log/"
   },
   "schema_loader_config": {
-    "main_path": "../../data-release-tools/src/schema_loader/",
+    "main_path": "../../../Libs/data-release-tools/src/schema_loader/",
     "schemas": "../../MultigenomicModel/schemas/json_schema_validation",
-    "log_dir": "logs/schema_loader_log/"
+    "log_dir": "../logs/schema_loader_log/"
   },
   "validation_config": {
-    "main_path": "../../data-release-tools/src/data_validator/",
+    "main_path": "../../../Libs/data-release-tools/src/data_validator/",
     "raw_data": "../RawData/",
     "schemas": "../../MultigenomicModel/schemas/json_schema_validation",
     "verified_data": "../VerifiedData",
     "invalid_data": "../InvalidData",
-    "log_dir": "logs/validation_log/"
+    "log_dir": "../logs/validation_log/"
   },
   "create_identifiers_config": {
-    "main_path": "../../data-release-tools/src/create_identifiers/",
+    "main_path": "../../../Libs/data-release-tools/src/create_identifiers/",
     "verified_data": "../VerifiedData",
     "log_dir": "../logs/create_identifiers_log/"
   },
   "replace_identifiers_config": {
-    "main_path": "../../data-release-tools/src/replace_identifiers/",
+    "main_path": "../../../Libs/data-release-tools/src/replace_identifiers/",
     "verified_data": "../VerifiedData",
     "persistent_ids": "../PersistentIdentifiers",
     "log_dir": "../logs/replace_identifiers_log/"
   },
   "revalidation_config": {
-    "main_path": "../../data-release-tools/src/data_validator/",
+    "main_path": "../../../Libs/data-release-tools/src/data_validator/",
     "persistent_ids": "../PersistentIdentifiers",
     "schemas": "../../MultigenomicModel/schemas/json_schema_validation",
     "verified_persistent_ids": "../VerifiedPersistentIdentifiers",
@@ -48,7 +48,7 @@
     "log_dir": "../logs/re_validation_log/"
   },
   "data_upload_config": {
-    "main_path": "../../data-release-tools/src/data_uploader/",
+    "main_path": "../../../Libs/data-release-tools/src/data_uploader/",
     "verified_persistent_ids": "../VerifiedPersistentIdentifiers",
     "log_dir": "../logs/data_uploader_log/"
   }

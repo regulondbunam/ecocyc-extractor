@@ -8,4 +8,4 @@ dependencies:
   - dnspython
   - pip
   - pip:
-      - ../../../libs/identifiers/
+      - ../../../../../Libs/identifiers/

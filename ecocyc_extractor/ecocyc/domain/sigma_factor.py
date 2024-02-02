@@ -92,5 +92,5 @@ class SigmaFactor(Base):
 
     @staticmethod
     def contains_number(text):
-        text = re.sub('[^\d+]', '', text)
+        text = re.sub(r'[^\d+]', '', text)
         return text
