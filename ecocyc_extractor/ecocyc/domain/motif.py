@@ -35,7 +35,7 @@ class Motif(Base):
         try:
             names = []
             for group_id in groups:
-                if " " not in group_id and re.findall('(?<=\|)[^|]+(?=\|)', group_id) != []:
+                if " " not in group_id and re.findall(r'(?<=\|)[^|]+(?=\|)', group_id) != []:
                     names.append(self.pt_connection.get_name_by_id(group_id))
                 else:
                     print(self.id, group_id)

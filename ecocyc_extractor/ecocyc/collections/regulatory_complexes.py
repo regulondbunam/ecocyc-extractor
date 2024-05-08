@@ -49,6 +49,7 @@ class RegulatoryComplexes(object):
             id=regulatory_complex[EC.ID],
             abbreviated_name=regulatory_complex[EC.ABBREV_NAME],
             comment=regulatory_complex[EC.COMMENT],
+            citations=regulatory_complex[EC.CITATIONS],
             components=regulatory_complex[EC.COMPONENTS],
             dblinks=regulatory_complex[EC.DBLINKS],
             internal_comment=regulatory_complex[EC.INTERNAL_COMMENT],

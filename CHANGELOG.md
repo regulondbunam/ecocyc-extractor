@@ -1,8 +1,8 @@
 # Ecocyc Extractor Changelog
 
-This version is for extraction process with new Ecocyc release 27.5 for the RegulonDB 12.5 release.
+This version is for extraction process with new Ecocyc release 28.0 for the RegulonDB 13.0 release.
 
-## [2.0.5](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.5) - 2024-01-24
+## [2.0.6](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.0.6) - 2024-05-08
 
 ### Added
 
@@ -10,13 +10,14 @@ This version is for extraction process with new Ecocyc release 27.5 for the Regu
 
 ### Changed
 
-- Banners versions in Readme updated.
-- Config file versions update.
+- Added Docstrings to some functions.
+- If an empty RI is processed this will be ignored.
+- Promoter boxes with negative strand and left position greater than center pos fix.
+- Regulatory Complex objects now have citations.
 
 ### Deprecated
 
-- Removed some debug outputs.
-- Snakemake env that sets python 2.7 now its python 3.10
+- Without changes.
 
 ### Fixed
 

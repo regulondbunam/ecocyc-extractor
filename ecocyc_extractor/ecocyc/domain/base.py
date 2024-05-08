@@ -1,3 +1,4 @@
+import re
 import pythoncyc
 from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
 from ecocyc_extractor.ecocyc.utils import utils
@@ -33,6 +34,7 @@ class Base(object):
     def comment(self, comment):
         self._comment = self.get_comment(comment)
         if self._comment is not None:
+            self._comment = re.sub(r"\n+", "\n", self._comment)
             utils.add_pmids_to_extraction_from(self._comment)
 
     @property

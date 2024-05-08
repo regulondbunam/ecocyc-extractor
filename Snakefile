@@ -50,7 +50,7 @@ rule ecocyc_extractor:
     output:
         log = "logs/ecocyc_extractor_log/ecocyc_extractor_log.log"
     log:
-        "logs/ecocyc_extractor_log/ecocyc_extractor_log.log"
+        "../logs/ecocyc_extractor_log/ecocyc_extractor_log.log"
     conda:
         "envs/ecocyc_dependencies.yaml"
     priority: 10
@@ -66,7 +66,7 @@ rule schema_loader:
         schemas = schema_loader_config["schemas"],
         log = schema_loader_config["log_dir"]
     log:
-        "logs/schema_loader_log/schema_loader_log.log"
+        "../logs/schema_loader_log/schema_loader_log.log"
     conda:
         "envs/db_dependencies.yaml"
     priority: 9
@@ -83,7 +83,7 @@ rule data_validator:
         invalid_data = validation_config["invalid_data"],
         log = validation_config["log_dir"]
     log:
-        "logs/validation_log/validation_log.log"
+        "../logs/validation_log/validation_log.log"
     conda:
         "envs/py_down_grade.yaml"
     priority: 8
@@ -103,7 +103,7 @@ rule create_identifiers:
         source = config["source"],
         source_version = config["source_version"],
     log:
-        "logs/create_identifiers_log/create_identifiers_log.log"
+        "../logs/create_identifiers_log/create_identifiers_log.log"
     conda:
         "envs/db_dependencies.yaml"
     priority: 7
@@ -122,7 +122,7 @@ rule replace_identifiers:
         db = config["db"],
         url = config["url"],
     log:
-        "logs/replace_identifiers_log/replace_identifiers_log.log"
+        "../logs/replace_identifiers_log/replace_identifiers_log.log"
     conda:
         "envs/db_dependencies.yaml"
     priority: 6
@@ -139,7 +139,7 @@ rule re_validate_data:
         invalid_data = revalidation_config["invalid_data"],
         log = revalidation_config["log_dir"]
     log:
-        "logs/re_validation_log/validation_log.log"
+        "../logs/re_validation_log/validation_log.log"
     conda:
         "envs/py_down_grade.yaml"
     priority: 5
@@ -155,7 +155,7 @@ rule data_uploader:
         db = config["db"],
         url = config["url"]
     log:
-        "logs/data_uploader_log/data_uploader_log.log"
+        "../logs/data_uploader_log/data_uploader_log.log"
     conda:
         "envs/db_dependencies.yaml"
     priority: 4

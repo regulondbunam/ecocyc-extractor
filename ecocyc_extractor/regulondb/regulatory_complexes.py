@@ -8,6 +8,7 @@ def get_regulondb_regulatory_complexes(regulatory_complex_ids=None, only_propert
         regulatory_complex_object = {
             "_id": regulatory_complex.id,
             "abbreviatedName": regulatory_complex.abbreviated_name,
+            "citations": regulatory_complex.citations,
             "confidenceLevel": regulatory_complex.confidence_level,
             "externalCrossReferences": regulatory_complex.db_links,
             "internalComment": regulatory_complex.internal_comment,
