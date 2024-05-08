@@ -1,10 +1,20 @@
+# standard
 import argparse
+
+# third party
+
+# local
 
 
 def argument_entities_provided(arguments):
-    # This block of code is to see if the user has entities to process,
-    # if not, then there's nothing to be downloaded so an error will be thrown,
-    # finishing the execution.
+    """
+    This block of code is to see if the user has entities to process,
+    if not, then there's nothing to be downloaded so an error will be thrown,
+    finishing the execution.
+
+    Args:
+        arguments: (argparse.Namespace), arguments given.
+    """
     entities = vars(arguments)
     entities = dict(entities)
     entities["output"] = False
@@ -16,6 +26,12 @@ def argument_entities_provided(arguments):
 
 
 def get_arguments():
+    """
+    Defines the arguments that the program will support.
+
+    Returns:
+        arguments: argparse Object, defined arguments for the execution of the program.
+    """
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description="EcoCycExtractor",
@@ -25,7 +41,8 @@ def get_arguments():
     parser.add_argument(
         "-a",
         "--all",
-        help="Sets the extractor to download all the available classes, ignoring all arguments except --allpb and --alldb",
+        help="Sets the extractor to download all the available classes, ignoring all arguments except --allpb and "
+             "--alldb",
         action="store_true",
     )
     parser.add_argument(
@@ -190,14 +207,16 @@ def get_arguments():
     parser.add_argument(
         "-allpb",
         "--all-publications",
-        help="Sets the extractor to download all the Publications and not only the ones registered in the downloaded objects",
+        help="Sets the extractor to download all the Publications and not only the ones registered in the downloaded "
+             "objects",
         action="store_true",
         dest="all_publications",
     )
     parser.add_argument(
         "-alldb",
         "--all-external-databases",
-        help="Sets the extractor to download all the External Databases and not only the ones registered in the downloaded objects",
+        help="Sets the extractor to download all the External Databases and not only the ones registered in the "
+             "downloaded objects",
         action="store_true",
         dest="all_external_databases",
     )
@@ -227,6 +246,23 @@ def get_arguments():
     )
 
     parser.add_argument(
+        "-test",
+        "--test",
+        dest="test",
+        help="Sets the extractor log test name",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "-release",
+        "--release",
+        dest="release",
+        help="Ecocyc release version.",
+        metavar="0.0",
+        default="0.0",
+    )
+
+    parser.add_argument(
         "-r",
         "--report",
         # TODO: Implement Report Generation
@@ -239,7 +275,12 @@ def get_arguments():
 
 
 def load_arguments():
+    """
+    Load the arguments that the program will support.
 
+    Returns:
+        arguments: argparse Object, loaded arguments for the execution of the program.
+    """
     arguments = get_arguments()
 
     argument_entities_provided(arguments)

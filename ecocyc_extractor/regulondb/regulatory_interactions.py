@@ -25,4 +25,6 @@ def get_regulondb_regulatory_interactions(regulatory_interaction_ids=None, only_
         if only_properties_with_values is True:
             regulatory_interaction_object = regulatory_interaction.get_only_properties_with_values(
                 regulatory_interaction_object)
+        if not regulatory_interaction_object.get('regulator'):
+            continue
         yield regulatory_interaction_object

@@ -67,6 +67,8 @@ class Promoter(Base):
     def sequence(self, sequence=None):
         if sequence is None:
             if self.strand is not None and self.pos1 is not None:
+                minus_10 = self.minus_10_left or self.pos1
+                minus_35 = self.minus_35_left or self.pos1
                 if self.strand.lower() == "reverse":
                     initial_position = self.pos1 - (self._offset * 0.25)
                     end_position = self.pos1 + (self._offset * 0.75)
@@ -78,6 +80,12 @@ class Promoter(Base):
                     sequence = self.pt_connection.get_sequence(initial_position, end_position, "X")
                 initial = int(self._offset * 0.75)
                 last = int(self._offset * 0.25)
+                if self.pos1 < minus_10 and self.pos1 < minus_35 and self.strand.lower() == "forward":
+                    initial_position = self.pos1 - (self._offset * 0.25)
+                    end_position = self.pos1 + (self._offset * 0.75)
+                    sequence = self.pt_connection.get_sequence(initial_position, end_position, "X")
+                    initial = int(self._offset * 0.25)
+                    last = int(self._offset * 0.75)
                 sequence = (sequence[:initial].lower() + sequence[initial: initial + 1] + sequence[-last:].lower())
 
                 self._sequence = sequence
@@ -173,7 +181,11 @@ class Promoter(Base):
                     minus_signal = dict(
                         leftEndPosition=minus_box[0],
                         rightEndPosition=minus_box[1],
-                        sequence=Base.get_sequence(minus_box[0], minus_box[1], self.strand), 
+                        sequence=Base.get_sequence(
+                            left_end_position=minus_box[0],
+                            right_end_position=minus_box[1],
+                            strand=self.strand
+                        ),
                         type=minus_box[2],
                     )
                     minus_signal = {k: v for k, v in minus_signal.items() if v is not None}

@@ -2,9 +2,9 @@
   "url": "mongodb://127.0.0.1:27017",
   "db": "regulondbmultigenomic",
   "organism": "ECOLI",
-  "version": "12.5.0",
+  "version": "13.0.0",
   "source": "EcoCyc",
-  "source_version": 27.5,
+  "source_version": 28.0,
   "extractor_version": "2.0.5",
   "ptools_config": {
     "compose_file": "../pathway_tools_docker/pathway-tools-docker/docker-compose.yml",
