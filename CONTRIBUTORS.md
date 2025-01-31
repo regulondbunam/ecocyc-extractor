@@ -9,5 +9,8 @@ Ecocyc Extractor ETL has been developed by RegulonDB team with contributions fro
 
 <!-- [Full name] ([@user]()) [contribution description]. (Pull Requests [#x](), [#x]()).-->
 
-| [<img src="https://avatars.githubusercontent.com/u/38282424?v=4" width=80><br><sub>Phill Betancourt</sub>](https://github.com/PhillBet) |  [<img src="https://avatars.githubusercontent.com/u/33994515?v=4" width=80><br><sub>Pablo Peña</sub>](https://github.com/pablo-epl) |
-| :---: | :---: |
+
+| Profile Picture                                                      | Username                    | GitHub Profile                              |
+|----------------------------------------------------------------------|-----------------------------|---------------------------------------------|
+| <img src="https://github.com/PhillBet.png" width="80" height="80">   | Phill Betancourt            | [PhillBet](https://github.com/PhillBet)     |
+| <img src="https://github.com/pablo-epl.png" width="80" height="80">  | Pablo Peña                  | [pablo-epl](https://github.com/pablo-epl)   |
