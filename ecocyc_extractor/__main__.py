@@ -164,13 +164,13 @@ if __name__ == '__main__':
         files["got_terms"] = terms.get_regulondb_terms(
             only_properties_with_values=True, term_type="gene-ontology"), organism, "ONTOL", "GON"
 
-    if arguments.all or arguments.multifun_ontology:
+    if arguments.multifun_ontology:
         print("Setting up Multifun Ontologies' process")
         logging.info("Setting up Multifun Ontologies' process")
         files["multifun_ontologies"] = ontologies.get_regulondb_ontologies(
             only_properties_with_values=True, ontology_name="multifun"), organism, "ONTOL", "MTF"
 
-    if arguments.all or arguments.multifun_terms:
+    if arguments.multifun_terms:
         print("Setting up Multifun Terms' process")
         logging.info("Setting up Multifun Terms' process")
         files["multifun_terms"] = terms.get_regulondb_terms(

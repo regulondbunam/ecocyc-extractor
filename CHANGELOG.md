@@ -1,8 +1,8 @@
 # Ecocyc Extractor Changelog
 
-This version is for extraction process with new Ecocyc release 28.5 for the RegulonDB 13.5 release.
+This version is for extraction process with new Ecocyc release 29.0 for the RegulonDB 14.0 release.
 
-## [2.1.0](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.1.0) - 2025-01-31
+## [2.1.1](https://github.com/regulondbunam/ecocyc-extractor/releases/tag/2.1.1) - 2025-06-18
 
 ### Added
 
@@ -10,13 +10,11 @@ This version is for extraction process with new Ecocyc release 28.5 for the Regu
 
 ### Changed
 
-- Readme banners updated for RegulonDB release 13.5.
-- Changelog updated for RegulonDB release 13.5.
-- Update CONTRIBUTORS.md format.
+- Without changes.
 
 ### Deprecated
 
-- Without changes.
+- Multifun terms removed from origin data, extraction code modified to ignore this data but not removed.
 
 ### Fixed
 

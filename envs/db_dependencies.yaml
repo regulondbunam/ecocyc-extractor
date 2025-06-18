@@ -6,6 +6,7 @@ dependencies:
   - mongoengine
   - pymongo = 3.12.1
   - dnspython
+  - numpy
   - pip
   - pip:
       - ../../../../../Libs/identifiers/
