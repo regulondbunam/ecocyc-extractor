@@ -113,40 +113,40 @@ class Gene(Base):
     @terms.setter
     def terms(self, gene_physiological_roles=None):
         terms = []
-        if not gene_physiological_roles:
-            gene_physiological_roles = self.pt_connection.physiological_roles_of_gene(
-                self.id)
-        for role_id in gene_physiological_roles:
-            role_parent_classes = self.pt_connection.get_frame_all_parents(
-                role_id)
-            role_name = self.pt_connection.get_name_by_id(role_id)
-
-            term_object = {}
-            term_object.setdefault('terms_id', role_id)
-            term_object.setdefault('terms_name', role_name)
-
-            labels = []
-            for parent_class_id in role_parent_classes[7:]:
-                name_parent_class = self.pt_connection.get_name_by_id(
-                    parent_class_id)
-                term_parent_object = {
-                    "terms_id": parent_class_id,
-                    "terms_name": name_parent_class
-                }
-                term_object.setdefault('parents', []).append(
-                    term_parent_object.copy())
-
-                parent_label = " - ".join([parent_class_id.replace(
-                    "|", "").replace("BC-", ""), name_parent_class])
-                labels.append(parent_label)
-
-            term_label = " - ".join([role_id.replace("|",
-                                    "").replace("BC-", ""), role_name])
-            labels.append(term_label)
-            labels = " --> ".join(labels)
-            term_object.setdefault('termLabel', labels)
-
-            terms.append(term_object.copy())
+        # if not gene_physiological_roles:
+        #     gene_physiological_roles = self.pt_connection.physiological_roles_of_gene(
+        #         self.id)
+        # for role_id in gene_physiological_roles:
+        #     role_parent_classes = self.pt_connection.get_frame_all_parents(
+        #         role_id)
+        #     role_name = self.pt_connection.get_name_by_id(role_id)
+        #
+        #     term_object = {}
+        #     term_object.setdefault('terms_id', role_id)
+        #     term_object.setdefault('terms_name', role_name)
+        #
+        #     labels = []
+        #     for parent_class_id in role_parent_classes[7:]:
+        #         name_parent_class = self.pt_connection.get_name_by_id(
+        #             parent_class_id)
+        #         term_parent_object = {
+        #             "terms_id": parent_class_id,
+        #             "terms_name": name_parent_class
+        #         }
+        #         term_object.setdefault('parents', []).append(
+        #             term_parent_object.copy())
+        #
+        #         parent_label = " - ".join([parent_class_id.replace(
+        #             "|", "").replace("BC-", ""), name_parent_class])
+        #         labels.append(parent_label)
+        #
+        #     term_label = " - ".join([role_id.replace("|",
+        #                             "").replace("BC-", ""), role_name])
+        #     labels.append(term_label)
+        #     labels = " --> ".join(labels)
+        #     term_object.setdefault('termLabel', labels)
+        #
+        #     terms.append(term_object.copy())
         self._terms = list(terms)
         if not self._terms:
             self._terms = None
