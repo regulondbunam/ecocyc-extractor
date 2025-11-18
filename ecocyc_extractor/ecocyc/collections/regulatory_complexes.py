@@ -1,11 +1,19 @@
+"""
+Regulatory Complexes Collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.regulatory_complex import RegulatoryComplex
-from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
-from ecocyc_extractor.ecocyc.collections.transcription_factors import TranscriptionFactors
-from ecocyc_extractor.ecocyc.domain.transcription_factor import TranscriptionFactor
+# third party
+
+# local
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.regulatory_complex import RegulatoryComplex
+from ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+from ecocyc.collections.transcription_factors import TranscriptionFactors
+from ecocyc.domain.transcription_factor import TranscriptionFactor
+from libs.utils import print_progress
 
 
 class RegulatoryComplexes(object):
@@ -37,10 +45,18 @@ class RegulatoryComplexes(object):
     @property
     def objects(self):
         regulatory_complex_objects = RegulatoryComplexes.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(regulatory_complex_objects))
+        processed = 0
         for regulatory_complex in regulatory_complex_objects:
             regulatory_complex = RegulatoryComplexes.set_regulatory_complex(regulatory_complex)
             logging.info('Working on regulatory complex: {}'.format(regulatory_complex["id"]))
             ecocyc_regulatory_complex = RegulatoryComplex(**regulatory_complex)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Regulatory Complexes",
+            )
             yield ecocyc_regulatory_complex
 
     @staticmethod

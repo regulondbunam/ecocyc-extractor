@@ -1,8 +1,16 @@
+"""
+Terminators collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.terminator import Terminator
+# third party
+
+# local
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.terminator import Terminator
+from libs.utils import print_progress
 
 
 class Terminators(object):
@@ -24,10 +32,18 @@ class Terminators(object):
     @property
     def objects(self):
         terminator_objects = Terminators.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(terminator_objects))
+        processed = 0
         for terminator in terminator_objects:
             terminator = Terminators.set_terminator(terminator)
             logging.info('Working on terminator: {}'.format(terminator["id"]))
             ecocyc_terminator = Terminator(**terminator)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Terminators",
+            )
             yield ecocyc_terminator
 
     @staticmethod

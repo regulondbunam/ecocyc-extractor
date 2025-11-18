@@ -1,3 +1,11 @@
+"""
+External Database object
+"""
+# standard
+
+# third party
+
+# local
 from .base import Base
 
 

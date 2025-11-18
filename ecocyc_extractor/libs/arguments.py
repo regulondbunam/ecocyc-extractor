@@ -1,3 +1,6 @@
+"""
+Arguments parser
+"""
 # standard
 import argparse
 
@@ -270,6 +273,26 @@ def get_arguments():
         metavar="./Results/log",
         default="./Results/log",
     )
+
+    parser.add_argument(
+        "-cychost",
+        "--cyc-host",
+        dest="cyc_host",
+        help="Hostname or IP address where Pathway Tools is running.",
+        metavar="HOST",
+        default="127.0.0.1",
+    )
+
+    parser.add_argument(
+        "-cycport",
+        "--cyc-port",
+        dest="cyc_port",
+        help="Port where Pathway Tools is listening for connections.",
+        metavar="PORT",
+        # type=int,
+        default="5008",
+    )
+
     arguments = parser.parse_args()
     return arguments
 

@@ -1,3 +1,13 @@
+"""
+Transcription factors
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_transcription_factors(transcription_factor_ids=None, only_properties_with_values=False):
     from ecocyc.collections.transcription_factors import TranscriptionFactors
     transcription_factors = TranscriptionFactors(transcription_factor_ids)

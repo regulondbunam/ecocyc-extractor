@@ -55,6 +55,8 @@ if __name__ == '__main__':
     class_acronym = organism
 
     os.environ["ORGANISM"] = organism
+    os.environ["CYC_HOST"] = arguments.cyc_host
+    os.environ["CYC_PORT"] = arguments.cyc_port
 
     output_path = arguments.output
 

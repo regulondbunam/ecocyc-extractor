@@ -1,8 +1,13 @@
-from Bio import Entrez, Medline
+"""
+Publication object
+"""
+# standard
 
+# third party
+# from Bio import Entrez, Medline
+
+# local
 from .base import Base
-from ..utils import constants as EC
-from ..utils import utils
 
 
 class Publication(Base):

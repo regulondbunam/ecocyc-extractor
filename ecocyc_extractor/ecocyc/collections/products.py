@@ -1,9 +1,17 @@
+"""
+Products collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.product import Product
+# third party
+
+# local
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.product import Product
 from .genes import Genes
+from libs.utils import print_progress
 
 
 class Products(object):
@@ -20,6 +28,8 @@ class Products(object):
             gene_ids = Genes.get_ids()
             # In order to accept if a protein_id is a product_id, the first rule is to be part of one of these classes
             product_classes = [EC.POLYPEPTIDE_CLASS, EC.PSEUDO_PRODUCT_CLASS, EC.RNAS]
+            total_objects = len(list(gene_ids))
+            processed = 0
             for gene_id in gene_ids:
                 polypeptide_ids = Products.pt_connection.get_slot_values(gene_id, EC.SLOT_PRODUCT_CLASS)
                 for polypeptide_id in polypeptide_ids:
@@ -28,16 +38,30 @@ class Products(object):
                     # Validating if the protein is from the previous given classes and if it is not a modified form
                     if any(product_class in product_classes for product_class in object_classes) and unmodified_form is None:
                         product_ids.append(str(polypeptide_id))
+                processed += 1
+                print_progress(
+                    current=processed,
+                    total=total_objects,
+                    collection_name="previous data for products"
+                )
         product_ids = utils.get_unique_elements(product_ids)
         return product_ids
 
     @property
     def objects(self):
         product_objects = Products.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(product_objects))
+        processed = 0
         for product in product_objects:
             product = Products.set_product(product)
             logging.info('Working on product: {}'.format(product["id"]))
             ecocyc_product = Product(**product)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Products"
+            )
             yield ecocyc_product
 
     @staticmethod

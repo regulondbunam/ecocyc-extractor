@@ -1,6 +1,13 @@
+"""
+Regulatory Interactions object
+"""
+# standard
+
+# third party
+
+# local
 from .base import Base
 from ..utils import constants as EC
-from ..utils import utils
 from ..collections.products import Products
 
 

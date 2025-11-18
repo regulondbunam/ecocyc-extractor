@@ -1,9 +1,17 @@
+"""
+Regulatory Continuants Collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.regulatory_continuant import RegulatoryContinuant
-from ecocyc_extractor.ecocyc.collections.regulatory_complexes import RegulatoryComplexes
+# third party
+
+# local
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.regulatory_continuant import RegulatoryContinuant
+from ecocyc.collections.regulatory_complexes import RegulatoryComplexes
+from libs.utils import print_progress
 
 
 class RegulatoryContinuants(object):
@@ -30,10 +38,18 @@ class RegulatoryContinuants(object):
     @property
     def objects(self):
         regulatory_continuant_objects = RegulatoryContinuants.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(regulatory_continuant_objects))
+        processed = 0
         for regulatory_continuant in regulatory_continuant_objects:
             regulatory_continuant = RegulatoryContinuants.set_regulatory_continuant(regulatory_continuant)
             logging.info('Working on regulatory continuant: {}'.format(regulatory_continuant["id"]))
             ecocyc_regulatory_continuant = RegulatoryContinuant(**regulatory_continuant)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Regulatory Continuants",
+            )
             yield ecocyc_regulatory_continuant
 
     @staticmethod

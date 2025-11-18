@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Extract Regulatory Comlpexes" type="PythonConfigurationType" factoryName="Python">
+  <configuration default="false" name="Extract Regulatory Comlpexes" type="PythonConfigurationType" factoryName="Python" folderName="Extraction">
     <module name="ecocyc-extractor" />
     <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />

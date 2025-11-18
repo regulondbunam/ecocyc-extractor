@@ -1,8 +1,19 @@
+"""
+Constants for ecocyc
+"""
+# standard
 import os
+
+# third party
+
+# local
 
 # ecocyc object properties
 
 ORGANISM_ID = os.getenv("ORGANISM")
+# ECOCYC REMOTE
+CYC_HOST = os.getenv("CYC_HOST")
+CYC_PORT = os.getenv("CYC_PORT")
 
 ABBREV_NAME = "abbrev_name"
 ABSOLUTE_CENTER_POSITION = "abs_center_pos"
@@ -206,3 +217,5 @@ TU_COLLECTION = "transcriptionUnits"
 PROTEIN_COMPLEXES_COLLECTION = "proteinComplexes"
 MOD_PROTEIN_COLLECTION = "modifiedProteins"
 SMALL_MOLECULE_COMPLEX_COLLECTION = "smallMoleculeComplex"
+
+

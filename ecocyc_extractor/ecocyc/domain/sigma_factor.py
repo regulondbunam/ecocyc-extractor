@@ -1,4 +1,12 @@
+"""
+Sigma Factor object
+"""
+# standard
 import re
+
+# third party
+
+# local
 from .base import Base
 from ..utils import constants as EC
 from ..utils import utils

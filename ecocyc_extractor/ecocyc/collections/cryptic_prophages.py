@@ -1,8 +1,15 @@
+"""
+Cryptic Prophages collection
+"""
+# standard
 import logging
 
-from ecocyc.utils.pathway_tools.connection import Connection
+# third party
+
+# local
 from ecocyc.utils import constants as EC, utils
 from ecocyc.domain.cryptic_prophage import CrypticProphage
+from ecocyc.utils.pathway_tools.connection import Connection
 
 
 class CrypticProphages(object):

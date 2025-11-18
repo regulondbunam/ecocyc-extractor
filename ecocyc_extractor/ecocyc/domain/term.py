@@ -1,8 +1,15 @@
+"""
+Term object
+"""
+# standard
+
+# third party
+
+# local
 from .base import Base
 from ..collections.genes import Genes
 from ..collections.products import Products
 from ..utils import constants as EC
-from ..utils import utils
 
 
 class Term(Base):

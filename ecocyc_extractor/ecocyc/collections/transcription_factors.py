@@ -1,9 +1,17 @@
+"""
+Transcription factor collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC
-from ecocyc_extractor.ecocyc.domain.transcription_factor import TranscriptionFactor
-from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+# third party
+
+# local
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC
+from ecocyc.domain.transcription_factor import TranscriptionFactor
+from ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+from libs.utils import print_progress
 
 
 class TranscriptionFactors(object):
@@ -22,6 +30,8 @@ class TranscriptionFactors(object):
     def objects(self):
         transcription_factor_objects = self.pt_connection.get_frame_objects(
             self.ids)
+        total_objects = len(list(transcription_factor_objects))
+        processed = 0
         for transcription_factor in transcription_factor_objects:
             transcription_factor = TranscriptionFactors.set_transcription_factor(
                 transcription_factor)
@@ -30,6 +40,12 @@ class TranscriptionFactors(object):
                 transcription_factor["id"]))
             ecocyc_transcription_factor = TranscriptionFactor(
                 **transcription_factor)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Transcription Factors",
+            )
             yield ecocyc_transcription_factor
 
     @staticmethod

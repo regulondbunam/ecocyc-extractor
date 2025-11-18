@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Extract Regulatory Continuants" type="PythonConfigurationType" factoryName="Python" folderName="Extraction">
+  <configuration default="false" name="SchemaLoader" type="PythonConfigurationType" factoryName="Python" folderName="DataRelease">
     <module name="ecocyc-extractor" />
     <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
@@ -14,8 +14,8 @@
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-    <option name="SCRIPT_NAME" value="ecocyc_extractor/__main__.py" />
-    <option name="PARAMETERS" value="-rc -out ../RawData/ -l ../logs/ecocyc_extractor_log/" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../Libs/data-release-tools/src/schema_loader/__main__.py" />
+    <option name="PARAMETERS" value="-db &quot;regulondbmultigenomic&quot; -u &quot;mongodb://127.0.0.1:27017&quot; -s &quot;../../MultigenomicModel/schemas/json_schema_validation&quot; -l &quot;../logs/schema_loader_log/&quot; -d" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
     <option name="MODULE_MODE" value="false" />

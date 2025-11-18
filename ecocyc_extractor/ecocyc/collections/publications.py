@@ -1,8 +1,16 @@
+"""
+Publications collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.publication import Publication
+# third party
+
+# local
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.publication import Publication
+from libs.utils import print_progress
 
 
 class Publications(object):
@@ -29,11 +37,19 @@ class Publications(object):
     def objects(self):
         publication_objects = Publications.pt_connection.get_frame_objects(
             self.ids)
+        total_objects = len(list(publication_objects))
+        processed = 0
         for publication in publication_objects:
             publication = Publications.set_publication(publication)
             logging.info(
                 'Working on publication: {}'.format(publication["id"]))
             ecocyc_publication = Publication(**publication)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Publications"
+            )
             yield ecocyc_publication
 
     @staticmethod

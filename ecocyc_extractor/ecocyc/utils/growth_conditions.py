@@ -1,3 +1,13 @@
+"""
+Legacy functionality for growth conditions
+"""
+# standard
+
+# third party
+
+# local
+
+
 class GrowthCondition(object):
 
     def __init__(self, experiment_gc, control_gc, evidences, pmids):

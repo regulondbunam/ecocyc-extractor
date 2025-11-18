@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Extract Regulatory Continuants" type="PythonConfigurationType" factoryName="Python" folderName="Extraction">
+  <configuration default="false" name="ReplaceIDs" type="PythonConfigurationType" factoryName="Python" folderName="DataRelease">
     <module name="ecocyc-extractor" />
     <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
@@ -14,8 +14,8 @@
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-    <option name="SCRIPT_NAME" value="ecocyc_extractor/__main__.py" />
-    <option name="PARAMETERS" value="-rc -out ../RawData/ -l ../logs/ecocyc_extractor_log/" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../Libs/data-release-tools/src/replace_identifiers/__main__.py" />
+    <option name="PARAMETERS" value="-org &quot;ECOLI&quot; -i &quot;../VerifiedData&quot; -o &quot;../PersistentIdentifiers/&quot; -u &quot;mongodb://127.0.0.1:27017&quot; -v &quot;14.0.0&quot; -db &quot;regulondbmultigenomic&quot; -l &quot;../logs/replace_identifiers_log/&quot;" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
     <option name="MODULE_MODE" value="false" />

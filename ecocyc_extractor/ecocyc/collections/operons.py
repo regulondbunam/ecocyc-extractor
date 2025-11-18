@@ -1,8 +1,16 @@
+"""
+Operons collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.domain.operon import Operon
+# third party
+
+# local
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.domain.operon import Operon
 from ..utils import constants as EC
+from libs.utils import print_progress
 
 
 class Operons(object):
@@ -19,10 +27,18 @@ class Operons(object):
 
     @property
     def objects(self):
+        total_objects = len(list(self.operons))
+        processed = 0
         for operon in self.operons:
             operon = Operons.set_operon(operon)
             logging.info("Working on operon: {}".format(operon["id"]))
             ecocyc_operon = Operon(**operon)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Operons"
+            )
             yield ecocyc_operon
 
     @staticmethod

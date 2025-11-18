@@ -1,8 +1,16 @@
+"""
+Promoters collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.promoter import Promoter
+# third party
+
+# local
+from ecocyc.utils.pathway_tools.connection import Connection
+from ecocyc.utils import constants as EC, utils
+from ecocyc.domain.promoter import Promoter
+from libs.utils import print_progress
 
 
 class Promoters(object):
@@ -24,10 +32,18 @@ class Promoters(object):
     @property
     def objects(self):
         promoter_objects = Promoters.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(promoter_objects))
+        processed = 0
         for raw_promoter in promoter_objects:
             promoter = Promoters.set_promoter(raw_promoter)
             logging.info("Working on promoter: {}".format(promoter["id"]))
             ecocyc_promoter = Promoter(**promoter)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Promoters"
+            )
             yield ecocyc_promoter
 
     @staticmethod

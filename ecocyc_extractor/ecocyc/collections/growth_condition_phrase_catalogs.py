@@ -1,5 +1,12 @@
+"""
+Legacy collection for Growth Condition Phrase Catalogs
+"""
+# standard
 import logging
 
+# third party
+
+# local
 from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
 from ecocyc_extractor.ecocyc.utils import constants as EC, utils
 from ecocyc_extractor.ecocyc.utils.growth_conditions_extractor import McoTmp

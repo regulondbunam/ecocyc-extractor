@@ -1,7 +1,13 @@
+"""
+Transcription Unit object
+"""
+# standard
+
+# third party
+
+# local
 from .base import Base
-from ecocyc_extractor.ecocyc.collections.terminators import Terminators
-from ..utils import constants as EC
-from ..utils import utils
+from ecocyc.collections.terminators import Terminators
 
 
 class TranscriptionUnit(Base):

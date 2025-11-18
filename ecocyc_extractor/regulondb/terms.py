@@ -1,3 +1,13 @@
+"""
+Terms
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_terms(only_properties_with_values=False, term_type="gene-ontology"):
     from ecocyc.collections.terms import Terms
     terms = Terms(term_type)
