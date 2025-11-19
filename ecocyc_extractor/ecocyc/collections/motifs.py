@@ -7,11 +7,11 @@ import logging
 # third party
 
 # local
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.motif import Motif
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.motif import Motif
 from .products import Products
-from libs.utils import print_progress
+from ..utils.utils import print_progress
 
 
 class Motifs(object):

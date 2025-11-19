@@ -7,10 +7,10 @@ import logging
 # third party
 
 # local
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.regulatory_interaction import RegulatoryInteraction
-from libs.utils import print_progress
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.regulatory_interaction import RegulatoryInteraction
+from ..utils.utils import print_progress
 
 
 class RegulatoryInteractions(object):

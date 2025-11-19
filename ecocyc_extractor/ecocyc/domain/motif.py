@@ -8,7 +8,7 @@ import re
 # third party
 
 # local
-from ecocyc.collections.products import Products
+from ..collections.products import Products
 from .base import Base
 from .product import Product
 

@@ -7,10 +7,10 @@ import logging
 # third party
 
 # local
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC
-from ecocyc.domain.term import Term
-from libs.utils import print_progress
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC
+from ..domain.term import Term
+from ..utils.utils import print_progress
 
 
 class Terms(object):

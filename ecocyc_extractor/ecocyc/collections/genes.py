@@ -7,10 +7,10 @@ import logging
 # third party
 
 # local
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.gene import Gene
-from libs.utils import print_progress
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.gene import Gene
+from ..utils.utils import print_progress
 
 
 class Genes(object):

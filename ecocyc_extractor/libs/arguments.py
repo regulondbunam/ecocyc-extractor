@@ -40,7 +40,6 @@ def get_arguments():
         description="EcoCycExtractor",
         epilog="You need to provided at least one entity argument(--gene, --product, --promoter, etc...)",
     )
-
     parser.add_argument(
         "-a",
         "--all",
@@ -54,14 +53,12 @@ def get_arguments():
         help="Sets the extractor to download Genes",
         action="store_true",
     )
-
     parser.add_argument(
         "-gcpc",
         "--growth-condition-phrase-catalog",
         help="Sets the extractor to download Growth Condition Phrase Catalog",
         action="store_true",
     )
-
     parser.add_argument(
         "-pd",
         "--products",
@@ -85,6 +82,12 @@ def get_arguments():
         "-op",
         "--operons",
         help="Sets the extractor to download Operons",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-orgs",
+        "--organisms",
+        help="Sets the extractor to download Organisms",
         action="store_true",
     )
     parser.add_argument(
@@ -188,7 +191,6 @@ def get_arguments():
         action="store_true",
         dest="multifun_terms",
     )
-
     parser.add_argument(
         "-ev",
         "--evidences",

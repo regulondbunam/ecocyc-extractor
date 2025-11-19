@@ -7,10 +7,10 @@ import logging
 # third party
 
 # local
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.domain.operon import Operon
+from ..utils.pathway_tools.connection import Connection
+from ..domain.operon import Operon
 from ..utils import constants as EC
-from libs.utils import print_progress
+from ..utils.utils import print_progress
 
 
 class Operons(object):

@@ -7,13 +7,13 @@ import logging
 # third party
 
 # local
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import constants as EC, utils
-from ecocyc.domain.regulatory_complex import RegulatoryComplex
-from ecocyc.collections.regulatory_interactions import RegulatoryInteractions
-from ecocyc.collections.transcription_factors import TranscriptionFactors
-from ecocyc.domain.transcription_factor import TranscriptionFactor
-from libs.utils import print_progress
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.regulatory_complex import RegulatoryComplex
+from ..collections.regulatory_interactions import RegulatoryInteractions
+from ..collections.transcription_factors import TranscriptionFactors
+from ..domain.transcription_factor import TranscriptionFactor
+from ..utils.utils import print_progress
 
 
 class RegulatoryComplexes(object):

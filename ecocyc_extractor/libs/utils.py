@@ -5,7 +5,6 @@ Utility functions.
 import os
 import logging
 import json
-import sys
 
 # third party
 
@@ -100,12 +99,3 @@ def create_json(objects, filename, output):
     filename = os.path.join(output, filename)
     with open("{}.json".format(filename), 'w') as json_file:
         json.dump(objects, json_file, indent=2, sort_keys=True)
-
-
-def print_progress(current, total, collection_name, bar_length=40):
-    fraction = current / total if total else 1
-    filled = int(bar_length * fraction)
-    bar = "█" * filled + "-" * (bar_length - filled)
-    percent = int(fraction * 100)
-    sys.stdout.write(f"\rProcessing {collection_name}: |{bar}| {percent}% ({current}/{total})")
-    sys.stdout.flush()

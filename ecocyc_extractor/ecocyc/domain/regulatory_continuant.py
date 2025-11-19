@@ -8,7 +8,7 @@ Regulatory Continuant object
 # local
 from .base import Base
 from ..utils import constants as EC
-from ecocyc.collections.regulatory_interactions import (RegulatoryInteractions)
+from ..collections.regulatory_interactions import (RegulatoryInteractions)
 
 
 class RegulatoryContinuant(Base):

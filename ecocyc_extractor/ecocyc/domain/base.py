@@ -8,8 +8,8 @@ import pythoncyc
 # third party
 
 # local
-from ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc.utils import utils
+from ..utils.pathway_tools.connection import Connection
+from ..utils import utils
 
 
 class Base(object):

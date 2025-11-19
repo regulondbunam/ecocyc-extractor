@@ -1,5 +1,5 @@
 def get_regulondb_growth_condition_phrase_catalogs(gcpc_ids=None, only_properties_with_values=False):
-    from ecocyc_extractor.ecocyc.collections.growth_condition_phrase_catalogs import GrowthConditionPhraseCatalogs
+    from ecocyc.collections.growth_condition_phrase_catalogs import GrowthConditionPhraseCatalogs
     growth_condition_phrase_catalogs = GrowthConditionPhraseCatalogs(gcpc_ids)
 
     for growth_condition_phrase_catalog in growth_condition_phrase_catalogs.objects:

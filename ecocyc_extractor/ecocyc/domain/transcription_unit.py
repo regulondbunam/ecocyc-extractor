@@ -7,7 +7,7 @@ Transcription Unit object
 
 # local
 from .base import Base
-from ecocyc.collections.terminators import Terminators
+from ..collections.terminators import Terminators
 
 
 class TranscriptionUnit(Base):

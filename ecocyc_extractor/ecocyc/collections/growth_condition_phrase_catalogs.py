@@ -7,10 +7,10 @@ import logging
 # third party
 
 # local
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.utils.growth_conditions_extractor import McoTmp
-from ecocyc_extractor.ecocyc.domain.growth_condition_phrase_catalog import GrowthConditionPhraseCatalog
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..utils.growth_conditions_extractor import McoTmp
+from ..domain.growth_condition_phrase_catalog import GrowthConditionPhraseCatalog
 
 
 class GrowthConditionPhraseCatalogs(object):
