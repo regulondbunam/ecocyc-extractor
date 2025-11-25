@@ -15,7 +15,7 @@ class Organism(object):
     pt_connection = Base.pt_connection
 
     def __init__(self, **kwargs):
-        self.id = kwargs.get("_id", None)
+        self.id = kwargs.get("id", None)
         self.citations = kwargs.get("citations", None)
         self.db_links = kwargs.get("db_links", None)
         self.comment = kwargs.get("comment", None)
