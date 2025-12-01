@@ -1,3 +1,13 @@
+"""
+Motifs
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_motifs(motif_ids=None, only_properties_with_values=False):
     from ecocyc.collections.motifs import Motifs
     motifs = Motifs(motif_ids)

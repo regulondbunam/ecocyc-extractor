@@ -1,8 +1,16 @@
+"""
+Regulatory interactions collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.regulatory_interaction import RegulatoryInteraction
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.regulatory_interaction import RegulatoryInteraction
+from ..utils.utils import print_progress
 
 
 class RegulatoryInteractions(object):
@@ -39,6 +47,8 @@ class RegulatoryInteractions(object):
     def objects(self):
         regulatory_interaction_objects = RegulatoryInteractions.pt_connection.get_frame_objects(
             self.ids)
+        total_objects = len(list(regulatory_interaction_objects))
+        processed = 0
         for regulatory_interaction in regulatory_interaction_objects:
             regulatory_interaction = RegulatoryInteractions.set_regulatory_interaction(
                 regulatory_interaction)
@@ -46,6 +56,12 @@ class RegulatoryInteractions(object):
                 regulatory_interaction["id"]))
             ecocyc_regulatory_interaction = RegulatoryInteraction(
                 **regulatory_interaction)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Regulatory Interactions",
+            )
             yield ecocyc_regulatory_interaction
 
     @staticmethod

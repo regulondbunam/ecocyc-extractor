@@ -1,3 +1,13 @@
+"""
+Translation units
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_transcription_units(transcription_unit_ids=None, only_properties_with_values=False):
     from ecocyc.collections.transcription_units import TranscriptionUnits
     transcription_units = TranscriptionUnits(transcription_unit_ids)

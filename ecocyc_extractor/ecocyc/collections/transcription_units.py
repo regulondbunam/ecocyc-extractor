@@ -1,8 +1,16 @@
+"""
+Transcription units collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.transcription_unit import TranscriptionUnit
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.transcription_unit import TranscriptionUnit
+from ..utils.utils import print_progress
 
 
 class TranscriptionUnits(object):
@@ -22,10 +30,18 @@ class TranscriptionUnits(object):
     @property
     def objects(self):
         transcription_unit_objects = TranscriptionUnits.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(transcription_unit_objects))
+        processed = 0
         for transcription_unit in transcription_unit_objects:
             transcription_unit = TranscriptionUnits.set_transcription_unit(transcription_unit)
             logging.info('Working on transcription unit: {}'.format(transcription_unit["id"]))
             ecocyc_transcription_unit = TranscriptionUnit(**transcription_unit)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Transcription Units",
+            )
             yield ecocyc_transcription_unit
 
     @staticmethod

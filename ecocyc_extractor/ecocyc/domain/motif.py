@@ -1,9 +1,16 @@
+"""
+Motif object
+"""
+# standard
+import logging
 import re
-from ecocyc_extractor.ecocyc.collections.products import Products
+
+# third party
+
+# local
+from ..collections.products import Products
 from .base import Base
 from .product import Product
-from ..utils import constants as EC
-from ..utils import utils
 
 
 class Motif(Base):
@@ -38,7 +45,7 @@ class Motif(Base):
                 if " " not in group_id and re.findall(r'(?<=\|)[^|]+(?=\|)', group_id) != []:
                     names.append(self.pt_connection.get_name_by_id(group_id))
                 else:
-                    print(self.id, group_id)
+                    logging.warning((self.id, group_id))
             self._attached_group = ", ".join(names)
         except TypeError:
             self._attached_group = None

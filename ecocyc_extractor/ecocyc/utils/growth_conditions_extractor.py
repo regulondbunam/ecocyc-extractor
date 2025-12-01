@@ -1,4 +1,12 @@
+"""
+Legacy functionality for extracting growth conditions from ecocyc
+"""
+# standard
 import re
+
+# third party
+
+# local
 
 
 class McoTmp(object):

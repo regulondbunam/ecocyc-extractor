@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Extract All" type="PythonConfigurationType" factoryName="Python" folderName="Extraction">
+  <configuration default="false" name="ReValidator" type="PythonConfigurationType" factoryName="Python" folderName="DataRelease">
     <module name="ecocyc-extractor" />
     <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
@@ -24,8 +24,8 @@
         <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
       </ENTRIES>
     </EXTENSION>
-    <option name="SCRIPT_NAME" value="ecocyc_extractor/__main__.py" />
-    <option name="PARAMETERS" value="-a -out ../RawData/ -l ../logs/ecocyc_extractor_log/ -release 29.5 -cychost 127.0.0.1" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../Libs/data-release-tools/src/data_validator/__main__.py" />
+    <option name="PARAMETERS" value="-i &quot;../PersistentIdentifiers/&quot; -s &quot;../../MultigenomicModel/schemas/json_schema_validation&quot; -v &quot;../VerifiedPersistentIdentifiers&quot; -iv &quot;../InvalidData&quot; -l &quot;../logs/validation_log/&quot;" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
     <option name="MODULE_MODE" value="false" />

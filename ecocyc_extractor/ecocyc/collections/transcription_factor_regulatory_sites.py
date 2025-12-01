@@ -1,9 +1,17 @@
+"""
+Sites collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.transcription_factor_regulatory_site import TranscriptionFactorRegulatorySite
-from ecocyc_extractor.ecocyc.collections.regulatory_interactions import RegulatoryInteractions
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.transcription_factor_regulatory_site import TranscriptionFactorRegulatorySite
+from ..collections.regulatory_interactions import RegulatoryInteractions
+from ..utils.utils import print_progress
 
 
 class TranscriptionFactorRegulatorySites(object):
@@ -31,10 +39,18 @@ class TranscriptionFactorRegulatorySites(object):
     def objects(self):
         site_objects = TranscriptionFactorRegulatorySite.pt_connection.get_frame_objects(
             self.ids)
+        total_objects = len(list(site_objects))
+        processed = 0
         for site in site_objects:
             site = TranscriptionFactorRegulatorySites.set_site(site)
             logging.info('Working on site: {}'.format(site["id"]))
             ecocyc_site = TranscriptionFactorRegulatorySite(**site)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Regulatory Sites",
+            )
             yield ecocyc_site
 
     @staticmethod

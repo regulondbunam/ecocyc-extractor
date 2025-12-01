@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Extract Regulatory Continuants" type="PythonConfigurationType" factoryName="Python" folderName="Extraction">
+  <configuration default="false" name="DataValidator" type="PythonConfigurationType" factoryName="Python" folderName="DataRelease">
     <module name="ecocyc-extractor" />
     <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
@@ -14,8 +14,8 @@
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-    <option name="SCRIPT_NAME" value="ecocyc_extractor/__main__.py" />
-    <option name="PARAMETERS" value="-rc -out ../RawData/ -l ../logs/ecocyc_extractor_log/" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../Libs/data-release-tools/src/data_validator/__main__.py" />
+    <option name="PARAMETERS" value="-i &quot;../RawData/&quot; -s &quot;../../MultigenomicModel/schemas/json_schema_validation&quot; -v &quot;../VerifiedData&quot; -iv &quot;../InvalidData&quot; -l &quot;../logs/validation_log/&quot; -sp" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
     <option name="MODULE_MODE" value="false" />

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Extract Regulatory Continuants" type="PythonConfigurationType" factoryName="Python" folderName="Extraction">
+  <configuration default="false" name="DataUploader" type="PythonConfigurationType" factoryName="Python" folderName="DataRelease">
     <module name="ecocyc-extractor" />
     <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
@@ -14,8 +14,18 @@
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-    <option name="SCRIPT_NAME" value="ecocyc_extractor/__main__.py" />
-    <option name="PARAMETERS" value="-rc -out ../RawData/ -l ../logs/ecocyc_extractor_log/" />
+    <EXTENSION ID="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="false" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+      </ENTRIES>
+    </EXTENSION>
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../Libs/data-release-tools/src/data_uploader/__main__.py" />
+    <option name="PARAMETERS" value="-i &quot;../VerifiedPersistentIdentifiers&quot; -u &quot;mongodb://127.0.0.1:27017&quot; -db &quot;regulondbmultigenomic&quot; -l &quot;../logs/data_uploader_log/&quot;" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
     <option name="MODULE_MODE" value="false" />

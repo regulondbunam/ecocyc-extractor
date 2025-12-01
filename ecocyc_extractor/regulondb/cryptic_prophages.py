@@ -1,3 +1,13 @@
+"""
+Cryptic Prophages
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_cryptic_prophages(cryptic_prophages_ids=None, only_properties_with_values=False):
     from ecocyc.collections.cryptic_prophages import CrypticProphages
 

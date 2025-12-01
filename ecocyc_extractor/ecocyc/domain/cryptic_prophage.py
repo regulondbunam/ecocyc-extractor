@@ -1,6 +1,12 @@
+"""
+cryptic_prophage extraction
+"""
+# standard
+
+# third party
+
+# local
 from .base import Base
-from ..utils import utils
-from ..utils import constants as EC
 
 
 class CrypticProphage(Base):

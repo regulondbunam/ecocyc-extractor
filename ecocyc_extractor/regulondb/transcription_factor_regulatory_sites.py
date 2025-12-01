@@ -1,10 +1,21 @@
-def get_regulondb_transcription_factor_regulatory_sites(site_ids=None, only_properties_with_values=False):
-    from ecocyc.collections.transcription_factor_regulatory_sites import TranscriptionFactorRegulatorySites
+"""
+Sites
+"""
+# standard
 
-    TranscriptionFactorRegulatorySites = TranscriptionFactorRegulatorySites(
+# third party
+
+# local
+
+
+def get_regulondb_transcription_factor_regulatory_sites(site_ids=None, only_properties_with_values=False):
+    from ecocyc.collections.transcription_factor_regulatory_sites import (
+        TranscriptionFactorRegulatorySites)
+
+    transcription_factor_regulatory_sites = TranscriptionFactorRegulatorySites(
         site_ids)
 
-    for site in TranscriptionFactorRegulatorySites.objects:
+    for site in transcription_factor_regulatory_sites.objects:
         site_object = {
             "_id": site.id,
             "absolutePosition": site.absolute_position,

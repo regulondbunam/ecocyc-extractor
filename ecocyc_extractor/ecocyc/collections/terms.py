@@ -1,8 +1,16 @@
+"""
+Terms collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC
-from ecocyc_extractor.ecocyc.domain.term import Term
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC
+from ..domain.term import Term
+from ..utils.utils import print_progress
 
 
 class Terms(object):
@@ -27,10 +35,18 @@ class Terms(object):
     @property
     def objects(self):
         term_objects = Terms.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(term_objects))
+        processed = 0
         for term in term_objects:
             term = Terms.set_term(term)
             logging.info('Working on term: {}'.format(term["id"]))
             ecocyc_term = Term(**term)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Terms",
+            )
             yield ecocyc_term
 
     @staticmethod

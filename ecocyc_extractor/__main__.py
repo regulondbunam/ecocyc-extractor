@@ -10,6 +10,7 @@ from collections import OrderedDict
 # third party
 
 # local
+from regulondb import organisms
 from regulondb import ontologies
 from regulondb import terms
 from regulondb import regulatory_continuants
@@ -55,12 +56,20 @@ if __name__ == '__main__':
     class_acronym = organism
 
     os.environ["ORGANISM"] = organism
+    os.environ["CYC_HOST"] = arguments.cyc_host
+    os.environ["CYC_PORT"] = arguments.cyc_port
 
     output_path = arguments.output
 
     utils.validate_directories(output_path)
 
     files = OrderedDict()
+
+    if arguments.all or arguments.organisms:
+        print("Setting up Organisms' process")
+        logging.info("Setting up Organisms' process")
+        files["organisms"] = organisms.get_regulondb_organisms(
+            only_properties_with_values=True), organism, class_acronym, "ORG"
 
     if arguments.all or arguments.genes:
         print("Setting up Genes' process")

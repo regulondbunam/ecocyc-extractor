@@ -1,3 +1,13 @@
+"""
+Operons
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_operons(only_properties_with_values=False):
     from ecocyc.collections.operons import Operons
 

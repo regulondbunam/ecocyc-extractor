@@ -1,3 +1,13 @@
+"""
+Publications
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_publications(registered_ids=False, only_properties_with_values=False):
     from ecocyc.collections.publications import Publications
 

@@ -1,6 +1,13 @@
+"""
+Gene object
+"""
+# standard
+
+# third party
+
+# local
 from .base import Base
 from ..utils import constants as EC
-from ..utils import utils
 
 
 class Gene(Base):

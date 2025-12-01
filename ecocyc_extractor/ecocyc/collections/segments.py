@@ -1,8 +1,16 @@
+"""
+Segments collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.segment import Segment
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.segment import Segment
+from ..utils.utils import print_progress
 
 
 class Segments(object):
@@ -28,10 +36,18 @@ class Segments(object):
     @property
     def objects(self):
         segments_objects = Segments.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(segments_objects))
+        processed = 0
         for raw_segment in segments_objects:
             segment = Segments.set_segment(raw_segment)
             logging.info('Working on promoter: {}'.format(segment["id"]))
             ecocyc_segment = Segment(**segment)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Segments",
+            )
             yield ecocyc_segment
 
     @staticmethod

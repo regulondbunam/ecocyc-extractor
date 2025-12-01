@@ -1,3 +1,13 @@
+"""
+Ontologies
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_ontologies(only_properties_with_values=False, ontology_name="multifun"):
     from ecocyc.collections.ontologies import Ontologies
 

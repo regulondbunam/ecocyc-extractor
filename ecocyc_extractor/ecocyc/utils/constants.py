@@ -1,8 +1,19 @@
+"""
+Constants for ecocyc
+"""
+# standard
 import os
+
+# third party
+
+# local
 
 # ecocyc object properties
 
 ORGANISM_ID = os.getenv("ORGANISM")
+# ECOCYC REMOTE
+CYC_HOST = os.getenv("CYC_HOST")
+CYC_PORT = os.getenv("CYC_PORT")
 
 ABBREV_NAME = "abbrev_name"
 ABSOLUTE_CENTER_POSITION = "abs_center_pos"
@@ -32,6 +43,7 @@ FEATURES = "features"
 FEATURE_OF = "feature_of"
 FRAGMENTS = "fragments"
 GENE = "gene"
+GENOME = "genome"
 GO_TERMS = "go_terms"
 HOMOLOGY_MOTIF = "homology_motif"
 ID = "frameid"
@@ -82,6 +94,11 @@ EVIDENCE_APPROACH = "evidence_approach"
 NOTE_WEB = "note_web"
 CONFIDENCE_LEVEL = "confidence_level"
 RELATIVE_DIST_SITE_PROMOTER = "relative_dist_site_promoter"
+PGDB_AUTHORS = "pgdb_authors"
+PGDB_NAME = "pgdb_name"
+PGDB_URL = "pgdb_footer_citation"
+PGDB_COPYRIGHT = "pgdb_copyright"
+STRAIN_NAME = "strain_name"
 
 # ecocyc classes' names
 ALLOSTERIC_REGULATION_OF_RNAP = "|Allosteric-Regulation-of-RNAP|"
@@ -206,3 +223,5 @@ TU_COLLECTION = "transcriptionUnits"
 PROTEIN_COMPLEXES_COLLECTION = "proteinComplexes"
 MOD_PROTEIN_COLLECTION = "modifiedProteins"
 SMALL_MOLECULE_COMPLEX_COLLECTION = "smallMoleculeComplex"
+
+

@@ -1,8 +1,16 @@
+"""
+Sigma factors collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.sigma_factor import SigmaFactor
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.sigma_factor import SigmaFactor
+from ..utils.utils import print_progress
 
 
 class SigmaFactors(object):
@@ -25,11 +33,19 @@ class SigmaFactors(object):
     def objects(self):
         sigma_factor_objects = SigmaFactors.pt_connection.get_frame_objects(
             self.ids)
+        total_objects = len(list(sigma_factor_objects))
+        processed = 0
         for sigma_factor in sigma_factor_objects:
             sigma_factor = SigmaFactors.set_sigma_factor(sigma_factor)
             logging.info('Working on sigma factor: {}'.format(
                 sigma_factor["id"]))
             ecocyc_sigma_factor = SigmaFactor(**sigma_factor)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Sigma Factors",
+            )
             yield ecocyc_sigma_factor
 
     @staticmethod

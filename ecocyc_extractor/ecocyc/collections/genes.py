@@ -1,8 +1,16 @@
+"""
+Genes collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.gene import Gene
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.gene import Gene
+from ..utils.utils import print_progress
 
 
 class Genes(object):
@@ -22,10 +30,18 @@ class Genes(object):
     @property
     def objects(self):
         gene_objects = Genes.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(gene_objects))
+        processed = 0
         for gene in gene_objects:
             gene = Genes.set_gene(gene)
             logging.info('Working on gene: {}'.format(gene["id"]))
             ecocyc_gene = Gene(**gene)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Genes"
+            )
             yield ecocyc_gene
 
     @staticmethod

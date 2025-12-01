@@ -1,18 +1,52 @@
+"""
+Utils for ecocyc extractor
+"""
+# standard
 import re
-from difflib import get_close_matches
+import sys
 
+# third party
+
+# local
+from difflib import get_close_matches
 from .pathway_tools.connection import Connection
-from .growth_conditions import GrowthCondition
+
 
 pt_connection = Connection()
 _publication_ids = []
 _evidence_ids = []
 _external_db_ids = []
-citations_pattern = re.compile("(\[[0-9]+\])")
+citations_pattern = re.compile(r"([0-9]+)")
+
+
+def print_progress(current, total, collection_name, bar_length=40):
+    """
+    Displays a real-time progress bar in the console, updating on the same line.
+
+    This function calculates the completion fraction, generates a visual progress
+    bar using block characters, and outputs the progress percentage and current
+    count relative to the total.
+
+    Args:
+        current (int): The number of items currently processed.
+        total (int): The total number of items to be processed.
+        collection_name (str): The name of the collection or process being tracked.
+        bar_length (int, optional): The fixed length of the progress bar display.
+                                    Defaults to 40.
+
+    Returns:
+        None: The function only performs output to stdout.
+    """
+    fraction = current / total if total else 1
+    filled = int(bar_length * fraction)
+    bar = "█" * filled + "-" * (bar_length - filled)
+    percent = int(fraction * 100)
+    sys.stdout.write(f"\rProcessing {collection_name}: |{bar}| {percent}% ({current}/{total})")
+    sys.stdout.flush()
 
 
 def get_similar_string(word, word_list):
-    '''
+    """
     Gets closest word from list.
 
     Param
@@ -21,13 +55,13 @@ def get_similar_string(word, word_list):
 
     Returns
         - closest_words, List, List with the closest words.
-    '''
+    """
     closest_words = get_close_matches(word, word_list)
     return closest_words
 
 
 def capitalize_first_letter(word):
-    '''
+    """
     Sets only first letter in a string to capital.
 
     Param
@@ -35,15 +69,14 @@ def capitalize_first_letter(word):
 
     Returns
         - , String, New word processed.
-    '''
+    """
     letters = list(word)
     letters[0] = letters[0].capitalize()
-    #print(f'First: {letters[0]}\tLast: {letters[-1]}')
     return "".join(letters)
 
 
 def add_pmids_to_extraction_from(comment):
-    citations_pattern = re.compile("(\[[0-9]+\])")
+    # citations_pattern = re.compile("(\[[0-9]+\])")
     pmids_search = re.findall(citations_pattern, comment)
     pmids_search = list(set(pmids_search))
     for pmid in pmids_search:
@@ -189,7 +222,7 @@ def get_citations2(growth_condition, gc_evidences, gc_pmids):
     gc_pmids.extend(pmids_found)
 
 
-pattern = "(GCs_GeneExpression_EXP:.+)\s*(GCs_GeneExpression_CONTROL:.+)\s*(<a href.*<\/a>)*"
+pattern = "" #"(GCs_GeneExpression_EXP:.+)\s*(GCs_GeneExpression_CONTROL:.+)\s*(<a href.*<\/a>)*"
 pattern_2 = r"(Growth Condition-chip-Experiment:.+)\s*(Growth Conditions_GeneExpression_CONTROL:.+)\s*(<a href.*<\/a>)*"
 
 
@@ -215,12 +248,12 @@ def get_growth_condition_from_comment(comment, ob_id):
         experiment_gc = experiment_gc.replace("/", "|")
         growth_conditions_phrases.append(experiment_gc)
         #print('Experiment >>', experiment_gc, ob_id)
-        '''experiment_gc_terms = None
+        """experiment_gc_terms = None
         if '|' in experiment_gc and experiment_gc is not None:
             experiment_gc_terms = experiment_gc.split('|')
         if '/' in experiment_gc and experiment_gc is not None:
             experiment_gc_terms = experiment_gc.split('/')
-        print(experiment_gc_terms)'''
+        print(experiment_gc_terms)"""
 
         control_gcs = growth_conditions.group(2)
         control_gcs = control_gcs.replace("; Es", "; /Es")
@@ -237,12 +270,12 @@ def get_growth_condition_from_comment(comment, ob_id):
             control_gc = control_gc.replace("/", "|")
             growth_conditions_phrases.append(control_gc)
         #print('Control >>', control_gc, ob_id)
-        '''control_gc_terms = None
+        """control_gc_terms = None
         if '|' in control_gc and control_gc is not None:
             control_gc_terms = control_gc.split('|')
         if '/' in control_gc and control_gc is not None:
             control_gc_terms = control_gc.split('/')
-        print(control_gc_terms)'''
+        print(control_gc_terms)"""
 
     return growth_conditions_phrases
 

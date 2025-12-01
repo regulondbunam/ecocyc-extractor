@@ -1,8 +1,17 @@
+"""
+Evidences
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_evidences(registered_ids=False, only_properties_with_values=False):
     from ecocyc.collections.evidences import Evidences
 
     evidences = Evidences(registered_ids)
-
     for evidence in evidences.objects:
         evidence_object = {
             "_id": evidence.id,

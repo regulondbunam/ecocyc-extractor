@@ -1,9 +1,17 @@
+"""
+Motifs collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.motif import Motif
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.motif import Motif
 from .products import Products
+from ..utils.utils import print_progress
 
 
 class Motifs(object):
@@ -32,23 +40,24 @@ class Motifs(object):
     @property
     def objects(self):
         motif_objects = Motifs.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(motif_objects))
+        processed = 0
         for motif in motif_objects:
             motif = Motifs.set_motif(motif)
             logging.info(f'Working on motif: {motif["id"]}')
-            #print(f'Working on motif: {motif["id"]}')
             ecocyc_motif = Motif(**motif)
             if not ecocyc_motif.right_end_position and not ecocyc_motif.left_end_position:
-                # print(
-                #    f'{ecocyc_motif.id} has not positions R={ecocyc_motif.right_end_position} and L={ecocyc_motif.left_end_position}')
                 continue
             if ecocyc_motif.right_end_position and not ecocyc_motif.left_end_position:
-                # print(
-                #    f'{ecocyc_motif.id} has not positions R={ecocyc_motif.right_end_position} and L={ecocyc_motif.left_end_position}')
                 continue
             if not ecocyc_motif.right_end_position and ecocyc_motif.left_end_position:
-                # print(
-                #    f'{ecocyc_motif.id} has not positions R={ecocyc_motif.right_end_position} and L={ecocyc_motif.left_end_position}')
                 continue
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Motif"
+            )
             yield ecocyc_motif
 
     @staticmethod

@@ -1,7 +1,13 @@
-from .base import Base
+"""
+Product object
+"""
+# standard
 
+# third party
 import pythoncyc
 
+# local
+from .base import Base
 from ..utils import constants as EC
 from ..utils import utils
 

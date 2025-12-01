@@ -1,8 +1,16 @@
+"""
+Evidence collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC, utils
-from ecocyc_extractor.ecocyc.domain.evidence import Evidence
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC, utils
+from ..domain.evidence import Evidence
+from ..utils.utils import print_progress
 
 
 class Evidences(object):
@@ -24,10 +32,18 @@ class Evidences(object):
     @property
     def objects(self):
         evidence_objects = Evidences.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(evidence_objects))
+        processed = 0
         for evidence in evidence_objects:
             evidence = Evidences.set_evidence(evidence)
             logging.info("Working on evidence: {}".format(evidence["id"]))
             ecocyc_evidence = Evidence(**evidence)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Evidences"
+            )
             yield ecocyc_evidence
 
     @staticmethod

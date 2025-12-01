@@ -1,3 +1,13 @@
+"""
+Promoters
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_promoters(promoter_ids=None, only_properties_with_values=False):
     from ecocyc.collections.promoters import Promoters
 

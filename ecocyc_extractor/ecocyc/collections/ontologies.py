@@ -1,8 +1,16 @@
+"""
+Ontologies collection
+"""
+# standard
 import logging
 
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import constants as EC
-from ecocyc_extractor.ecocyc.domain.ontology import Ontology
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import constants as EC
+from ..domain.ontology import Ontology
+from ..utils.utils import print_progress
 
 
 class Ontologies(object, ):
@@ -25,10 +33,18 @@ class Ontologies(object, ):
     @property
     def objects(self):
         ontology_objects = Ontologies.pt_connection.get_frame_objects(self.ids)
+        total_objects = len(list(ontology_objects))
+        processed = 0
         for ontology in ontology_objects:
             ontology = Ontologies.set_ontology(ontology)
             logging.info("Working on ontology: {}".format(ontology["id"]))
             ecocyc_ontology = Ontology(**ontology)
+            processed += 1
+            print_progress(
+                current=processed,
+                total=total_objects,
+                collection_name="Ontologies"
+            )
             yield ecocyc_ontology
 
     @staticmethod

@@ -1,5 +1,12 @@
+"""
+Promoter object
+"""
+# standard
 import re
 
+# third party
+
+# local
 from .base import Base
 from ..utils import utils
 from ..utils import constants as EC

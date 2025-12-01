@@ -1,3 +1,13 @@
+"""
+Segments
+"""
+# standard
+
+# third party
+
+# local
+
+
 def get_regulondb_segments(segments_ids=None, only_properties_with_values=False):
     from ecocyc.collections.segments import Segments
 

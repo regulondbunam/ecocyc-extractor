@@ -1,7 +1,15 @@
+"""
+Base class for ecocyc domain
+"""
+# standard
 import re
 import pythoncyc
-from ecocyc_extractor.ecocyc.utils.pathway_tools.connection import Connection
-from ecocyc_extractor.ecocyc.utils import utils
+
+# third party
+
+# local
+from ..utils.pathway_tools.connection import Connection
+from ..utils import utils
 
 
 class Base(object):
