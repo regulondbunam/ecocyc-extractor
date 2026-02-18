@@ -263,6 +263,7 @@ class Product(Base):
                 "|tmRNAs|": "tmRNA",
                 "|Regulatory-RNAs|": "small RNA",
                 "|Misc-RNAs|": "small RNA",
+                "|Small-RNAs|":"small RNA"
             }
             for rna_class_id, product_type in rnas_classes.items():
                 if self.pt_connection.get_instance_all_instance_of_p(self.id, rna_class_id):
