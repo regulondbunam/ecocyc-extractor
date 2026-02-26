@@ -1,12 +1,16 @@
 <h1 align="center"> RegulonDB Ecocyc Extractor </h1>
 <p align="center" >
-  <img alt="RegulonDB Logo" style="width:50%;height:25%;" src="https://drive.google.com/uc?export=view&id=1BtKqNvtchMidDMUSyeJZPCnfMb-saaYm"></img>
+  <img alt="RegulonDB Logo" style="width:50%;height:25%;" src="docs/diagrams/RegulonDB_Logo.png"></img>
 </p>
 
 [![License](https://img.shields.io/badge/license-APACHE-brightgreen?style=plastic)](LICENSE)
-[![RegulonDBVersion](https://img.shields.io/badge/RegulonDB_version-14.0-blue?style=plastic)](https://regulondb.ccg.unam.mx/)
-[![EcocycVersion](https://img.shields.io/badge/last_Ecocyc_version_tested-29.0-red?style=plastic)](https://ecocyc.org/)
-[![Status](https://img.shields.io/badge/status-release_2.1.1-yellowgreen?style=plastic)](CHANGELOG.md)
+[![RegulonDBVersion](https://img.shields.io/badge/RegulonDB_version-14.5-blue?style=plastic)](https://regulondb.ccg.unam.mx/)
+[![EcocycVersion](https://img.shields.io/badge/last_Ecocyc_version_tested-29.5-red?style=plastic)](https://ecocyc.org/)
+[![Status](https://img.shields.io/badge/status-release_2.1.2-yellowgreen?style=plastic)](CHANGELOG.md)
+[![Python](https://img.shields.io/badge/Python-3.12+-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Ready-green?logo=mongodb)](#)
+[![Pipeline](https://img.shields.io/badge/Pipeline-ETL-purple)](#)
+[![Maintained](https://img.shields.io/badge/Maintained-Yes-brightgreen)](#)
 
 This [software](https://lucid.app/folder/invitations/accept/813e6281-f3fb-4a08-967a-251e1e5af6b7) has the function of extracting the information from the Ecocyc database and transforming it for use in RegulonDB with respect to the [Multigenomic Model](https://app.lucidchart.com/lucidchart/invitations/accept/0056e953-5ccb-439d-9411-afcb9c875953)
 
