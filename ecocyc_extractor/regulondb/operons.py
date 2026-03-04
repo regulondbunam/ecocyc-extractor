@@ -8,10 +8,10 @@ Operons
 # local
 
 
-def get_regulondb_operons(only_properties_with_values=False):
-    from ecocyc.collections.operons import Operons
+def get_regulondb_operons(operon_ids=None, only_properties_with_values=False):
+    from ecocyc_extractor.ecocyc.collections.operons import Operons
 
-    operons = Operons()
+    operons = Operons(operon_ids)
 
     for operon in operons.objects:
         operon_object = {

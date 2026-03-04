@@ -17,12 +17,15 @@ class Operons(object):
 
     pt_connection = Connection()
 
-    def __init__(self):
-        self.operons = Operons.get_operons()
+    def __init__(self, ids):
+        self.operon_ids = ids
+        self.operons = Operons.get_operons(ids)
 
     @staticmethod
-    def get_operons():
-        operons = Operons.pt_connection.all_operons()
+    def get_operons(ids):
+        operons = ids
+        if operons is None:
+            operons = Operons.pt_connection.all_operons()
         return operons
 
     @property

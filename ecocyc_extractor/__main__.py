@@ -68,7 +68,7 @@ if __name__ == '__main__':
     if arguments.all or arguments.organisms:
         print("Setting up Organisms' process")
         logging.info("Setting up Organisms' process")
-        files["organisms"] = organisms.get_regulondb_organisms(
+        files["organisms"] = organisms.get_regulondb_organisms( organism_name=organism,
             only_properties_with_values=True), organism, class_acronym, "ORG"
 
     if arguments.all or arguments.genes:
@@ -194,14 +194,20 @@ if __name__ == '__main__':
     if arguments.all or arguments.external_databases or arguments.all_external_databases:
         print("Setting up External DBs' process")
         logging.info("Setting up External DBs' process")
+        registered_ids = arguments.external_databases or arguments.all
+        if arguments.all_external_databases:
+            registered_ids = False
         files["externalCrossReferences"] = external_cross_references.get_regulondb_external_databases(
-            registered_ids=not arguments.all_external_databases, only_properties_with_values=True), organism, class_acronym, "ERC"
+            registered_ids=registered_ids, only_properties_with_values=True), organism, class_acronym, "ERC"
 
     if arguments.all or arguments.publications or arguments.all_publications:
         print("Setting up Publications' process")
         logging.info("Setting up Publications' process")
+        pub_registered_ids = arguments.publications or arguments.all
+        if arguments.all_publications:
+            pub_registered_ids = False
         files["publications"] = publications.get_regulondb_publications(
-            registered_ids=not arguments.all_publications, only_properties_with_values=True), organism, class_acronym, "PRC"
+            registered_ids=pub_registered_ids, only_properties_with_values=True), organism, class_acronym, "PRC"
 
     if arguments.growth_condition_phrase_catalog:  # arguments.all or
         print("Setting up Growth Condition Phrase Catalogs' process")

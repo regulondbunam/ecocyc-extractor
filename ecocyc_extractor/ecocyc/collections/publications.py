@@ -10,7 +10,6 @@ import logging
 from ..utils.pathway_tools.connection import Connection
 from ..utils import constants as EC, utils
 from ..domain.publication import Publication
-from ..utils.utils import print_progress
 
 
 class Publications(object):
@@ -18,11 +17,12 @@ class Publications(object):
     pt_connection = Connection()
 
     def __init__(self, registered_ids=False):
-        # print(registered_ids)
         self.ids = Publications.get_ids(registered_ids)
 
     @staticmethod
     def get_ids(registered_ids=False):
+        if isinstance(registered_ids, list):
+            return registered_ids
         if registered_ids:
             publication_ids = utils.get_publication_ids()
             print('Using local publications: ',
@@ -45,7 +45,7 @@ class Publications(object):
                 'Working on publication: {}'.format(publication["id"]))
             ecocyc_publication = Publication(**publication)
             processed += 1
-            print_progress(
+            utils.print_progress(
                 current=processed,
                 total=total_objects,
                 collection_name="Publications"

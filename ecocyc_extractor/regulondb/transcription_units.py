@@ -9,7 +9,7 @@ Translation units
 
 
 def get_regulondb_transcription_units(transcription_unit_ids=None, only_properties_with_values=False):
-    from ecocyc.collections.transcription_units import TranscriptionUnits
+    from ecocyc_extractor.ecocyc.collections.transcription_units import TranscriptionUnits
     transcription_units = TranscriptionUnits(transcription_unit_ids)
 
     for transcription_unit in transcription_units.objects:

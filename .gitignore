@@ -1,3 +1,6 @@
+# =========================
+# Existing rules (user)
+# =========================
 .idea
 *.pyc
 Results/
@@ -8,3 +11,114 @@ __pycache__
 .snakemake/
 pgc_requests_tmp/
 logs/
+*.csv
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# =========================
+# Distribution / packaging
+# =========================
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# =========================
+# Virtual environments
+# =========================
+.env
+.env.*
+.venv
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# =========================
+# Installer logs
+# =========================
+pip-log.txt
+pip-delete-this-directory.txt
+
+# =========================
+# Unit test / coverage
+# =========================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints
+
+# =========================
+# PyInstaller
+# =========================
+*.manifest
+*.spec
+
+# =========================
+# IDEs
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Type checkers
+# =========================
+.mypy_cache/
+.pyre/
+.pytype/
+
+# =========================
+# Ruff / Lint
+# =========================
+.ruff_cache/
+
+# =========================
+# Local config
+# =========================
+*.env
+.envrc
+.local

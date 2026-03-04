@@ -22,6 +22,8 @@ class ExternalDatabases(object):
 
     @staticmethod
     def get_ids(registered_ids=False):
+        if isinstance(registered_ids, list):
+            return registered_ids
         if registered_ids:
             external_db_ids = utils.get_external_databases_ids()
         else:
