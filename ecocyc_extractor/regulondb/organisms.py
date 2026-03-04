@@ -9,7 +9,7 @@ Organisms
 
 
 def get_regulondb_organisms(only_properties_with_values=False, organism_name='ECOLI'):
-    from ecocyc.collections.organisms import Organisms
+    from ecocyc_extractor.ecocyc.collections.organisms import Organisms
 
     organisms = Organisms(organism_name)
 

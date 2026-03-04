@@ -22,7 +22,7 @@ class Products(object):
         self.ids = Products.get_ids(ids)
 
     @staticmethod
-    def get_ids(product_ids=None):
+    def get_ids(product_ids=None, loading_message=False):
         if product_ids is None:
             product_ids = []
             gene_ids = Genes.get_ids()
@@ -39,11 +39,12 @@ class Products(object):
                     if any(product_class in product_classes for product_class in object_classes) and unmodified_form is None:
                         product_ids.append(str(polypeptide_id))
                 processed += 1
-                print_progress(
-                    current=processed,
-                    total=total_objects,
-                    collection_name="previous data for products"
-                )
+                if loading_message:
+                    print_progress(
+                        current=processed,
+                        total=total_objects,
+                        collection_name="previous data for products"
+                    )
         product_ids = utils.get_unique_elements(product_ids)
         return product_ids
 

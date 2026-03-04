@@ -19,17 +19,18 @@ class Terms(object):
 
     pt_connection = Connection()
 
-    def __init__(self, term_type=True):
-        self.ids = Terms.get_ids(term_type)
+    def __init__(self, term_type=True, term_ids=None):
+        self.ids = Terms.get_ids(term_type, term_ids)
 
     @staticmethod
-    def get_ids(term_type):
-        if term_type == Terms.MULTIFUN:
-            term_ids = Terms.pt_connection.get_class_all_subs(EC.MULTIFUN_CLASS)
-        elif term_type == Terms.GENE_ONTOLOGY:
-            term_ids = Terms.pt_connection.get_class_all_subs(EC.GO_TERMS_CLASS)
-        else:
-            term_ids = []
+    def get_ids(term_type, term_ids):
+        if term_ids is None:
+            if term_type == Terms.MULTIFUN:
+                term_ids = Terms.pt_connection.get_class_all_subs(EC.MULTIFUN_CLASS)
+            elif term_type == Terms.GENE_ONTOLOGY:
+                term_ids = Terms.pt_connection.get_class_all_subs(EC.GO_TERMS_CLASS)
+            else:
+                term_ids = []
         return term_ids
 
     @property

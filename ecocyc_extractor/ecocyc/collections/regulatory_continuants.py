@@ -25,6 +25,8 @@ class RegulatoryContinuants(object):
     @staticmethod
     def get_ids(regulatory_complexes_compounds=True):
         regulatory_continuant_ids = []
+        if isinstance(regulatory_complexes_compounds, list):
+            return regulatory_complexes_compounds
         if regulatory_complexes_compounds is True:
             for regulatory_complex_object in RegulatoryContinuants.regulatory_complexes.objects:
                 regulatory_complex_compound_ids = regulatory_complex_object.compounds

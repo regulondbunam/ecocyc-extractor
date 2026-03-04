@@ -9,7 +9,7 @@ Genes
 
 
 def get_regulondb_genes(gene_ids=None, only_properties_with_values=False):
-    from ecocyc.collections.genes import Genes
+    from ecocyc_extractor.ecocyc.collections.genes import Genes
     genes = Genes(gene_ids)
 
     for gene in genes.objects:

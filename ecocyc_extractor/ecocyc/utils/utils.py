@@ -16,7 +16,7 @@ pt_connection = Connection()
 _publication_ids = []
 _evidence_ids = []
 _external_db_ids = []
-citations_pattern = re.compile(r"([0-9]+)")
+citations_pattern = re.compile(r"(\[[0-9]+\])")
 
 
 def print_progress(current, total, collection_name, bar_length=40):

@@ -8,8 +8,7 @@ import pythoncyc
 from pythoncyc import config as pconfig
 
 # local
-import ecocyc.utils.constants as EC
-
+import ecocyc_extractor.ecocyc.utils.constants as EC
 
 class Connection(object):
     _connection = None
@@ -29,7 +28,7 @@ class Connection(object):
             raise EnvironmentError(
                 'Environment variable "ORGANISM" has not been set, please provided one. File constants.py makes use of this.'
             )
-        pconfig.set_host_name(cls._cyc_host)  # Remote PathwayTools host "192.168.0.17"
+        pconfig.set_host_name(cls._cyc_host)  # Remote PathwayTools host "localhost"
         pconfig.set_host_port(cls._cyc_port)  # Default Pathway Tools port 5008
         pathway_tools_connection = pythoncyc.select_organism(cls._organism_id)
         return pathway_tools_connection

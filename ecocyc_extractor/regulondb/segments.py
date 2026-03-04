@@ -9,7 +9,7 @@ Segments
 
 
 def get_regulondb_segments(segments_ids=None, only_properties_with_values=False):
-    from ecocyc.collections.segments import Segments
+    from ecocyc_extractor.ecocyc.collections.segments import Segments
 
     segments = Segments(segments_ids)
 

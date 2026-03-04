@@ -8,9 +8,9 @@ Terms
 # local
 
 
-def get_regulondb_terms(only_properties_with_values=False, term_type="gene-ontology"):
-    from ecocyc.collections.terms import Terms
-    terms = Terms(term_type)
+def get_regulondb_terms(only_properties_with_values=False, term_type="gene-ontology", term_ids=None):
+    from ecocyc_extractor.ecocyc.collections.terms import Terms
+    terms = Terms(term_type, term_ids)
 
     for term in terms.objects:
         term_object = {

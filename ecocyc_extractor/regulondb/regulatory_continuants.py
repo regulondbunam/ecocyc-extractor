@@ -9,7 +9,7 @@ Regulatory Continuants
 
 
 def get_regulondb_regulatory_continuants(regulatory_complexes_compounds=True, only_properties_with_values=False):
-    from ecocyc.collections.regulatory_continuants import RegulatoryContinuants
+    from ecocyc_extractor.ecocyc.collections.regulatory_continuants import RegulatoryContinuants
     regulatory_continuants = RegulatoryContinuants(
         regulatory_complexes_compounds)
 
