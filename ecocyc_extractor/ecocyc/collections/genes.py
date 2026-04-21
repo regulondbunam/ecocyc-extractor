@@ -24,6 +24,8 @@ class Genes(object):
         if gene_ids is None:
             gene_ids = Genes.pt_connection.get_class_all_instances(
                 EC.GENE_CLASS)
+            gene_ids.extend(Genes.pt_connection.get_class_all_instances(
+                EC.GENE_FRAGMENTS_CLASS))
         gene_ids = utils.get_unique_elements(gene_ids)
         return gene_ids
 

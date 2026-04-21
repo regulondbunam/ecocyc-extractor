@@ -29,16 +29,8 @@ class TranscriptionUnit(Base):
 
     @gene_ids.setter
     def gene_ids(self, gene_ids=None):
-        pseudo_genes = [
-            '|Gene-Fragments|',
-        ]
         if gene_ids is None:
-            cyc_gene_ids = self.pt_connection.transcription_unit_genes(self.id)
-            gene_ids = []
-            for gene_id in cyc_gene_ids:
-                gene_parents = self.pt_connection.get_frame_direct_parents(gene_id)
-                if not any(parent in pseudo_genes for parent in gene_parents):
-                    gene_ids.append(gene_id)
+            gene_ids = self.pt_connection.transcription_unit_genes(self.id)
         self._gene_ids = gene_ids
 
     @property
